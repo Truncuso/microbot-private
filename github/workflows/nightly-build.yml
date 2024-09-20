@@ -1,41 +1,42 @@
-name: Nightly Build
+name: Nightly release
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Runs at 2 AM UTC every day
-  workflow_dispatch:  # Allows manual trigger of the workflow
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      parameter:
+        description: 'Branch to build from'
+        required: true
+        default: 'development'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+    permissions: write-all
+
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-        
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-        
-    - name: Build with Maven
-      run: mvn clean install -DskipTests
-      
-    - name: Run tests
-      run: mvn test
-      
-    - name: Package client
-      run: mvn package
-      
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: runelite-client
-        path: runelite-client/target/runelite-client-*.jar
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.parameter || 'development' }}
+          fetch-depth: 0
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 11
+
+      - name: Build Shaded JAR
+        run: mvn clean package
+
+      - name: Create Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "nightly-${{ github.event.inputs.parameter || 'development' }}"
+          prerelease: true
+          title: "Nightly Build (${{ github.event.inputs.parameter || 'development' }})"
+          files: |
+            runelite-client/target/*.jar
