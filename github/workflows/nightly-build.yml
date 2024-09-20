@@ -1,4 +1,4 @@
-name: Nightly release
+name: Nightly Development Build
 
 on:
   schedule:
@@ -9,6 +9,9 @@ on:
         description: 'Branch to build from'
         required: true
         default: 'development'
+  push:
+    branches:
+      - development
 
 jobs:
   build:
