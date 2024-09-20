@@ -8,10 +8,10 @@ on:
       parameter:
         description: 'Branch to build from'
         required: true
-        default: 'development'
+        default: 'origin/development'
   push:
     branches:
-      - development
+      - origin/development
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.parameter || 'development' }}
+          ref: ${{ github.event.inputs.parameter || 'development/development' }}
           fetch-depth: 0
 
       - name: Set up JDK 11
