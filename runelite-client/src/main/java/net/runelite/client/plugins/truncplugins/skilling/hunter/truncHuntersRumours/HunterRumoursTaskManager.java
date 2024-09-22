@@ -1,70 +1,70 @@
+package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+import com.google.gson.Gson;
+
+
 import java.io.FileReader;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
-
-import java.io.FileReader;
+import java.util.stream.Collectors;
 
 public class HunterRumoursTaskManager {
-    private final Map<Integer, HunterTask> rumourTasks = new HashMap<>();
+    private List<TaskMaster> taskMasters;
+    private Map<String, HunterCreature> creatures;
 
     public HunterRumoursTaskManager() {
-        initializeRumourTasks();
+        loadTaskMastersFromJson("path/to/hunterMasters.json");
+        loadCreaturesFromJson("path/to/hunterCreatures.json");
     }
 
-    private void initializeRumourTasks() {
-        rumourTasks.put(1, new HunterTask("Crimson Swift", 1, "Bird Snare", "Feldip Hills"));
-        rumourTasks.put(9, new HunterTask("Copper Longtail", 9, "Bird Snare", "Piscatoris Hunter Area"));
-        rumourTasks.put(19, new HunterTask("Tropical Wagtail", 19, "Bird Snare", "Feldip Hills"));
-        rumourTasks.put(53, new HunterTask("Grey Chinchompa", 53, "Box Trap", "Piscatoris Hunter Area"));
-        rumourTasks.put(63, new HunterTask("Red Chinchompa", 63, "Box Trap", "Feldip Hills"));
-        rumourTasks.put(47, new HunterTask("Orange Salamander", 47, "Net Trap", "Kharidian Desert"));
-        rumourTasks.put(67, new HunterTask("Black Salamander", 67, "Net Trap", "Wilderness"));
+    private void loadTaskMastersFromJson(String path) {
+        try (FileReader reader = new FileReader(path)) {
+            Gson gson = new Gson();
+            TaskMastersWrapper wrapper = gson.fromJson(reader, TaskMastersWrapper.class);
+            taskMasters = wrapper.hunterMasters;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public HunterTask getRumourTaskForLevel(int hunterLevel) {
-        HunterTask selectedTask = null;
-        for (Map.Entry<Integer, HunterTask> entry : rumourTasks.entrySet()) {
-            if (hunterLevel >= entry.getKey()) {
-                selectedTask = entry.getValue();  // Assigns the highest task available for the level
+    private void loadCreaturesFromJson(String path) {
+        try (FileReader reader = new FileReader(path)) {
+            Gson gson = new Gson();
+            CreaturesWrapper wrapper = gson.fromJson(reader, CreaturesWrapper.class);
+            creatures = wrapper.hunterCreatures.stream()
+                .collect(Collectors.toMap(HunterCreature::getName, creature -> creature));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<HunterCreature> getTasksForLevel(int hunterLevel, String taskMasterName) {
+        for (TaskMaster master : taskMasters) {
+            if (master.getName().equals(taskMasterName) && hunterLevel >= master.getRequiredLevel()) {
+                return master.getCreatures().stream()
+                    .map(creatures::get)
+                    .filter(creature -> creature != null && hunterLevel >= creature.getRequiredLevel())
+                    .collect(Collectors.toList());
             }
         }
-        return selectedTask;
-    }
-    public List<HunterTask> loadTasksFromJson(String path) {
-        Gson gson = new Gson();
-        return gson.fromJson(new FileReader(path), new TypeToken<List<HunterTask>>() {}.getType());
-    }
-}
-
-class HunterTask {
-    private final String creature;
-    private final int requiredLevel;
-    private final String trapType;
-    private final String location;
-
-    public HunterTask(String creature, int requiredLevel, String trapType, String location) {
-        this.creature = creature;
-        this.requiredLevel = requiredLevel;
-        this.trapType = trapType;
-        this.location = location;
+        return null;
     }
 
-    public String getCreature() {
-        return creature;
+    public List<TaskMaster> getTaskMasters() {
+        return taskMasters;
     }
 
-    public int getRequiredLevel() {
-        return requiredLevel;
+    public Map<String, HunterCreature> getCreatures() {
+        return creatures;
     }
 
-    public String getTrapType() {
-        return trapType;
+    // Wrapper classes for JSON deserialization
+    private static class TaskMastersWrapper {
+        List<TaskMaster> hunterMasters;
     }
 
-    public String getLocation() {
-        return location;
+    private static class CreaturesWrapper {
+        List<HunterCreature> hunterCreatures;
     }
 }

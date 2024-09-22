@@ -10,15 +10,37 @@ import static net.runelite.client.plugins.truncplugins.skilling.hunter.truncHunt
 
 @ConfigGroup(GROUP)
 public interface HuntersRumoursConfig extends Config {
+
     String GROUP = "HuntersRumours";
 
     @ConfigSection(
             name = "General",
-            description = "General",
-            position = 0,
-            closedByDefault = false
+            description = "General settings",
+            position = 0
     )
     String generalSection = "general";
+
+    @ConfigItem(
+            keyName = "huntingMode",
+            name = "Hunting Mode",
+            description = "Choose between Hunter Rumours or Classic Hunting",
+            position = 1,
+            section = generalSection
+    )
+    default HuntingMode huntingMode() {
+        return HuntingMode.HUNTER_RUMOURS;
+    }
+
+    @ConfigItem(
+        keyName = "classicHuntingCreature",
+        name = "Classic Hunting Creature",
+        description = "Select the creature to hunt in classic mode",
+        position = 2,
+        section = generalSection
+    )
+    default HuntingCreature classicHuntingCreature() {
+        return HuntingCreature.RED_CHINCHOMPA;
+    }
 
     @ConfigItem(
             keyName = "GUIDE",
@@ -70,5 +92,7 @@ public interface HuntersRumoursConfig extends Config {
     default int breakDuration() {
         return 30000; // 30 seconds
     }
+
+    
 
 }

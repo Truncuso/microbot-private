@@ -1,14 +1,401 @@
-[
-  {
-    "creature": "Crimson Swift",
-    "requiredLevel": 1,
-    "trapType": "Bird Snare",
-    "location": "Feldip Hills"
-  },
-  {
-    "creature": "Red Chinchompa",
-    "requiredLevel": 63,
-    "trapType": "Box Trap",
-    "location": "Feldip Hills"
-  }
-]
+{
+  "creatures": [
+    {
+      "name": "Tropical Wagtail",
+      "level": 19,
+      "locations": [
+        {
+          "location": "Feldip Hunter area",
+          "worldPoint": {
+            "x": 2486,
+            "y": 2905,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Wild Kebbit",
+      "level": 23,
+      "locations": [
+        {
+          "location": "Piscatoris Hunter area",
+          "worldPoint": {
+            "x": 2333,
+            "y": 3595,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Sapphire Glacialis",
+      "level": 25,
+      "locations": [
+        {
+          "location": "Rellekka Hunter area",
+          "worldPoint": {
+            "x": 2640,
+            "y": 3855,
+            "z": 0
+          }
+        },
+        {
+          "location": "Farming Guild",
+          "worldPoint": {
+            "x": 1234,
+            "y": 5678,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Swamp Lizard",
+      "level": 29,
+      "locations": [
+        {
+          "location": "Canifis Hunter area",
+          "worldPoint": {
+            "x": 3487,
+            "y": 3484,
+            "z": 0
+          }
+        },
+        {
+          "location": "North-west of Slepe",
+          "worldPoint": {
+            "x": 3500,
+            "y": 3505,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Cervus"],
+      "questRequirement": "Priest in Peril"
+    },
+    {
+      "name": "Spined Larupia",
+      "level": 31,
+      "locations": [
+        {
+          "location": "Feldip Hunter area",
+          "worldPoint": {
+            "x": 2520,
+            "y": 2900,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Ornus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Barb-tailed Kebbit",
+      "level": 33,
+      "locations": [
+        {
+          "location": "Feldip Hunter area",
+          "worldPoint": {
+            "x": 2530,
+            "y": 2900,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Snowy Knight",
+      "level": 35,
+      "locations": [
+        {
+          "location": "Rellekka Hunter area",
+          "worldPoint": {
+            "x": 2650,
+            "y": 3860,
+            "z": 0
+          }
+        },
+        {
+          "location": "Weiss",
+          "worldPoint": {
+            "x": 2840,
+            "y": 3930,
+            "z": 0
+          }
+        },
+        {
+          "location": "Farming Guild",
+          "worldPoint": {
+            "x": 3125,
+            "y": 3325,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Prickly Kebbit",
+      "level": 37,
+      "locations": [
+        {
+          "location": "Piscatoris Hunter area",
+          "worldPoint": {
+            "x": 2320,
+            "y": 3580,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": null
+    },
+    {
+      "name": "Embertailed Jerboa",
+      "level": 39,
+      "locations": [
+        {
+          "location": "West of Hunter Guild",
+          "worldPoint": {
+            "x": 2350,
+            "y": 3500,
+            "z": 0
+          }
+        },
+        {
+          "location": "North-west of Locus Oasis",
+          "worldPoint": {
+            "x": 2400,
+            "y": 3550,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman"],
+      "questRequirement": "Eagles' Peak"
+    },
+    {
+      "name": "Horned Graahk",
+      "level": 41,
+      "locations": [
+        {
+          "location": "Karamja Hunter area",
+          "worldPoint": {
+            "x": 2760,
+            "y": 3010,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Cervus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Spotted Kebbit",
+      "level": 43,
+      "locations": [
+        {
+          "location": "Piscatoris Falconry area",
+          "worldPoint": {
+            "x": 2380,
+            "y": 3600,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Cervus", "Guild Hunter Ornus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Black Warlock",
+      "level": 45,
+      "locations": [
+        {
+          "location": "Feldip Hunter area",
+          "worldPoint": {
+            "x": 2500,
+            "y": 2900,
+            "z": 0
+          }
+        },
+        {
+          "location": "Farming Guild",
+          "worldPoint": {
+            "x": 3150,
+            "y": 3320,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Cervus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Orange Salamander",
+      "level": 47,
+      "locations": [
+        {
+          "location": "Uzer Hunter area",
+          "worldPoint": {
+            "x": 3450,
+            "y": 3150,
+            "z": 0
+          }
+        },
+        {
+          "location": "Necropolis Hunter area",
+          "worldPoint": {
+            "x": 3500,
+            "y": 3200,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Cervus", "Guild Hunter Ornus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Sabre-toothed Kebbit",
+      "level": 51,
+      "locations": [
+        {
+          "location": "Rellekka Hunter area",
+          "worldPoint": {
+            "x": 2700,
+            "y": 3850,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Ornus", "Guild Hunter Cervus"],
+      "questRequirement": null
+    },
+    {
+      "name": "Grey Chinchompa",
+      "level": 53,
+      "locations": [
+        {
+          "location": "Piscatoris Hunter area",
+          "worldPoint": {
+            "x": 2330,
+            "y": 3605,
+            "z": 0
+          }
+        },
+        {
+          "location": "Kourend Woodland",
+          "worldPoint": {
+            "x": 2150,
+            "y": 3450,
+            "z": 0
+          }
+        },
+        {
+          "location": "Isle of Souls",
+          "worldPoint": {
+            "x": 2900,
+            "y": 3200,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Huntmaster Gilman", "Guild Hunter Ornus", "Guild Hunter Cervus"],
+      "questRequirement": "Eagles' Peak"
+    },
+    {
+      "name": "Red Chinchompa",
+      "level": 63,
+      "locations": [
+        {
+          "location": "Feldip Hunter area",
+          "worldPoint": {
+            "x": 2524,
+            "y": 2910,
+            "z": 0
+          }
+        },
+        {
+          "location": "Gwenith Hunter area",
+          "worldPoint": {
+            "x": 2205,
+            "y": 3390,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": [
+        "Huntmaster Gilman",
+        "Guild Hunter Aco",
+        "Guild Hunter Teco",
+        "Guild Hunter Wolf"
+      ],
+      "questRequirement": "Hard Western Provinces Diary"
+    },
+    {
+      "name": "Herbiboar",
+      "level": 80,
+      "locations": [
+        {
+          "location": "Mushroom Forest, Fossil Island",
+          "worldPoint": {
+            "x": 3725,
+            "y": 3800,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Guild Hunter Teco"],
+      "questRequirement": "Bone Voyage"
+    },
+    {
+      "name": "Moonlight Moth",
+      "level": 85,
+      "locations": [
+        {
+          "location": "The Burrow",
+          "worldPoint": {
+            "x": 2750,
+            "y": 2980,
+            "z": 0
+          }
+        },
+        {
+          "location": "Neypotzli",
+          "worldPoint": {
+            "x": 3300,
+            "y": 3200,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Guild Hunter Wolf"],
+      "questRequirement": null
+    },
+    {
+      "name": "Moonlight Antelope",
+      "level": 91,
+      "locations": [
+        {
+          "location": "The Burrow",
+          "worldPoint": {
+            "x": 2770,
+            "y": 2980,
+            "z": 0
+          }
+        }
+      ],
+      "assignedBy": ["Guild Hunter Wolf"],
+      "questRequirement": null
+    }
+  ]
+}
