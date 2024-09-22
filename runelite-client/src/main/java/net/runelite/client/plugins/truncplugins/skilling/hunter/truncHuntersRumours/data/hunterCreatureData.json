@@ -1,0 +1,14 @@
+[
+  {
+    "creature": "Crimson Swift",
+    "requiredLevel": 1,
+    "trapType": "Bird Snare",
+    "location": "Feldip Hills"
+  },
+  {
+    "creature": "Red Chinchompa",
+    "requiredLevel": 63,
+    "trapType": "Box Trap",
+    "location": "Feldip Hills"
+  }
+]
