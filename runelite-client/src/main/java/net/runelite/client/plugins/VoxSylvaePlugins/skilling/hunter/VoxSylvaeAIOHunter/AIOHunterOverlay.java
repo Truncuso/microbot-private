@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+package net.runelite.client.plugins.VoxSylvaePlugins.skilling.hunter.VoxSylvaeAIOHunter;
 
 import net.runelite.client.plugins.hunter.HunterPlugin;
 import net.runelite.client.plugins.microbot.Microbot;
@@ -28,12 +28,12 @@ import net.runelite.client.plugins.microbot.util.mouse.VirtualMouse;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayPanel;
 
-public class HuntersRumoursOverlay extends OverlayPanel{
+public class AIOHunterOverlay extends OverlayPanel{
 
     private final HuntersRumoursPlugin plugin;
 
     @Inject
-    public HuntersRumoursOverlay(HuntersRumoursPlugin plugin) {        
+    public AIOHunterOverlay(HuntersRumoursPlugin plugin) {        
         super(plugin);
         setPosition(OverlayPosition.TOP_LEFT);
         setLayer(OverlayLayer.ABOVE_SCENE);        

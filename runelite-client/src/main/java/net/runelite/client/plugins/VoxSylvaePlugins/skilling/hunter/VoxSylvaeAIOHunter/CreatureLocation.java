@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+package net.runelite.client.plugins.VoxSylvaePlugins.skilling.hunter.VoxSylvaeAIOHunter;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;

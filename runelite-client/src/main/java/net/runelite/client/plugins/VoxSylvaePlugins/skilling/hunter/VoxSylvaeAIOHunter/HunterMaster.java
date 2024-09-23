@@ -1,9 +1,9 @@
-package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+package net.runelite.client.plugins.VoxSylvaePlugins.skilling.hunter.VoxSylvaeAIOHunter;
 import java.util.List;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-public class TaskMaster {
+public class HunterMaster {
     private String name;
     private String tier;
     private int requiredLevel;
@@ -11,7 +11,7 @@ public class TaskMaster {
     private List<String> creatures;
     private String questRequirement;
 
-    public TaskMaster(String name, String tier, int requiredLevel, WorldPoint worldPoint, List<String> creatures, String questRequirement) {
+    public HunterMaster(String name, String tier, int requiredLevel, WorldPoint worldPoint, List<String> creatures, String questRequirement) {
         this.name = name;
         this.tier = tier;
         this.requiredLevel = requiredLevel;
