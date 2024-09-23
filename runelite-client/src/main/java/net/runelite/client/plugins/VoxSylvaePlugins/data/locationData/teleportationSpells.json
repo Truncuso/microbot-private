@@ -1,0 +1,170 @@
+{
+    "teleports": [
+      {
+        "name": "Varrock Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 3210,
+          "y": 3424,
+          "z": 0
+        },
+        "requirements": {
+          "level": 25,
+          "magic_runes": {
+            "air": 3,
+            "fire": 1,
+            "law": 1
+          },
+          "quests": null
+        },
+        "cooldown": "none",
+        "members_only": false
+      },
+      {
+        "name": "Lumbridge Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 3222,
+          "y": 3218,
+          "z": 0
+        },
+        "requirements": {
+          "level": 31,
+          "magic_runes": {
+            "air": 3,
+            "earth": 1,
+            "law": 1
+          },
+          "quests": null
+        },
+        "cooldown": "none",
+        "members_only": false
+      },
+      {
+        "name": "Falador Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2965,
+          "y": 3378,
+          "z": 0
+        },
+        "requirements": {
+          "level": 37,
+          "magic_runes": {
+            "air": 3,
+            "water": 1,
+            "law": 1
+          },
+          "quests": null
+        },
+        "cooldown": "none",
+        "members_only": false
+      },
+      {
+        "name": "Camelot Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2757,
+          "y": 3477,
+          "z": 0
+        },
+        "requirements": {
+          "level": 45,
+          "magic_runes": {
+            "air": 5,
+            "law": 1
+          },
+          "quests": null
+        },
+        "cooldown": "none",
+        "members_only": true
+      },
+      {
+        "name": "Ardougne Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2661,
+          "y": 3300,
+          "z": 0
+        },
+        "requirements": {
+          "level": 51,
+          "magic_runes": {
+            "water": 2,
+            "law": 2
+          },
+          "quests": "Plague City"
+        },
+        "cooldown": "none",
+        "members_only": true
+      },
+      {
+        "name": "Watchtower Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2545,
+          "y": 3112,
+          "z": 0
+        },
+        "requirements": {
+          "level": 58,
+          "magic_runes": {
+            "earth": 2,
+            "law": 2
+          },
+          "quests": "Watchtower"
+        },
+        "cooldown": "none",
+        "members_only": true
+      },
+      {
+        "name": "Trollheim Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2888,
+          "y": 3676,
+          "z": 0
+        },
+        "requirements": {
+          "level": 61,
+          "magic_runes": {
+            "fire": 2,
+            "law": 2
+          },
+          "quests": "Troll Stronghold"
+        },
+        "cooldown": "none",
+        "members_only": true
+      },
+      {
+        "name": "Ape Atoll Teleport",
+        "type": "spell",
+        "spellbook": "standard",
+        "coordinates": {
+          "x": 2755,
+          "y": 2784,
+          "z": 0
+        },
+        "requirements": {
+          "level": 64,
+          "magic_runes": {
+            "fire": 2,
+            "water": 2,
+            "law": 2,
+            "bananas": 1
+          },
+          "quests": "Monkey Madness I"
+        },
+        "cooldown": "none",
+        "members_only": true
+      }
+    ]
+}
+  

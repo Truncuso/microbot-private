@@ -1,13 +1,15 @@
-package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+package net.runelite.client.plugins.VoxSylvaePlugins.skilling.hunter.VoxSylvaeAIOHunter;
 
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.hunter.HunterConfig;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.antiban.AntibanOverlay;
 import net.runelite.client.plugins.microbot.util.antiban.Rs2Antiban;
+import net.runelite.client.plugins.microbot.util.antiban.Rs2AntibanSettings;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.mouse.VirtualMouse;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -26,16 +28,21 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ProfileChanged;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.microbot.breakhandler.BreakHandlerPlugin;
-import net.runelite.client.plugins.microbot.fishing.barbarian.BarbarianFishingConfig;
-import net.runelite.client.plugins.microbot.fishing.barbarian.BarbarianFishingScript;
+import net.runelite.client.plugins.microbot.util.antiban.AntibanPlugin;
+//import net.runelite.client.plugins.microbot.fishing.barbarian.BarbarianFishingConfig;
+//import net.runelite.client.plugins.microbot.fishing.barbarian.BarbarianFishingScript;
 import net.runelite.client.plugins.microbot.util.antiban.enums.Activity;
 import net.runelite.client.plugins.microbot.util.antiban.enums.ActivityIntensity;
 import net.runelite.client.plugins.microbot.util.antiban.enums.CombatSkills;
 import net.runelite.client.plugins.microbot.util.antiban.ui.MasterPanel;
+import net.runelite.client.plugins.VoxSylvaePlugins.util.*;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 
 import javax.inject.Inject;
@@ -43,6 +50,7 @@ import javax.swing.*;
 
 import com.google.inject.Provides;
 
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.image.BufferedImage;
 import java.time.Duration;
@@ -63,7 +71,10 @@ import java.awt.*;
     alwaysOn = false,
     hidden = false
 )
-public class HuntersRumoursPlugin {
+@PluginDependency(XpTrackerPlugin.class)
+@PluginDependency(XpTrackerPlugin.class)
+@Slf4j
+public class HuntersRumoursPlugin extends Plugin{
 
     public static int ticksSinceLogin;
     private static int idleTicks = 0;
@@ -71,8 +82,8 @@ public class HuntersRumoursPlugin {
     private boolean ready;
     private Skill lastSkillChanged;
     private NavigationButton navButton;
-
-
+    private int IDLE_TIMEOUT = 400;
+    
     
     @Inject
     Notifier notifier;
@@ -81,25 +92,29 @@ public class HuntersRumoursPlugin {
     @Inject
     private ClientThread clientThread;
     @Inject
-    private HuntersRumoursConfig config;
+    private AIOHunterConfig config;
     @Inject
     private OverlayManager overlayManager;
 
     @Inject
-    private HuntersRumoursOverlay hunterRumoursOverlay;
+    private AIOHunterOverlay AIOHunterOverlay_instance;
     @Inject
     HuntersRumoursScript HuntersRumoursScript;
 
-    public static boolean isIdle() {
-        return idleTicks > IDLE_TIMEOUT;
-    }
-
+    private boolean isRunning = false;
+    @Inject
+    private KeyManager keyManager;
     
-   
+    private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.toggleKeybind()) {
+        @Override
+        public void hotkeyPressed() {
+            togglePlugin();
+        }
+    };
 
-    
+ 
     @Override
-    protected void startUp() throws AWTException {
+    protected void startUp() throws Exception{
        /*  final MasterPanel panel = injector.getInstance(MasterPanel.class);
         final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "antiban.png");
         navButton = NavigationButton.builder()
@@ -123,45 +138,77 @@ public class HuntersRumoursPlugin {
         Microbot.setNotifier(notifier);
         Microbot.setMouse(new VirtualMouse());
         if (overlayManager != null) {            
-            overlayManager.add(hunterRumoursOverlay);
+            overlayManager.add(AIOHunterOverlay_instance);
         }
-        HuntersRumoursScript.run(config);
+        keyManager.registerKeyListener(hotkeyListener);
+        
+        
         
         //eventBus.register(this);
         //clientToolbar.addNavigation(navButton);
         //overlayManager.add(new AntibanOverlay());
     }
+    
     @Override
-    protected void shutDown() {
-        overlayManager.removeIf(overlay -> overlay instanceof AntibanOverlay);
+    protected void shutDown() throws Exception{
+        overlayManager.removeIf(overlay -> overlay instanceof AIOHunterOverlay);
         //clientToolbar.removeNavigation(navButton);
+        keyManager.unregisterKeyListener(hotkeyListener);
+        stopPlugin();
+    }
+
+
+    private void togglePlugin() {
+        if (isRunning) {
+            stopPlugin();
+        } else {
+            startPlugin();
+        }
+    }
+   
+    private void startPlugin() {
+        if (!isRunning) {
+            isRunning = true;
+            ensurePluginEnabled(BreakHandlerPlugin.class , config.devDebug());
+            HuntersRumoursScript.run(config);
+            Microbot.showMessage("AIO hunter plugin started by user");               
+        }
+    }
+
+    private void stopPlugin() {
+        if (isRunning) {
+            isRunning = false;
+            HuntersRumoursScript.shutdown();
+            Microbot.showMessage("AIO hunter plugin stopped by user");                                
+        }
     }
 
     @Provides
-    HuntersRumoursConfig provideConfig(ConfigManager configManager) {
-        return configManager.getConfig(HuntersRumoursConfig.class);
+    AIOHunterConfig provideConfig(ConfigManager configManager) {
+        return configManager.getConfig(AIOHunterConfig.class);
     }
     @Subscribe
     public void onChatMessage(ChatMessage event) {
         //if (Rs2Antiban.checkForCookingEvent(event)) {
         //   updateLastCookingAction();
         //}
+        if (isRunning) {
+            HuntersRumoursScript.onChatMessage(event);
+        }
     }
     @Subscribe
     public void onProfileChanged(ProfileChanged event) {
-        //Rs2Antiban.resetAntibanSettings();
+        Rs2Antiban.resetAntibanSettings();
+        if (isRunning) {
+            HuntersRumoursScript.onProfileChanged(event);
+        }
     }
 
 
     @Subscribe
-    public void onGameTick(GameTick event) {
-      
-
-        // Handle antiban and break actions
-        //if (breakHandler.shouldTakeBreak(config.breakDuration())) {
-        //    breakHandler.takeBreak();
-        //} else {
-        //    antibanHandler.performAntiban();
-        //}
+    public void onGameTick(GameTick event) {      
+        if (isRunning) {
+            HuntersRumoursScript.onGameTick();
+        }        
     }
 }

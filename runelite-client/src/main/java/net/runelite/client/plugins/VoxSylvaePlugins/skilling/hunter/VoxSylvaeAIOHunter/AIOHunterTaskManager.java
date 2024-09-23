@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.truncplugins.skilling.hunter.truncHuntersRumours;
+package net.runelite.client.plugins.VoxSylvaePlugins.skilling.hunter.VoxSylvaeAIOHunter;
 import com.google.gson.Gson;
 
 
@@ -9,11 +9,11 @@ import java.util.Map;
 
 import java.util.stream.Collectors;
 
-public class HunterRumoursTaskManager {
-    private List<TaskMaster> taskMasters;
+public class AIOHunterTaskManager {
+    private List<HunterMaster> taskMasters;
     private Map<String, HunterCreature> creatures;
 
-    public HunterRumoursTaskManager() {
+    public AIOHunterTaskManager() {
         loadTaskMastersFromJson("path/to/hunterMasters.json");
         loadCreaturesFromJson("path/to/hunterCreatures.json");
     }
@@ -40,7 +40,7 @@ public class HunterRumoursTaskManager {
     }
 
     public List<HunterCreature> getTasksForLevel(int hunterLevel, String taskMasterName) {
-        for (TaskMaster master : taskMasters) {
+        for (HunterMaster master : taskMasters) {
             if (master.getName().equals(taskMasterName) && hunterLevel >= master.getRequiredLevel()) {
                 return master.getCreatures().stream()
                     .map(creatures::get)
@@ -51,7 +51,7 @@ public class HunterRumoursTaskManager {
         return null;
     }
 
-    public List<TaskMaster> getTaskMasters() {
+    public List<HunterMaster> getTaskMasters() {
         return taskMasters;
     }
 
@@ -61,7 +61,7 @@ public class HunterRumoursTaskManager {
 
     // Wrapper classes for JSON deserialization
     private static class TaskMastersWrapper {
-        List<TaskMaster> hunterMasters;
+        List<HunterMaster> hunterMasters;
     }
 
     private static class CreaturesWrapper {
