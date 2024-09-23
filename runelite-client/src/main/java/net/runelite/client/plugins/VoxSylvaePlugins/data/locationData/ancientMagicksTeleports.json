@@ -1,0 +1,148 @@
+{
+  "ancient_magicks_teleports": [
+    {
+      "name": "Paddewwa Teleport",
+      "location": "Edgeville Dungeon",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3098,
+        "y": 9882,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 54,
+        "runes": {
+          "law": 2,
+          "fire": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Senntisten Teleport",
+      "location": "Senntisten",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3321,
+        "y": 3335,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 60,
+        "runes": {
+          "law": 2,
+          "soul": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Kharyrll Teleport",
+      "location": "Canifis",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3493,
+        "y": 3472,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 66,
+        "runes": {
+          "law": 2,
+          "blood": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Lassar Teleport",
+      "location": "Ice Mountain",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3001,
+        "y": 3470,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 72,
+        "runes": {
+          "law": 2,
+          "water": 4
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Dareeyak Teleport",
+      "location": "Wilderness Bandit Camp",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 2969,
+        "y": 3695,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 78,
+        "runes": {
+          "law": 2,
+          "fire": 3
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Carrallangar Teleport",
+      "location": "Graveyard of Shadows (Wilderness)",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3172,
+        "y": 3668,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 84,
+        "runes": {
+          "law": 2,
+          "blood": 2
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Annakarl Teleport",
+      "location": "Demonic Ruins (Wilderness)",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 3288,
+        "y": 3886,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 90,
+        "runes": {
+          "law": 2,
+          "blood": 2
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Ghorrock Teleport",
+      "location": "Frozen Waste Plateau (Wilderness)",
+      "spellbook": "Ancient Magicks",
+      "coordinates": {
+        "x": 2977,
+        "y": 3873,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 96,
+        "runes": {
+          "law": 2,
+          "water": 8
+        },
+        "members_only": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "fairy_ring_teleports": [
+    {
+      "code": "A I Q",
+      "location": "Mudskipper Point",
+      "coordinates": {
+        "x": 2980,
+        "y": 3110,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "A L P",
+      "location": "Feldip Hills Hunter Area",
+      "coordinates": {
+        "x": 2523,
+        "y": 2917,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "B I P",
+      "location": "Kalphite Lair",
+      "coordinates": {
+        "x": 3251,
+        "y": 3095,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "B K Q",
+      "location": "Enchanted Valley",
+      "coordinates": {
+        "x": 3041,
+        "y": 4532,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "C K P",
+      "location": "South of Ape Atoll",
+      "coordinates": {
+        "x": 2763,
+        "y": 2702,
+        "z": 0
+      },
+      "members_only": true,
+      "requirements": "Monkey Madness II"
+    },
+    {
+      "code": "C I Q",
+      "location": "Miscellania",
+      "coordinates": {
+        "x": 2513,
+        "y": 3881,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "D K R",
+      "location": "Canifis",
+      "coordinates": {
+        "x": 3447,
+        "y": 3470,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "A J Q",
+      "location": "TzHaar Area",
+      "coordinates": {
+        "x": 2846,
+        "y": 5146,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "D J R",
+      "location": "Zanaris",
+      "coordinates": {
+        "x": 2412,
+        "y": 4433,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "A K Q",
+      "location": "Piscatoris Hunter Area",
+      "coordinates": {
+        "x": 2319,
+        "y": 3619,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "B L R",
+      "location": "Mort Myre Swamp",
+      "coordinates": {
+        "x": 3488,
+        "y": 3430,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "C L R",
+      "location": "Zul-Andra",
+      "coordinates": {
+        "x": 2197,
+        "y": 3055,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "C K R",
+      "location": "Rellekka Slayer Caves",
+      "coordinates": {
+        "x": 2780,
+        "y": 3627,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "D I P",
+      "location": "Polar Hunter Area",
+      "coordinates": {
+        "x": 2711,
+        "y": 3731,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "D L R",
+      "location": "Abyssal Area",
+      "coordinates": {
+        "x": 3038,
+        "y": 4827,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "B I S",
+      "location": "Frost Dragons",
+      "coordinates": {
+        "x": 2499,
+        "y": 3893,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "A Y Q",
+      "location": "South of Ardougne",
+      "coordinates": {
+        "x": 2601,
+        "y": 3150,
+        "z": 0
+      },
+      "members_only": true
+    },
+    {
+      "code": "B J R",
+      "location": "Haunted Woods",
+      "coordinates": {
+        "x": 3651,
+        "y": 3516,
+        "z": 0
+      },
+      "members_only": true
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "lunar_magic_teleports": [
+    {
+      "name": "Moonclan Teleport",
+      "location": "Moonclan Island",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2113,
+        "y": 3915,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 69,
+        "runes": {
+          "law": 1,
+          "astral": 2,
+          "earth": 2
+        },
+        "members_only": true,
+        "quest": "Lunar Diplomacy"
+      }
+    },
+    {
+      "name": "Ourania Teleport",
+      "location": "Ourania Altar",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2469,
+        "y": 3246,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 71,
+        "runes": {
+          "law": 1,
+          "astral": 2,
+          "earth": 6
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Waterbirth Teleport",
+      "location": "Waterbirth Island",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2546,
+        "y": 3757,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 72,
+        "runes": {
+          "law": 1,
+          "astral": 2,
+          "water": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Barbarian Teleport",
+      "location": "Barbarian Outpost",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2544,
+        "y": 3569,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 75,
+        "runes": {
+          "law": 1,
+          "astral": 2,
+          "fire": 3
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Khazard Teleport",
+      "location": "Port Khazard",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2634,
+        "y": 3166,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 78,
+        "runes": {
+          "law": 2,
+          "astral": 2,
+          "water": 4
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Fishing Guild Teleport",
+      "location": "Fishing Guild",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2611,
+        "y": 3391,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 85,
+        "runes": {
+          "law": 3,
+          "astral": 3,
+          "water": 10
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Catherby Teleport",
+      "location": "Catherby",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2804,
+        "y": 3442,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 87,
+        "runes": {
+          "law": 3,
+          "astral": 3,
+          "water": 10
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Ice Plateau Teleport",
+      "location": "Ice Plateau (Wilderness)",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2976,
+        "y": 3944,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 89,
+        "runes": {
+          "law": 3,
+          "astral": 3,
+          "water": 8
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Trollheim Teleport",
+      "location": "Trollheim",
+      "spellbook": "Lunar",
+      "coordinates": {
+        "x": 2910,
+        "y": 3611,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 92,
+        "runes": {
+          "law": 3,
+          "astral": 3,
+          "earth": 10
+        },
+        "members_only": true,
+        "quest": "Eadgar's Ruse"
+      }
+    }
+  ]
+}
