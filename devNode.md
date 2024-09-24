@@ -2,6 +2,8 @@
 
 ## Current Ideas
 
+### General
+- add prehook for autometed git repopack file, text file (git lfs  for it ?)
 ### Runlite based Microbot Plugins
 - QoL Navigation Plugin with serves as an plugin which can be used by other plugins
   - user can configure
