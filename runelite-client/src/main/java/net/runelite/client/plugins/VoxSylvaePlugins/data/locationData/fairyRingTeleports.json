@@ -1,185 +1,317 @@
 {
   "fairy_ring_teleports": [
     {
-      "code": "A I Q",
-      "location": "Mudskipper Point",
-      "coordinates": {
-        "x": 2980,
-        "y": 3110,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AIR",
+      "location": "Islands: South-east of Ardougne",
+      "coordinates": { "x": 2700, "y": 3247, "z": 0 },
+      "notes": "Empty island, used for clue scroll coordinates and the medium Ardougne diary. This is also the first fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
     },
     {
-      "code": "A L P",
-      "location": "Feldip Hills Hunter Area",
-      "coordinates": {
-        "x": 2523,
-        "y": 2917,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AJP",
+      "location": "Varlamore: Avium Savannah",
+      "coordinates": { "x": 1651, "y": 3010, "z": 0 },
+      "notes": "Requires having travelled to Civitas illa Fortis via Regulus Cento, after completion of Children of the Sun."
     },
     {
-      "code": "B I P",
-      "location": "Kalphite Lair",
-      "coordinates": {
-        "x": 3251,
-        "y": 3095,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AJQ",
+      "location": "Dungeons: Cave south of Dorgesh-Kaan",
+      "coordinates": { "x": 2735, "y": 5221, "z": 0 },
+      "notes": "Completion of Death to the Dorgeshuun and a light source is required to enter this area.",
+      "points_of_interest": ["Cave crawlers", "Cave bugs", "Cave slimes", "Molanisks", "Dorgesh-Kaan Agility Course"]
     },
     {
-      "code": "B K Q",
-      "location": "Enchanted Valley",
-      "coordinates": {
-        "x": 3041,
-        "y": 4532,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AJR",
+      "location": "Kandarin: Slayer cave south-east of Rellekka",
+      "coordinates": { "x": 2780, "y": 3613, "z": 0 },
+      "points_of_interest": ["Fremennik Slayer Dungeon", "Rellekka"]
     },
     {
-      "code": "C K P",
-      "location": "South of Ape Atoll",
-      "coordinates": {
-        "x": 2763,
-        "y": 2702,
-        "z": 0
-      },
-      "members_only": true,
-      "requirements": "Monkey Madness II"
+      "code": "AJS",
+      "location": "Islands: Penguins near Miscellania",
+      "coordinates": { "x": 2500, "y": 3896, "z": 0 },
+      "notes": "Penguins; no other access. This is also the fourth and final fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
     },
     {
-      "code": "C I Q",
-      "location": "Miscellania",
-      "coordinates": {
-        "x": 2513,
-        "y": 3881,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AKP",
+      "location": "Kharidian Desert: Necropolis",
+      "coordinates": { "x": 3284, "y": 2705, "z": 0 },
+      "points_of_interest": ["Sophanem", "Menaphos", "Necropolis"],
+      "notes": "Unlocked by entering the Necropolis in the beginning of Beneath Cursed Sands."
     },
     {
-      "code": "D K R",
-      "location": "Canifis",
-      "coordinates": {
-        "x": 3447,
-        "y": 3470,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AKQ",
+      "location": "Kandarin: Piscatoris Hunter area",
+      "coordinates": { "x": 2319, "y": 3619, "z": 0 },
+      "points_of_interest": ["Kraken Cove", "Chinchompas (grey)", "Mining spots", "Piscatoris Fishing Colony"]
     },
     {
-      "code": "A J Q",
-      "location": "TzHaar Area",
-      "coordinates": {
-        "x": 2846,
-        "y": 5146,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AKR",
+      "location": "Great Kourend: Hosidius Vinery",
+      "coordinates": { "x": 1827, "y": 3538, "z": 0 },
+      "points_of_interest": ["Hosidius Vinery", "Tithe Farm minigame"]
     },
     {
-      "code": "D J R",
-      "location": "Zanaris",
-      "coordinates": {
-        "x": 2412,
-        "y": 4433,
-        "z": 0
-      },
-      "members_only": true
+      "code": "AKS",
+      "location": "Feldip Hills: Feldip Hunter area",
+      "coordinates": { "x": 2571, "y": 2956, "z": 0 },
+      "points_of_interest": ["Hunter jungle area", "Chompy hunting grounds", "Gnome glider"]
     },
     {
-      "code": "A K Q",
-      "location": "Piscatoris Hunter Area",
-      "coordinates": {
-        "x": 2319,
-        "y": 3619,
-        "z": 0
-      },
-      "members_only": true
+      "code": "ALP",
+      "location": "Islands: Lighthouse",
+      "coordinates": { "x": 2503, "y": 3636, "z": 0 },
+      "points_of_interest": ["Jossik", "Barbarian Outpost", "Rellekka", "Dagannoths"]
     },
     {
-      "code": "B L R",
-      "location": "Mort Myre Swamp",
-      "coordinates": {
-        "x": 3488,
-        "y": 3430,
-        "z": 0
-      },
-      "members_only": true
+      "code": "ALQ",
+      "location": "Morytania: Haunted Woods east of Canifis",
+      "coordinates": { "x": 3597, "y": 3495, "z": 0 },
+      "notes": "Can be used in conjunction with the Ectophial to quickly access the fairy ring network, but this ring is surrounded by aggressive Vampyres and Leeches.",
+      "points_of_interest": ["Farming patch", "Port Phasmatys"]
     },
     {
-      "code": "C L R",
-      "location": "Zul-Andra",
-      "coordinates": {
-        "x": 2197,
-        "y": 3055,
-        "z": 0
-      },
-      "members_only": true
+      "code": "ALR",
+      "location": "Other Realms: Abyssal Area",
+      "coordinates": { "x": 3059, "y": 4875, "z": 0 },
+      "points_of_interest": ["Abyssal leeches", "Abyssal guardians", "Abyssal walkers", "Abyssal demons"],
+      "notes": "Alternative area for players to get essence pouches."
     },
     {
-      "code": "C K R",
-      "location": "Rellekka Slayer Caves",
-      "coordinates": {
-        "x": 2780,
-        "y": 3627,
-        "z": 0
-      },
-      "members_only": true
+      "code": "ALS",
+      "location": "Kandarin: McGrubor's Wood",
+      "coordinates": { "x": 2644, "y": 3495, "z": 0 },
+      "points_of_interest": ["Seers' Village", "Coal trucks", "Fishing Guild", "Ranging Guild", "Hemenster"],
+      "notes": "Going here is required for the medium Kandarin Diary."
     },
     {
-      "code": "D I P",
-      "location": "Polar Hunter Area",
-      "coordinates": {
-        "x": 2711,
-        "y": 3731,
-        "z": 0
-      },
-      "members_only": true
+      "code": "BIP",
+      "location": "Islands: South-west of Mort Myre",
+      "coordinates": { "x": 3410, "y": 3324, "z": 0 },
+      "notes": "Empty island with a shortcut to enter Mort Myre, requiring level 50 Agility. This fairy ring is also used for the hard cryptic clue 'BIP 7013'."
     },
     {
-      "code": "D L R",
-      "location": "Abyssal Area",
-      "coordinates": {
-        "x": 3038,
-        "y": 4827,
-        "z": 0
-      },
-      "members_only": true
+      "code": "BIQ",
+      "location": "Kharidian Desert near the Kalphite Hive",
+      "coordinates": { "x": 3251, "y": 3095, "z": 0 },
+      "points_of_interest": ["Kalphite Lair", "Kalphite Queen", "Shantay Pass"]
     },
     {
-      "code": "B I S",
-      "location": "Frost Dragons",
-      "coordinates": {
-        "x": 2499,
-        "y": 3893,
-        "z": 0
-      },
-      "members_only": true
+      "code": "BIS",
+      "location": "Kandarin: Ardougne Zoo - Unicorns",
+      "coordinates": { "x": 2635, "y": 3266, "z": 0 },
+      "notes": "Unicorns; no other access. Required for the medium Ardougne Diary."
     },
     {
-      "code": "A Y Q",
-      "location": "South of Ardougne",
-      "coordinates": {
-        "x": 2601,
-        "y": 3150,
-        "z": 0
-      },
-      "members_only": true
+      "code": "BJP",
+      "location": "Islands: Isle of Souls",
+      "coordinates": { "x": 2267, "y": 2976, "z": 0 },
+      "points_of_interest": ["Crumbling Tower", "Isle of Souls Dungeon"]
     },
     {
-      "code": "B J R",
-      "location": "Haunted Woods",
-      "coordinates": {
-        "x": 3651,
-        "y": 3516,
-        "z": 0
-      },
-      "members_only": true
+      "code": "BJR",
+      "location": "Other Realms: Realm of the Fisher King",
+      "coordinates": { "x": 2650, "y": 4730, "z": 0 },
+      "notes": "Requires partial completion of the Holy Grail quest."
+    },
+    {
+      "code": "BJS",
+      "location": "Islands: Near Zul-Andra",
+      "coordinates": { "x": 2150, "y": 3070, "z": 0 },
+      "notes": "Requires completion of the Regicide quest. 76 Agility is needed to jump off the island."
+    },
+    {
+      "code": "BKP",
+      "location": "Feldip Hills: South of Castle Wars",
+      "coordinates": { "x": 2385, "y": 3035, "z": 0 },
+      "points_of_interest": ["Smoke Devil Dungeon", "Chompy bird hunting grounds", "Teak tree", "Castle Wars"]
+    },
+    {
+      "code": "BKQ",
+      "location": "Other Realms: Enchanted Valley",
+      "coordinates": { "x": 3041, "y": 4532, "z": 0 },
+      "points_of_interest": ["Tree spirits"]
+    },
+    {
+      "code": "BKR",
+      "location": "Morytania: Mort Myre Swamp, south of Canifis",
+      "coordinates": { "x": 3469, "y": 3431, "z": 0 },
+      "notes": "Swamp boat south-east (towards Barrows and Burgh de Rott)."
+    },
+    {
+      "code": "BKS",
+      "location": "Other Realms: Zanaris",
+      "coordinates": { "x": 2412, "y": 4434, "z": 0 },
+      "points_of_interest": ["Impetuous Impulses", "Chaeldar", "Cosmic runic altar"]
+    },
+    {
+      "code": "BLP",
+      "location": "Dungeons: TzHaar area",
+      "coordinates": { "x": 2437, "y": 5126, "z": 0 },
+      "points_of_interest": ["TzHaar Fight Cave", "TzHaar Fight Pit", "TzHaar monsters"]
+    },
+    {
+      "code": "BLQ",
+      "location": "Other Realms: Yu'biusk",
+      "coordinates": { "x": 3573, "y": 4371, "z": 0 },
+      "notes": "Requires partial completion of the Land of the Goblins quest. Used during the Hopespear's Will miniquest."
+    },
+    {
+      "code": "BLR",
+      "location": "Kandarin: Legends' Guild",
+      "coordinates": { "x": 2740, "y": 3351, "z": 0 },
+      "points_of_interest": ["Legends' Guild", "Mining spots", "Magic and Maple trees", "Witchaven", "East Ardougne"]
+    },
+    {
+      "code": "BLS",
+      "location": "Kebos Lowlands: South of Mount Quidamortem",
+      "coordinates": { "x": 1295, "y": 3493, "z": 0 },
+      "points_of_interest": ["Rowboat to The Stranglewood", "Mountain Guide for quick access to the Chambers of Xeric"]
+    },
+    {
+      "code": "CIP",
+      "location": "Islands: Miscellania",
+      "coordinates": { "x": 2513, "y": 3884, "z": 0 },
+      "notes": "Requires completion of The Fremennik Trials quest. Required for the medium Fremennik Diary.",
+      "points_of_interest": ["Miscellania", "Etceteria", "Managing Miscellania"]
+    },
+    {
+      "code": "CIQ",
+      "location": "Kandarin: North-west of Yanille",
+      "coordinates": { "x": 2528, "y": 3127, "z": 0 },
+      "points_of_interest": ["Tree Gnome Village", "Yanille", "Gu'Tanoth", "Castle Wars"]
+    },
+    {
+      "code": "CIR",
+      "location": "Kebos Lowlands: South of Mount Karuulm",
+      "coordinates": { "x": 1302, "y": 3762, "z": 0 },
+      "notes": "The player must have visited Great Kourend at least once in order to access this fairy ring. Required for the medium Kourend & Kebos Diary.",
+      "points_of_interest": ["Mount Karuulm", "Farming Guild"]
+    },
+    {
+      "code": "CIS",
+      "location": "Great Kourend: Arceuus Library",
+      "coordinates": { "x": 1639, "y": 3868, "z": 0 },
+      "notes": "North of the Arceuus Library in Arceuus."
+    },
+    {
+      "code": "CJR",
+      "location": "Kandarin: Sinclair Mansion (east)",
+      "coordinates": { "x": 2705, "y": 3576, "z": 0 },
+      "points_of_interest": ["Sinclair Mansion", "Seers' Village"]
+    },
+    {
+      "code": "CKP",
+      "location": "Other Realms: Cosmic entity's plane",
+      "coordinates": { "x": 2075, "y": 4848, "z": 0 },
+      "notes": "Used during the Fairytale II - Cure a Queen quest."
+    },
+    {
+      "code": "CKR",
+      "location": "Karamja: South of Tai Bwo Wannai Village",
+      "coordinates": { "x": 2801, "y": 3003, "z": 0 },
+      "points_of_interest": ["Graahks", "Shilo Village", "Tai Bwo Wannai Village", "Nature Altar"]
+    },
+    {
+      "code": "CKS",
+      "location": "Morytania: Canifis",
+      "coordinates": { "x": 3447, "y": 3470, "z": 0 },
+      "points_of_interest": ["Morytania Slayer Tower", "Canifis", "Paterdomus", "Mort Myre swamp"]
+    },
+    {
+      "code": "CLP",
+      "location": "Islands: Draynor island",
+      "coordinates": { "x": 3082, "y": 3206, "z": 0 },
+      "notes": "This is the solution to the hard coordinate clue '01 degrees 30 minutes north, 20 degrees 01 minutes east'."
+    },
+    {
+      "code": "CLR",
+      "location": "Islands: Ape Atoll",
+      "coordinates": { "x": 2740, "y": 2738, "z": 0 },
+      "notes": "Requires completion of the Monkey Madness I quest. In addition, 48 Agility and a Ninja monkey greegree or Kruk monkey greegree is required to exit the agility course and travel to the city without taking damage."
+    },
+    {
+      "code": "CLS",
+      "location": "Islands: Hazelmere's home",
+      "coordinates": { "x": 2682, "y": 3081, "z": 0 },
+      "notes": "Hazelmere lives nearby."
+    },
+    {
+      "code": "DIP",
+      "location": "Other Realms: Abyssal Nexus",
+      "coordinates": { "x": 3037, "y": 4763, "z": 0 },
+      "points_of_interest": ["Abyssal Sire"]
+    },
+    {
+      "code": "DIP",
+      "location": "Other Realms: Abyssal Nexus",
+      "coordinates": { "x": 3037, "y": 4763, "z": 0 },
+      "points_of_interest": ["Abyssal Sire"]
+    },
+    {
+      "code": "DIQ",
+      "location": "Player-owned house Superior Garden",
+      "notes": "Only works if the player has a fairy ring in their house."
+    },
+    {
+      "code": "DIR",
+      "location": "Other Realms: Gorak's Plane",
+      "coordinates": { "x": 3038, "y": 5348, "z": 0 },
+      "notes": "The only place Goraks can be found other than the God Wars Dungeon."
+    },
+    {
+      "code": "DIS",
+      "location": "Misthalin: Wizards' Tower",
+      "coordinates": { "x": 3108, "y": 3149, "z": 0 },
+      "points_of_interest": ["Wizards' Tower", "Rune essence mine"],
+      "notes": "Required for the medium Lumbridge & Draynor Diary."
+    },
+    {
+      "code": "DJP",
+      "location": "Kandarin: Tower of Life",
+      "coordinates": { "x": 2658, "y": 3230, "z": 0 },
+      "points_of_interest": ["Ardougne Monastery", "Ardougne cloak unlimited teleport", "East Ardougne", "Spirit tree", "Port Khazard"]
+    },
+    {
+      "code": "DJR",
+      "location": "Great Kourend: Chasm of Fire",
+      "coordinates": { "x": 1455, "y": 3658, "z": 0 },
+      "points_of_interest": ["Chasm of Fire", "North-west corner of Shayzien"]
+    },
+    {
+      "code": "DKP",
+      "location": "Karamja: Gnome Glider",
+      "coordinates": { "x": 2900, "y": 3111, "z": 0 },
+      "points_of_interest": ["Karambwan fishing spots"]
+    },
+    {
+      "code": "DKR",
+      "location": "Misthalin: Edgeville",
+      "coordinates": { "x": 3129, "y": 3496, "z": 0 },
+      "points_of_interest": ["Grand Exchange", "Edgeville bank", "Wilderness"]
+    },
+    {
+      "code": "DKS",
+      "location": "Fremennik: Polar Hunter area",
+      "coordinates": { "x": 2744, "y": 3719, "z": 0 },
+      "points_of_interest": ["Keldagrim entrance", "Brine Rat Cavern", "Rock crabs", "Rellekka"]
+    },
+    {
+      "code": "DLQ",
+      "location": "Kharidian Desert: North of Nardah",
+      "coordinates": { "x": 3423, "y": 3016, "z": 0 },
+      "points_of_interest": ["Desert lizards", "Jackals", "Nardah"]
+    },
+    {
+      "code": "DLR",
+      "location": "Islands: Poison Waste south of Isafdar",
+      "coordinates": { "x": 2213, "y": 3099, "z": 0 },
+      "notes": "Player can use Broken Handz's telescope to spectate players fighting Zulrah. There are also unattackable badgers on the island. This is also the second fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
+    },
+    {
+      "code": "DLS",
+      "location": "Dungeons: Myreque hideout under The Hollows",
+      "coordinates": { "x": 3447, "y": 9824, "z": 0 },
+      "notes": "Requires completion of the In Search of the Myreque quest. Find the cracks in the walls to enter the main tunnel under the Hair of the Dog pub in Canifis."
     }
   ]
 }

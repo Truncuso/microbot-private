@@ -158,7 +158,7 @@ public class HuntersRumoursScript extends Script {
     }
     private boolean checkHunterRequirements() {
         int hunterLevel = getSkillLevel(Skill.HUNTER);
-       
+        return true;
     }
     private boolean navigateToHuntingArea() {
         if (config.huntingMode() == HuntersRumoursConfig.HuntingMode.HUNTER_RUMOURS) {

@@ -1,0 +1,88 @@
+
+
+## Current Ideas
+
+### Runlite based Microbot Plugins
+- QoL Navigation Plugin with serves as an plugin which can be used by other plugins
+  - user can configure
+    - teleports category used, when availabe
+      - use Player owend house (PoH)
+      - use spellbook
+      - use tele tabs
+      - use teleportation items (jewlery)
+      - use fariy rings
+      - ... when more come in me mind extent it
+      - use navigation over player owned house, try to naviagte via options teleporations are avalibae via the player owned house
+    - configure able action hot key 
+      - click action can be navigate to point on minimap- >clicking world map and holding action key
+      - click action can be navigate to current activa qeust with active step -> clicking the current qeust in the player qeust tab 
+    - configure if minimap navigation should be used
+    - stand alone functionlaties,
+      -  navigate to world point by clicking on world minimap with hotkey pressed 
+         -read in click world point location on wolrd mini map, 
+        - how can we get these via runelite and mirco bot
+      - find player best teleportation options (load players availbe teleporationpoitn)
+        - if o      
+  - plugin should load and update current player teleporation options(current inventory, current skill level. (magic,...))(when a naviagtion function is executed which req. these information)
+  - plugin should use microbot walker function for travel to world point and local points, 
+    - for wolrd naviagtion mini map and canvas navigation should be mixed up when possible, and configured by the user
+    - simulate some anti ban features, can we use antiban plugin and breakhandling plugin from microbot for it ?
+  - plugin should check if qeust helper plugin is avaliable a startup and when a function needs it
+  - check if player can use tele port-> req. qeust and magic level, have item in inventors or bank?
+  - provide script (threaded sudled execuation) based functions to other plugins,
+    - when the execution of such a function is finsed a flag should be set (navigationActionInProgress flag private flag, getter only),
+    - command only be accepet if not any other navigation action in progress 
+    - functions
+      - navigate to ceration area by name
+        - search wolrd point coordinate from osrs wiki, use scrapper tool utilty
+        - use teleporation configured by the user and availibe> filter which teleporation are avilaibe
+      - navitate to current acitve qeust setep
+        - get players current active qeust use qeust helper plugin to dertmine current qeust step, area to navigate to, or npc to naviagte to, or no navigation nesscary, also use the scrapper for getting the world point coorniates
+          - when we have to naviagte to an npc, do the runlite object have the saved world point saved?
+      - 
+### Runlite basUtily java based utiltiy function which can be used for plugin delvelopment:
+- Scarpper Tool and information tool for getting Data From osrs Wiki 
+  - in search per string methods (try to remove typos)
+  - first implemntation
+    - location data be name,
+      - get world point for an area, 
+    - get infromation for items  per item name or id
+      - ids, 
+      - names
+      - item tradeable,
+      - item trading information(g.e. prices)
+    - get infromation for npcs by npc name or id (hostile on are monsters and bosses) 
+      -  ids, 
+      -  names
+      -  locations
+      -  slayer only ?
+      -  loot drops, 
+      -  combat weackness and 
+      -  other usefull information ?
+   - loot drop filters ?
+  - in the future ,by using some kind of LLM agnet ?:
+  - - get best loadout for a certain activy (skliing or PvM)
+    - try to get best training metehod for skill and current level
+    - try to load money maker guides based on player unlocks and meeting skill req.
+- encalsuplated Teleporation Data Databse Object 
+  - read in json teleporation data on init
+  - orgenize into 
+    - teleporation type\group (spellbook, player owed house option (lile portal nexus options, jewely box opitoon, sprit tree ,. fariy fing), item(like skill capes)\jewleery,fariy rings)
+    - player owed house option (lile portal nexus options, jewely box opitoon, sprit tree ,. fariy fing)
+      - use location information loaded from the data json file,
+        - jewlry box have jewelry in it which also are avilibe as items
+        - nexus have options in it which are available as spells
+        - ... fariy fings data.. and so on
+    - req items in invnetory to perform teleporation 
+      - e.g.airy ring staff ?, 
+      - runes for magic spells
+      -  item,..., 
+      -  for teleporation via player owend house, rune to player owend house
+  
+  - find nearst teleport per group
+  - for PoH option, get all aviable options
+  - find nearest teleport over all groups
+  - find nearest teleport over all groups considering player unlocks (getting a list of completed qeust?, and current skill levels ?)
+    - for PoH trasnporation methods consider current construction level and if the player can have build the options
+  - find nearest teleport over all groups considering player unlocks    ( getting a list of completed qeust?, and current skill levels ?), and list of items (items can be either in invnetor or bank not revlenat for the database serach and filtering)
+  - ... any more ideas for getting\scrapping teleporation data from these class?

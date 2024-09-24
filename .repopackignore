@@ -1,0 +1,9 @@
+node_modules
+.yarn
+.eslinttcache
+tests/integration-tests/fixtures
+cache/*
+ci/*
+runelite-jshell/
+runelite-maven-plugin/
+runelite-client/src/main/resources/npc/monsters_complete.json

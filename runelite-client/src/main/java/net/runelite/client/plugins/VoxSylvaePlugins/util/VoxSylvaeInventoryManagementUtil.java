@@ -1,10 +1,51 @@
 //package net.runelite.client.plugins.VoxSylvaePlugins.util;
+import net.runelite.api.ItemID;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.plugins.microbot.Microbot;
+import net.runelite.client.plugins.microbot.util.Rs2InventorySetup;
+import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
+import net.runelite.client.plugins.microbot.util.equipment.Rs2Equipment;
 import net.runelite.client.plugins.microbot.util.inventory.DropOrder;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
+import java.util.List;
 public void dropInventoryItems(DropOrder configuredDropOrder, String subStringItem ) {
     DropOrder dropOrder = configuredDropOrder == DropOrder.RANDOM ? DropOrder.random() : configuredDropOrder;
     Rs2Inventory.dropAll(x -> x.name.toLowerCase().contains(subStringItem), dropOrder);
 }
 
+
+private static boolean retrieveItemsFromBank(List<String> items, WorldPoint desiredBankLocation) {
+        if (desiredBankLocation != null) {
+            if (!walkTo(desiredBankLocation,2)) {
+                System.out.println("Failed to reach the bank");
+                return false;
+            }    
+        }
+        if (!Rs2Bank.isOpen()) {
+            Rs2Bank.walkToBankAndUseBank();
+        }
+        
+
+        if (!Rs2Bank.open()) {
+            System.out.println("Failed to open the bank");
+            return false;
+        }
+
+        for (String item : items) {
+            if (Rs2Bank.hasItem(item)) {
+                Rs2Bank.withdrawAllItem(item);
+            } else {
+                System.out.println("Missing item in bank: " + item);
+                Rs2Bank.close();
+                return false;
+            }
+        }
+
+        Rs2Bank.close();
+        return true;
+}
 public boolean loadInventoryAndEquipment(String inventorySetupName, scheduledFuture<?> mainScheduledFuture) {
     rs2InventorySetup = new Rs2InventorySetup(inventorySetupName, mainScheduledFuture);
     

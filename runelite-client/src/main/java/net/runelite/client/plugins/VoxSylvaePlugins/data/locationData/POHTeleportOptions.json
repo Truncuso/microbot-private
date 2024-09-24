@@ -1,0 +1,955 @@
+{
+  "poh_teleports": [
+    {
+      "name": "Jewelry Box",
+      "type": "furniture",
+      "teleports": [
+        {
+          "name": "Ring of dueling",
+          "destinations": [
+            {
+              "name": "Emir's Arena",
+              "coordinates": {
+                "x": 3315,
+                "y": 3235,
+                "z": 0
+              }
+            },
+            {
+              "name": "Castle Wars Arena",
+              "coordinates": {
+                "x": 2440,
+                "y": 3090,
+                "z": 0
+              }
+            },
+            {
+              "name": "Ferox Enclave",
+              "coordinates": {
+                "x": 3151,
+                "y": 3635,
+                "z": 0
+              }
+            },
+            {
+              "name": "Fortis Colosseum",
+              "coordinates": {
+                "x": 1793,
+                "y": 3107,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Games necklace",
+          "destinations": [
+            {
+              "name": "Burthorpe",
+              "coordinates": {
+                "x": 2898,
+                "y": 3553,
+                "z": 0
+              }
+            },
+            {
+              "name": "Barbarian Outpost",
+              "coordinates": {
+                "x": 2520,
+                "y": 3571,
+                "z": 0
+              }
+            },
+            {
+              "name": "Corporeal Beast",
+              "coordinates": {
+                "x": 2967,
+                "y": 4254,
+                "z": 0
+              }
+            },
+            {
+              "name": "Chasm of Tears",
+              "coordinates": {
+                "x": 3245,
+                "y": 9500,
+                "z": 0
+              }
+            },
+            {
+              "name": "Wintertodt Camp",
+              "coordinates": {
+                "x": 1631,
+                "y": 3940,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Combat bracelet",
+          "destinations": [
+            {
+              "name": "Warriors' Guild",
+              "coordinates": {
+                "x": 2865,
+                "y": 3546,
+                "z": 0
+              }
+            },
+            {
+              "name": "Champions' Guild",
+              "coordinates": {
+                "x": 3192,
+                "y": 3368,
+                "z": 0
+              }
+            },
+            {
+              "name": "Edgeville Monastery",
+              "coordinates": {
+                "x": 3052,
+                "y": 3490,
+                "z": 0
+              }
+            },
+            {
+              "name": "Ranging Guild",
+              "coordinates": {
+                "x": 2653,
+                "y": 3439,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Skills necklace",
+          "destinations": [
+            {
+              "name": "Fishing Guild",
+              "coordinates": {
+                "x": 2611,
+                "y": 3390,
+                "z": 0
+              }
+            },
+            {
+              "name": "Mining Guild",
+              "coordinates": {
+                "x": 3046,
+                "y": 9735,
+                "z": 0
+              }
+            },
+            {
+              "name": "Crafting Guild",
+              "coordinates": {
+                "x": 2933,
+                "y": 3295,
+                "z": 0
+              }
+            },
+            {
+              "name": "Cooks' Guild",
+              "coordinates": {
+                "x": 3144,
+                "y": 3438,
+                "z": 0
+              }
+            },
+            {
+              "name": "Woodcutting Guild",
+              "coordinates": {
+                "x": 1662,
+                "y": 3505,
+                "z": 0
+              }
+            },
+            {
+              "name": "Farming Guild",
+              "coordinates": {
+                "x": 1248,
+                "y": 3719,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ring of wealth",
+          "destinations": [
+            {
+              "name": "Miscellania",
+              "coordinates": {
+                "x": 2534,
+                "y": 3862,
+                "z": 0
+              }
+            },
+            {
+              "name": "Grand Exchange",
+              "coordinates": {
+                "x": 3163,
+                "y": 3478,
+                "z": 0
+              }
+            },
+            {
+              "name": "Falador Park",
+              "coordinates": {
+                "x": 2995,
+                "y": 3375,
+                "z": 0
+              }
+            },
+            {
+              "name": "Dondakan's Rock",
+              "coordinates": {
+                "x": 2824,
+                "y": 10168,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "name": "Amulet of glory",
+          "destinations": [
+            {
+              "name": "Edgeville",
+              "coordinates": {
+                "x": 3087,
+                "y": 3496,
+                "z": 0
+              }
+            },
+            {
+              "name": "Karamja",
+              "coordinates": {
+                "x": 2918,
+                "y": 3176,
+                "z": 0
+              }
+            },
+            {
+              "name": "Draynor Village",
+              "coordinates": {
+                "x": 3105,
+                "y": 3251,
+                "z": 0
+              }
+            },
+            {
+              "name": "Al Kharid",
+              "coordinates": {
+                "x": 3293,
+                "y": 3163,
+                "z": 0
+              }
+            }
+          ]
+        }
+      ],
+      "requirements": {
+        "construction_level": 91
+      },
+      "members_only": true
+    },
+    {
+      "name": "Portal Nexus",
+      "type": "room",
+      "teleports": [
+        {
+          "name": "Arceuus Library",
+          "coordinates": {
+            "x": 1632,
+            "y": 3838,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 6
+          }
+        },
+        {
+          "name": "Draynor Manor",
+          "coordinates": {
+            "x": 3108,
+            "y": 3352,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 17
+          }
+        },
+        {
+          "name": "Battlefront",
+          "coordinates": {
+            "x": 1349,
+            "y": 3739,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 23
+          }
+        },
+        {
+          "name": "Varrock",
+          "coordinates": {
+            "x": 3210,
+            "y": 3424,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 25
+          }
+        },
+        {
+          "name": "Lumbridge",
+          "coordinates": {
+            "x": 3222,
+            "y": 3218,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 31
+          }
+        },
+        {
+          "name": "Falador",
+          "coordinates": {
+            "x": 2965,
+            "y": 3378,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 37
+          }
+        },
+        {
+          "name": "Camelot",
+          "coordinates": {
+            "x": 2757,
+            "y": 3477,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 45
+          }
+        },
+        {
+          "name": "Ardougne",
+          "coordinates": {
+            "x": 2661,
+            "y": 3300,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 51,
+            "quests": ["Plague City"]
+          }
+        },
+        {
+          "name": "Watchtower",
+          "coordinates": {
+            "x": 2545,
+            "y": 3112,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 58,
+            "quests": ["Watchtower"]
+          }
+        },
+        {
+          "name": "Senntisten",
+          "coordinates": {
+            "x": 3321,
+            "y": 3335,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 60,
+            "quests": ["Desert Treasure I"]
+          }
+        },
+        {
+          "name": "Kharyrll",
+          "coordinates": {
+            "x": 3493,
+            "y": 3472,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 66,
+            "quests": ["Desert Treasure I"]
+          }
+        },
+        {
+          "name": "Lunar Isle",
+          "coordinates": {
+            "x": 2113,
+            "y": 3915,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 69,
+            "quests": ["Lunar Diplomacy"]
+          }
+        },
+        {
+          "name": "Waterbirth Island",
+          "coordinates": {
+            "x": 2546,
+            "y": 3757,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 72,
+            "quests": ["Lunar Diplomacy"]
+          }
+        },
+        {
+          "name": "Barbarian Outpost",
+          "coordinates": {
+            "x": 2544,
+            "y": 3569,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 75
+          }
+        },
+        {
+          "name": "Fishing Guild",
+          "coordinates": {
+            "x": 2611,
+            "y": 3391,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 85,
+            "quests": ["Lunar Diplomacy"]
+          }
+        },
+        {
+          "name": "Catherby",
+          "coordinates": {
+            "x": 2804,
+            "y": 3442,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 87,
+            "quests": ["Lunar Diplomacy"]
+          }
+        },
+        {
+          "name": "Annakarl",
+          "coordinates": {
+            "x": 3288,
+            "y": 3886,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 90,
+            "quests": ["Desert Treasure I"]
+          }
+        },
+        {
+          "name": "Ape Atoll (Arceuus)",
+          "coordinates": {
+            "x": 2763,
+            "y": 2702,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 90,
+            "quests": ["Monkey Madness I"]
+          }
+        },
+        {
+          "name": "Ghorrock",
+          "coordinates": {
+            "x": 2977,
+            "y": 3873,
+            "z": 0
+          },
+          "requirements": {
+            "magic_level": 96,
+            "quests": ["Desert Treasure I"]
+          }
+        }
+      ],
+      "requirements": {
+        "construction_level": 80
+      },
+      "members_only": true
+    },
+    {
+      "name": "Spirit Tree",
+      "type": "garden_feature",
+      "teleports": [
+        {
+          "name": "Tree Gnome Village",
+          "coordinates": {
+            "x": 2539,
+            "y": 3166,
+            "z": 0
+          },
+          "notes": "In the middle of the Gnome Maze"
+        },
+        {
+          "name": "Gnome Stronghold",
+          "coordinates": {
+            "x": 2460,
+            "y": 3446,
+            "z": 0
+          },
+          "requirements": {
+            "quests": ["The Grand Tree"]
+          },
+          "notes": "Requires quest completion to travel from this location. Can be used as a destination before quest completion."
+        },
+        {
+          "name": "Battlefield of Khazard",
+          "coordinates": {
+            "x": 2555,
+            "y": 3259,
+            "z": 0
+          },
+          "notes": "Just south of West Ardougne"
+        },
+        {
+          "name": "Grand Exchange",
+          "coordinates": {
+            "x": 3185,
+            "y": 3510,
+            "z": 0
+          },
+          "notes": "North-east corner of the Grand Exchange in Varrock"
+        },
+        {
+          "name": "Feldip Hills",
+          "coordinates": {
+            "x": 2486,
+            "y": 2850,
+            "z": 0
+          },
+          "notes": "South-west corner, next to the Myths' Guild"
+        },
+        {
+          "name": "Poison Waste",
+          "coordinates": {
+            "x": 2339,
+            "y": 3111,
+            "z": 0
+          },
+          "requirements": {
+            "quests": ["The Path of Glouphrie (partial)"]
+          },
+          "notes": "East of the Poison Waste"
+        },
+        {
+          "name": "Prifddinas",
+          "coordinates": {
+            "x": 3275,
+            "y": 6124,
+            "z": 0
+          },
+          "requirements": {
+            "quests": ["Song of the Elves"]
+          }
+        }
+      ],
+      "player_grown_locations": [
+        {
+          "name": "Etceteria",
+          "coordinates": {
+            "x": 2613,
+            "y": 3858,
+            "z": 0
+          },
+          "notes": "South-eastern Etceteria"
+        },
+        {
+          "name": "Port Sarim",
+          "coordinates": {
+            "x": 3060,
+            "y": 3258,
+            "z": 0
+          },
+          "notes": "Easternmost part of Port Sarim"
+        },
+        {
+          "name": "Brimhaven",
+          "coordinates": {
+            "x": 2802,
+            "y": 3203,
+            "z": 0
+          },
+          "notes": "North-eastern part, near the Agility Arena"
+        },
+        {
+          "name": "Hosidius",
+          "coordinates": {
+            "x": 1693,
+            "y": 3542,
+            "z": 0
+          },
+          "notes": "Next to the saltpetre deposits and south-east of the Forthos Ruin"
+        },
+        {
+          "name": "Farming Guild",
+          "coordinates": {
+            "x": 1253,
+            "y": 3750,
+            "z": 0
+          },
+          "notes": "Inside the advanced tier of the Farming Guild. Can be accessed before level 85 with stat boosting items."
+        }
+      ],
+      "player_owned_house": {
+        "name": "Superior Garden",
+        "requirements": {
+          "construction_level": 75,
+          "farming_level": 83
+        },
+        "notes": "Does not count towards limit on spirit trees planted. Provides 350 experience in both Farming and Construction."
+      },
+      "requirements": {
+        "farming_level": 83
+      },
+      "members_only": true
+    },
+    {
+      "name": "Fairy Ring",
+      "type": "garden_feature",
+      "teleports": [{
+        "code": "AIQ",
+        "location": "Asgarnia: Mudskipper Point",
+        "coordinates": { "x": 2996, "y": 3114, "z": 0 },
+        "points_of_interest": ["Mogres", "Rimmington", "Port Sarim", "Asgarnia Ice Dungeon"]
+      },
+      {
+        "code": "AIR",
+        "location": "Islands: South-east of Ardougne",
+        "coordinates": { "x": 2700, "y": 3247, "z": 0 },
+        "notes": "Empty island, used for clue scroll coordinates and the medium Ardougne diary. This is also the first fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
+      },
+      {
+        "code": "AJP",
+        "location": "Varlamore: Avium Savannah",
+        "coordinates": { "x": 1651, "y": 3010, "z": 0 },
+        "notes": "Requires having travelled to Civitas illa Fortis via Regulus Cento, after completion of Children of the Sun."
+      },
+      {
+        "code": "AJQ",
+        "location": "Dungeons: Cave south of Dorgesh-Kaan",
+        "coordinates": { "x": 2735, "y": 5221, "z": 0 },
+        "notes": "Completion of Death to the Dorgeshuun and a light source is required to enter this area.",
+        "points_of_interest": ["Cave crawlers", "Cave bugs", "Cave slimes", "Molanisks", "Dorgesh-Kaan Agility Course"]
+      },
+      {
+        "code": "AJR",
+        "location": "Kandarin: Slayer cave south-east of Rellekka",
+        "coordinates": { "x": 2780, "y": 3613, "z": 0 },
+        "points_of_interest": ["Fremennik Slayer Dungeon", "Rellekka"]
+      },
+      {
+        "code": "AJS",
+        "location": "Islands: Penguins near Miscellania",
+        "coordinates": { "x": 2500, "y": 3896, "z": 0 },
+        "notes": "Penguins; no other access. This is also the fourth and final fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
+      },
+      {
+        "code": "AKP",
+        "location": "Kharidian Desert: Necropolis",
+        "coordinates": { "x": 3284, "y": 2705, "z": 0 },
+        "points_of_interest": ["Sophanem", "Menaphos", "Necropolis"],
+        "notes": "Unlocked by entering the Necropolis in the beginning of Beneath Cursed Sands."
+      },
+      {
+        "code": "AKQ",
+        "location": "Kandarin: Piscatoris Hunter area",
+        "coordinates": { "x": 2319, "y": 3619, "z": 0 },
+        "points_of_interest": ["Kraken Cove", "Chinchompas (grey)", "Mining spots", "Piscatoris Fishing Colony"]
+      },
+      {
+        "code": "AKR",
+        "location": "Great Kourend: Hosidius Vinery",
+        "coordinates": { "x": 1827, "y": 3538, "z": 0 },
+        "points_of_interest": ["Hosidius Vinery", "Tithe Farm minigame"]
+      },
+      {
+        "code": "AKS",
+        "location": "Feldip Hills: Feldip Hunter area",
+        "coordinates": { "x": 2571, "y": 2956, "z": 0 },
+        "points_of_interest": ["Hunter jungle area", "Chompy hunting grounds", "Gnome glider"]
+      },
+      {
+        "code": "ALP",
+        "location": "Islands: Lighthouse",
+        "coordinates": { "x": 2503, "y": 3636, "z": 0 },
+        "points_of_interest": ["Jossik", "Barbarian Outpost", "Rellekka", "Dagannoths"]
+      },
+      {
+        "code": "ALQ",
+        "location": "Morytania: Haunted Woods east of Canifis",
+        "coordinates": { "x": 3597, "y": 3495, "z": 0 },
+        "notes": "Can be used in conjunction with the Ectophial to quickly access the fairy ring network, but this ring is surrounded by aggressive Vampyres and Leeches.",
+        "points_of_interest": ["Farming patch", "Port Phasmatys"]
+      },
+      {
+        "code": "ALR",
+        "location": "Other Realms: Abyssal Area",
+        "coordinates": { "x": 3059, "y": 4875, "z": 0 },
+        "points_of_interest": ["Abyssal leeches", "Abyssal guardians", "Abyssal walkers", "Abyssal demons"],
+        "notes": "Alternative area for players to get essence pouches."
+      },
+      {
+        "code": "ALS",
+        "location": "Kandarin: McGrubor's Wood",
+        "coordinates": { "x": 2644, "y": 3495, "z": 0 },
+        "points_of_interest": ["Seers' Village", "Coal trucks", "Fishing Guild", "Ranging Guild", "Hemenster"],
+        "notes": "Going here is required for the medium Kandarin Diary."
+      },
+      {
+        "code": "BIP",
+        "location": "Islands: South-west of Mort Myre",
+        "coordinates": { "x": 3410, "y": 3324, "z": 0 },
+        "notes": "Empty island with a shortcut to enter Mort Myre, requiring level 50 Agility. This fairy ring is also used for the hard cryptic clue 'BIP 7013'."
+      },
+      {
+        "code": "BIQ",
+        "location": "Kharidian Desert near the Kalphite Hive",
+        "coordinates": { "x": 3251, "y": 3095, "z": 0 },
+        "points_of_interest": ["Kalphite Lair", "Kalphite Queen", "Shantay Pass"]
+      },
+      {
+        "code": "BIS",
+        "location": "Kandarin: Ardougne Zoo - Unicorns",
+        "coordinates": { "x": 2635, "y": 3266, "z": 0 },
+        "notes": "Unicorns; no other access. Required for the medium Ardougne Diary."
+      },
+      {
+        "code": "BJP",
+        "location": "Islands: Isle of Souls",
+        "coordinates": { "x": 2267, "y": 2976, "z": 0 },
+        "points_of_interest": ["Crumbling Tower", "Isle of Souls Dungeon"]
+      },
+      {
+        "code": "BJR",
+        "location": "Other Realms: Realm of the Fisher King",
+        "coordinates": { "x": 2650, "y": 4730, "z": 0 },
+        "notes": "Requires partial completion of the Holy Grail quest."
+      },
+      {
+        "code": "BJS",
+        "location": "Islands: Near Zul-Andra",
+        "coordinates": { "x": 2150, "y": 3070, "z": 0 },
+        "notes": "Requires completion of the Regicide quest. 76 Agility is needed to jump off the island."
+      },
+      {
+        "code": "BKP",
+        "location": "Feldip Hills: South of Castle Wars",
+        "coordinates": { "x": 2385, "y": 3035, "z": 0 },
+        "points_of_interest": ["Smoke Devil Dungeon", "Chompy bird hunting grounds", "Teak tree", "Castle Wars"]
+      },
+      {
+        "code": "BKQ",
+        "location": "Other Realms: Enchanted Valley",
+        "coordinates": { "x": 3041, "y": 4532, "z": 0 },
+        "points_of_interest": ["Tree spirits"]
+      },
+      {
+        "code": "BKR",
+        "location": "Morytania: Mort Myre Swamp, south of Canifis",
+        "coordinates": { "x": 3469, "y": 3431, "z": 0 },
+        "notes": "Swamp boat south-east (towards Barrows and Burgh de Rott)."
+      },
+      {
+        "code": "BKS",
+        "location": "Other Realms: Zanaris",
+        "coordinates": { "x": 2412, "y": 4434, "z": 0 },
+        "points_of_interest": ["Impetuous Impulses", "Chaeldar", "Cosmic runic altar"]
+      },
+      {
+        "code": "BLP",
+        "location": "Dungeons: TzHaar area",
+        "coordinates": { "x": 2437, "y": 5126, "z": 0 },
+        "points_of_interest": ["TzHaar Fight Cave", "TzHaar Fight Pit", "TzHaar monsters"]
+      },
+      {
+        "code": "BLQ",
+        "location": "Other Realms: Yu'biusk",
+        "coordinates": { "x": 3573, "y": 4371, "z": 0 },
+        "notes": "Requires partial completion of the Land of the Goblins quest. Used during the Hopespear's Will miniquest."
+      },
+      {
+        "code": "BLR",
+        "location": "Kandarin: Legends' Guild",
+        "coordinates": { "x": 2740, "y": 3351, "z": 0 },
+        "points_of_interest": ["Legends' Guild", "Mining spots", "Magic and Maple trees", "Witchaven", "East Ardougne"]
+      },
+      {
+        "code": "BLS",
+        "location": "Kebos Lowlands: South of Mount Quidamortem",
+        "coordinates": { "x": 1295, "y": 3493, "z": 0 },
+        "points_of_interest": ["Rowboat to The Stranglewood", "Mountain Guide for quick access to the Chambers of Xeric"]
+      },
+      {
+        "code": "CIP",
+        "location": "Islands: Miscellania",
+        "coordinates": { "x": 2513, "y": 3884, "z": 0 },
+        "notes": "Requires completion of The Fremennik Trials quest. Required for the medium Fremennik Diary.",
+        "points_of_interest": ["Miscellania", "Etceteria", "Managing Miscellania"]
+      },
+      {
+        "code": "CIQ",
+        "location": "Kandarin: North-west of Yanille",
+        "coordinates": { "x": 2528, "y": 3127, "z": 0 },
+        "points_of_interest": ["Tree Gnome Village", "Yanille", "Gu'Tanoth", "Castle Wars"]
+      },
+      {
+        "code": "CIR",
+        "location": "Kebos Lowlands: South of Mount Karuulm",
+        "coordinates": { "x": 1302, "y": 3762, "z": 0 },
+        "notes": "The player must have visited Great Kourend at least once in order to access this fairy ring. Required for the medium Kourend & Kebos Diary.",
+        "points_of_interest": ["Mount Karuulm", "Farming Guild"]
+      },
+      {
+        "code": "CIS",
+        "location": "Great Kourend: Arceuus Library",
+        "coordinates": { "x": 1639, "y": 3868, "z": 0 },
+        "notes": "North of the Arceuus Library in Arceuus."
+      },
+      {
+        "code": "CJR",
+        "location": "Kandarin: Sinclair Mansion (east)",
+        "coordinates": { "x": 2705, "y": 3576, "z": 0 },
+        "points_of_interest": ["Sinclair Mansion", "Seers' Village"]
+      },
+      {
+        "code": "CKP",
+        "location": "Other Realms: Cosmic entity's plane",
+        "coordinates": { "x": 2075, "y": 4848, "z": 0 },
+        "notes": "Used during the Fairytale II - Cure a Queen quest."
+      },
+      {
+        "code": "CKR",
+        "location": "Karamja: South of Tai Bwo Wannai Village",
+        "coordinates": { "x": 2801, "y": 3003, "z": 0 },
+        "points_of_interest": ["Graahks", "Shilo Village", "Tai Bwo Wannai Village", "Nature Altar"]
+      },
+      {
+        "code": "CKS",
+        "location": "Morytania: Canifis",
+        "coordinates": { "x": 3447, "y": 3470, "z": 0 },
+        "points_of_interest": ["Morytania Slayer Tower", "Canifis", "Paterdomus", "Mort Myre swamp"]
+      },
+      {
+        "code": "CLP",
+        "location": "Islands: Draynor island",
+        "coordinates": { "x": 3082, "y": 3206, "z": 0 },
+        "notes": "This is the solution to the hard coordinate clue '01 degrees 30 minutes north, 20 degrees 01 minutes east'."
+      },
+      {
+        "code": "CLR",
+        "location": "Islands: Ape Atoll",
+        "coordinates": { "x": 2740, "y": 2738, "z": 0 },
+        "notes": "Requires completion of the Monkey Madness I quest. In addition, 48 Agility and a Ninja monkey greegree or Kruk monkey greegree is required to exit the agility course and travel to the city without taking damage."
+      },
+      {
+        "code": "CLS",
+        "location": "Islands: Hazelmere's home",
+        "coordinates": { "x": 2682, "y": 3081, "z": 0 },
+        "notes": "Hazelmere lives nearby."
+      },
+      {
+        "code": "DIP",
+        "location": "Other Realms: Abyssal Nexus",
+        "coordinates": { "x": 3037, "y": 4763, "z": 0 },
+        "points_of_interest": ["Abyssal Sire"]
+      },
+      {
+        "code": "DIP",
+        "location": "Other Realms: Abyssal Nexus",
+        "coordinates": { "x": 3037, "y": 4763, "z": 0 },
+        "points_of_interest": ["Abyssal Sire"]
+      },
+      {
+        "code": "DIQ",
+        "location": "Player-owned house Superior Garden",
+        "notes": "Only works if the player has a fairy ring in their house."
+      },
+      {
+        "code": "DIR",
+        "location": "Other Realms: Gorak's Plane",
+        "coordinates": { "x": 3038, "y": 5348, "z": 0 },
+        "notes": "The only place Goraks can be found other than the God Wars Dungeon."
+      },
+      {
+        "code": "DIS",
+        "location": "Misthalin: Wizards' Tower",
+        "coordinates": { "x": 3108, "y": 3149, "z": 0 },
+        "points_of_interest": ["Wizards' Tower", "Rune essence mine"],
+        "notes": "Required for the medium Lumbridge & Draynor Diary."
+      },
+      {
+        "code": "DJP",
+        "location": "Kandarin: Tower of Life",
+        "coordinates": { "x": 2658, "y": 3230, "z": 0 },
+        "points_of_interest": ["Ardougne Monastery", "Ardougne cloak unlimited teleport", "East Ardougne", "Spirit tree", "Port Khazard"]
+      },
+      {
+        "code": "DJR",
+        "location": "Great Kourend: Chasm of Fire",
+        "coordinates": { "x": 1455, "y": 3658, "z": 0 },
+        "points_of_interest": ["Chasm of Fire", "North-west corner of Shayzien"]
+      },
+      {
+        "code": "DKP",
+        "location": "Karamja: Gnome Glider",
+        "coordinates": { "x": 2900, "y": 3111, "z": 0 },
+        "points_of_interest": ["Karambwan fishing spots"]
+      },
+      {
+        "code": "DKR",
+        "location": "Misthalin: Edgeville",
+        "coordinates": { "x": 3129, "y": 3496, "z": 0 },
+        "points_of_interest": ["Grand Exchange", "Edgeville bank", "Wilderness"]
+      },
+      {
+        "code": "DKS",
+        "location": "Fremennik: Polar Hunter area",
+        "coordinates": { "x": 2744, "y": 3719, "z": 0 },
+        "points_of_interest": ["Keldagrim entrance", "Brine Rat Cavern", "Rock crabs", "Rellekka"]
+      },
+      {
+        "code": "DLQ",
+        "location": "Kharidian Desert: North of Nardah",
+        "coordinates": { "x": 3423, "y": 3016, "z": 0 },
+        "points_of_interest": ["Desert lizards", "Jackals", "Nardah"]
+      },
+      {
+        "code": "DLR",
+        "location": "Islands: Poison Waste south of Isafdar",
+        "coordinates": { "x": 2213, "y": 3099, "z": 0 },
+        "notes": "Player can use Broken Handz's telescope to spectate players fighting Zulrah. There are also unattackable badgers on the island. This is also the second fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
+      },
+      {
+        "code": "DLS",
+        "location": "Dungeons: Myreque hideout under The Hollows",
+        "coordinates": { "x": 3447, "y": 9824, "z": 0 },
+        "notes": "Requires completion of the In Search of the Myreque quest. Find the cracks in the walls to enter the main tunnel under the Hair of the Dog pub in Canifis."
+      }
+      ],
+      "requirements": {
+        "construction_level": 85,
+        "quests": ["Fairytale II - Cure a Queen (partial completion)"]
+      },
+      "members_only": true
+    }
+  ]
+}

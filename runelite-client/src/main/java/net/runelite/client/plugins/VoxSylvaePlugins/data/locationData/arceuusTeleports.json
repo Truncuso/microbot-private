@@ -1,0 +1,248 @@
+{
+  "arceuus_teleports": [
+    {
+      "name": "Arceuus Home Teleport",
+      "location": "Dark Altar",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 1714,
+        "y": 3883,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 1,
+        "runes": {},
+        "members_only": true
+      }
+    },
+    {
+      "name": "Arceuus Library Teleport",
+      "location": "North of Arceuus Library",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 1632,
+        "y": 3838,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 6,
+        "runes": {
+          "law": 1,
+          "earth": 2
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Draynor Manor Teleport",
+      "location": "Draynor Manor",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 3108,
+        "y": 3352,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 17,
+        "runes": {
+          "law": 1,
+          "earth": 1,
+          "water": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Battlefront Teleport",
+      "location": "Ancient Grave",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 1349,
+        "y": 3739,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 23,
+        "runes": {
+          "law": 1,
+          "earth": 1,
+          "fire": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Mind Altar Teleport",
+      "location": "Mind Altar",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 2979,
+        "y": 3509,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 28,
+        "runes": {
+          "law": 1,
+          "mind": 2
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Respawn Teleport",
+      "location": "Current respawn point",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 34,
+        "runes": {
+          "law": 1,
+          "soul": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Salve Graveyard Teleport",
+      "location": "Mort Myre Swamp entrance",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 3432,
+        "y": 3458,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 40,
+        "runes": {
+          "law": 1,
+          "soul": 2
+        },
+        "members_only": true,
+        "quests": ["Priest in Peril"]
+      }
+    },
+    {
+      "name": "Fenkenstrain's Castle Teleport",
+      "location": "Fenkenstrain's Castle",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 3548,
+        "y": 3528,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 48,
+        "runes": {
+          "law": 1,
+          "soul": 1,
+          "earth": 1
+        },
+        "members_only": true,
+        "quests": ["Priest in Peril"]
+      }
+    },
+    {
+      "name": "West Ardougne Teleport",
+      "location": "West Ardougne graveyard",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 2500,
+        "y": 3291,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 61,
+        "runes": {
+          "law": 2,
+          "soul": 2
+        },
+        "members_only": true,
+        "quests": ["Biohazard"]
+      }
+    },
+    {
+      "name": "Harmony Island Teleport",
+      "location": "Harmony Island",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 3797,
+        "y": 2866,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 65,
+        "runes": {
+          "law": 1,
+          "soul": 1,
+          "nature": 1
+        },
+        "members_only": true,
+        "quests": ["The Great Brain Robbery"]
+      }
+    },
+    {
+      "name": "Cemetery Teleport",
+      "location": "The Forgotten Cemetery",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 2978,
+        "y": 3763,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 71,
+        "runes": {
+          "law": 1,
+          "soul": 1,
+          "blood": 1
+        },
+        "members_only": true
+      }
+    },
+    {
+      "name": "Barrows Teleport",
+      "location": "Barrows",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 3565,
+        "y": 3315,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 83,
+        "runes": {
+          "law": 2,
+          "soul": 2,
+          "blood": 1
+        },
+        "members_only": true,
+        "quests": ["Priest in Peril"]
+      }
+    },
+    {
+      "name": "Ape Atoll Teleport",
+      "location": "Ape Atoll Dungeon",
+      "spellbook": "Arceuus",
+      "coordinates": {
+        "x": 2769,
+        "y": 9100,
+        "z": 0
+      },
+      "requirements": {
+        "magic_level": 90,
+        "runes": {
+          "law": 2,
+          "soul": 2,
+          "blood": 2
+        },
+        "members_only": true,
+        "quests": ["Monkey Madness I"]
+      }
+    }
+  ]
+}

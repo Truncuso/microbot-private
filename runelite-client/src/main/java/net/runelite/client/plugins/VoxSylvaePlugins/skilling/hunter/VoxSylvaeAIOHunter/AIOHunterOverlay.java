@@ -12,7 +12,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-import javax.inject.Inject;
+
 
 import com.google.inject.Provides;
 import net.runelite.api.Client;
@@ -28,13 +28,17 @@ import net.runelite.client.plugins.microbot.util.mouse.VirtualMouse;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayPanel;
 
+import javax.inject.Inject;
+import java.awt.*;
 public class AIOHunterOverlay extends OverlayPanel{
 
     private final HuntersRumoursPlugin plugin;
-
+    private final AIOHunterConfig config;
     @Inject
-    public AIOHunterOverlay(HuntersRumoursPlugin plugin) {        
+    public AIOHunterOverlay(HuntersRumoursPlugin plugin,  AIOHunterConfig config) {        
         super(plugin);
+        this.plugin = plugin;
+
         setPosition(OverlayPosition.TOP_LEFT);
         setLayer(OverlayLayer.ABOVE_SCENE);        
         setNaughty();
@@ -51,12 +55,14 @@ public class AIOHunterOverlay extends OverlayPanel{
         try {
             panelComponent.setPreferredSize(new Dimension(250, 400));
             panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("\uD83E\uDD86 Barbarian Fisher \uD83E\uDD86")
+                    .text("\uD83E\uDD86 AIO Hunter Fisher \uD83E\uDD86")
                     .color(Color.ORANGE)
                     .build());
 
             panelComponent.getChildren().add(LineComponent.builder().build());
             // check if player is in the correct region(10038)
+            int correctRegionId = 10038;
+            HunterCreature configuredCreature = config.preferredHuntingCreature();
             String region = Rs2Player.getWorldLocation() != null ? Rs2Player.getWorldLocation().getRegionID() == 10038 ? "In Region" : "Not in Region" : "Not in Region";
             panelComponent.getChildren().add(LineComponent.builder()
                     .left("Region: " + region)
@@ -76,7 +82,7 @@ public class AIOHunterOverlay extends OverlayPanel{
 
             panelComponent.getChildren().add(LineComponent.builder()
                     .left(Microbot.status)
-                    .right("Version:" + BarbarianFishingScript.version)
+                    .right("Version:" + HuntersRumoursScript.version)
                     .build());
 
 

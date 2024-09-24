@@ -8,7 +8,8 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.plugins.microbot.util.inventory.DropOrder;
-
+import net.runelite.api.coords.WorldPoint;
+import java.util.List;
 @ConfigGroup(GROUP)
 public interface AIOHunterConfig extends Config {
 
@@ -20,6 +21,7 @@ public interface AIOHunterConfig extends Config {
             position = 0
     )
     String generalSection = "general";
+    String huntingSection = "hunting";
     String antiBanSection = "AntiBan";
 
     
@@ -51,6 +53,8 @@ public interface AIOHunterConfig extends Config {
         keyName = "devDebug",
         name = "Enable developer debug",
         description = "Enable developer debug",
+        position = 2, // Adjust position as needed
+        section = generalSection
     )
     default boolean devDebug() {
         return true;
@@ -60,7 +64,7 @@ public interface AIOHunterConfig extends Config {
             keyName = "dropOrder",
             name = "Drop Order",
             description = "The order in which to drop items",
-            position = 2,
+            position = 3,
             section = generalSection
     )
     default DropOrder dropOrder() {
@@ -72,22 +76,25 @@ public interface AIOHunterConfig extends Config {
         keyName = "huntingMode",
         name = "Hunting Mode",
         description = "Choose between Hunter Rumours or Classic Hunting",
-        position = 1,
-        section = generalSection
+        position = 0,
+        section = huntingSection
     )
     default HuntingMode huntingMode() {
         return HuntingMode.HUNTER_RUMOURS;
     }
 
     @ConfigItem(
-        keyName = "classicHuntingCreature",
-        name = "Classic Hunting Creature",
+        keyName = "preferredHuntingCreature",
+        name = "preferred Hunting Creature",
         description = "Select the creature to hunt in classic mode",
-        position = 2,
-        section = generalSection
+        position = 1,
+        section = huntingSection
     )
-    default HuntingCreature classicHuntingCreature() {
-        return HuntingCreature.RED_CHINCHOMPA;
+    default HunterCreature preferredHuntingCreature() {
+        CreatureLocation location = new CreatureLocation("Feldip Hills", new WorldPoint(2536, 2910, 0));
+        List<CreatureLocation> locations = List.of(location);
+        HunterCreature tmp = new HunterCreature ("Red Chinchompa" , 63, "Box Traps", locations);
+        return tmp;
     }
 
 
@@ -104,7 +111,8 @@ public interface AIOHunterConfig extends Config {
     @ConfigItem(
         keyName = "useAntiban",
         name = "Enable Antiban",
-        description = "Enable antiban measures like random camera movements"
+        description = "Enable antiban measures like random camera movements",
+        section = antiBanSection
     )
     default boolean useAntiban() {
         return true;
@@ -113,12 +121,16 @@ public interface AIOHunterConfig extends Config {
     @ConfigItem(
         keyName = "breakDuration",
         name = "Break Duration",
-        description = "Duration of breaks in milliseconds"
+        description = "Duration of breaks in milliseconds",
+        section = antiBanSection
     )
     default int breakDuration() {
         return 30000; // 30 seconds
     }
-
+    enum HuntingMode {
+        HUNTER_RUMOURS,
+        CLASSIC_HUNTING
+    }
     
 
 }
