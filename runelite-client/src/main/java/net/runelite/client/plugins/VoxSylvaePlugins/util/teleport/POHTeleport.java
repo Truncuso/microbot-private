@@ -5,18 +5,32 @@ import net.runelite.api.coords.WorldPoint;
 import java.util.List;
 import java.util.Map;
 
-public class POHTeleport extends Teleport {
+public class POHTeleport extends AbstractTeleport {
     private String furniture;
     private Map<String, List<POHDestination>> teleports;
 
-    public POHTeleport(String name, String furniture, Map<String, List<POHDestination>> teleports, int requiredLevel) {
-        super(name, null, TeleportType.POH, requiredLevel, null, null);
+    public POHTeleport(String name, String furniture, Map<String, List<POHDestination>> teleports, int requiredLevel, List<String> requiredItems, List<String> requiredQuests) {
+        super(name, TeleportType.POH, requiredLevel, requiredItems, requiredQuests);
         this.furniture = furniture;
         this.teleports = teleports;
     }
 
     public String getFurniture() { return furniture; }
     public Map<String, List<POHDestination>> getTeleports() { return teleports; }
+
+    @Override
+    public double getDistanceTo(WorldPoint destination) {
+        double minDistance = Double.MAX_VALUE;
+        for (List<POHDestination> destinations : teleports.values()) {
+            for (POHDestination pohDest : destinations) {
+                double distance = pohDest.getCoordinates().distanceTo2D(destination);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                }
+            }
+        }
+        return minDistance;
+    }
 
     public static class POHDestination {
         private String name;

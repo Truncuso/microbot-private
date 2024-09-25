@@ -1,5 +1,5 @@
 
-//package net.runelite.client.plugins.VoxSylvaePlugins.util;
+
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.hunter.HunterConfig;
 import net.runelite.client.plugins.microbot.Microbot;

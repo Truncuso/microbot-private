@@ -80,7 +80,7 @@ public interface AIOHunterConfig extends Config {
         section = huntingSection
     )
     default HuntingMode huntingMode() {
-        return HuntingMode.HUNTER_RUMOURS;
+        return HuntingMode.CLASSIC_HUNTING;
     }
 
     @ConfigItem(
@@ -90,10 +90,10 @@ public interface AIOHunterConfig extends Config {
         position = 1,
         section = huntingSection
     )
-    default HunterCreature preferredHuntingCreature() {
+    default HunterCreatureTarget preferredHuntingCreature() {
         CreatureLocation location = new CreatureLocation("Feldip Hills", new WorldPoint(2536, 2910, 0));
         List<CreatureLocation> locations = List.of(location);
-        HunterCreature tmp = new HunterCreature ("Red Chinchompa" , 63, "Box Traps", locations);
+        HunterCreatureTarget tmp = new HunterCreatureTarget ("Red Chinchompa" , 63, "Box Traps", locations);
         return tmp;
     }
 

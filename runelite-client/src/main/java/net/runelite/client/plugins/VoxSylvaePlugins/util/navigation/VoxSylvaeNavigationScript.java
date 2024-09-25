@@ -1,5 +1,9 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.util.navigation;
-
+import net.runelite.client.plugins.VoxSylvaePlugins.util.*;
+import net.runelite.client.plugins.VoxSylvaePlugins.util.teleport.TeleportationManager;
+import net.runelite.client.plugins.microbot.util.antiban.Rs2Antiban;
+import net.runelite.client.plugins.microbot.util.antiban.Rs2AntibanSettings;
+import net.runelite.client.plugins.VoxSylvaePlugins.util.teleport.Teleport;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.Skill;
@@ -40,7 +44,11 @@ public class VoxSylvaeNavigationScript extends Script {
         BANKING,
         INTERACTING
     }
-    private static Map<String, TeleportInfo> availableTeleports = new HashMap<>();
+    @Inject
+    VoxSylvaeInventoryAndBankManagementScript inventoryAndBankManagementScript;
+    @Inject
+    TeleportationManager teleportationManager;
+    private static Map<String, Teleport> availableTeleports = new HashMap<>();
     private static final WorldPoint BANK_LOCATION = new WorldPoint(3183, 3436, 0); // Example: Varrock West Bank
     private NavigationState navigationState = NavigationState.IDLE;
     private WorldPoint currentDesiredLocation;
@@ -50,12 +58,16 @@ public class VoxSylvaeNavigationScript extends Script {
     public WorldPoint getCurrentDesiredLocation() {
         return currentDesiredLocation;
     }
-    public static void initialize() {
+    private static void initialize() {
         loadAllTeleports();
         checkPlayerTeleports();
     }
 
     private static void loadAllTeleports() {
+        // get all completed quests and add them to the list of available teleports
+        List<String> completedQuests = new ArrayList<>();
+        Rs2Player.
+        availableTeleports = TeleportationManager.getTeleports();
         // Add all possible teleports here
         availableTeleports.put("Varrock", new TeleportInfo(Rs2Magic.Spell.VARROCK_TELEPORT, new WorldPoint(3212, 3424, 0), 25, "Law rune", "Air rune", "Fire rune"));
         availableTeleports.put("Lumbridge", new TeleportInfo(Rs2Magic.Spell.LUMBRIDGE_TELEPORT, new WorldPoint(3225, 3219, 0), 31, "Law rune", "Air rune", "Earth rune"));
@@ -70,7 +82,7 @@ public class VoxSylvaeNavigationScript extends Script {
         }
         return true;
     }
-    private void checkPlayerTeleports() {
+    private static void checkPlayerTeleports() {
         int magicLevel = getSkillLevel(Skill.MAGIC);
         for (Map.Entry<String, TeleportInfo> entry : availableTeleports.entrySet()) {
             TeleportInfo info = entry.getValue();
@@ -80,7 +92,7 @@ public class VoxSylvaeNavigationScript extends Script {
         }
     }
 
-    public boolean teleportToLocation(String teleportName, WorldPoint finalDestination) {
+    /*public boolean teleportToLocation(String teleportName, WorldPoint finalDestination) {
         TeleportInfo teleport = availableTeleports.get(teleportName);
         if (teleport != null && teleport.isAvailable) {
             Rs2Magic.castSpell(teleport.spell);
@@ -94,8 +106,22 @@ public class VoxSylvaeNavigationScript extends Script {
             System.out.println("Teleport not available: " + teleportName);
             return walkTo(finalDestination,2);
         }
+    }*/
+    public boolean walkToWithRandomizedDistance(WorldPoint destination, int minDistance, int maxDistance) {
+        Random random = new Random();
+        int distance = random.nextInt(maxDistance - minDistance + 1) + minDistance;
+        return walkTo(destination, distance);
     }
-
+    public boolean walkToWithTeleport(WorldPoint destination, int distance) {
+        // find the nearest teleport to the destination
+        Teleport nearestTeleport = teleportationManager.findNearestTeleport(destination);
+        
+        if (Rs2Walker.getDistanceBetween(Rs2Player.getWorldLocation(), destination) > distance) {
+            return walkTo(destination, distance);
+        } else {
+            return true;
+        }
+    }
     public boolean walkTo(WorldPoint destination, int distance) {
         this.navigationState = NavigationState.WALKING;
         this.currentDesiredLocation = destination;
@@ -112,6 +138,45 @@ public class VoxSylvaeNavigationScript extends Script {
         //sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving(), 300);
         this.navigationState = NavigationState.IDLE;
         return true;
+    }
+    public boolean openBank ( WorldPoint desiredBankLocation) {
+        if (Rs2Player.getWorldLocation().equals(desiredBankLocation)) {
+            
+            return inventoryAndBankManagementScript.openBank();
+        } else {
+            walkTo(desiredBankLocation, 2);
+
+            return inventoryAndBankManagementScript.openBank();
+        }
+    }
+    public boolean walkToWithAntiBan(WorldPoint destination, int distance) {
+        // get antiban settings
+        //Rs2AntibanSettings Rs2AntibanSettings = new Rs2AntibanSettings();
+        Microbot.pauseAllScripts = false;
+        
+        return walkTo(Rs2Player.getWorldLocation(), 2);
+        //Rs2Antiban.actionCooldown();
+        //Rs2Antiban.takeMicroBreakByChance();
+    }
+    private void applyAntiBanSettings() {
+        Rs2AntibanSettings.antibanEnabled = true;
+        Rs2AntibanSettings.usePlayStyle = true;
+        Rs2AntibanSettings.simulateFatigue = true;
+        Rs2AntibanSettings.simulateAttentionSpan = true;
+        Rs2AntibanSettings.behavioralVariability = true;
+        Rs2AntibanSettings.nonLinearIntervals = true;
+        Rs2AntibanSettings.naturalMouse = true;
+        Rs2AntibanSettings.moveMouseOffScreen = true;
+        Rs2AntibanSettings.contextualVariability = true;
+        Rs2AntibanSettings.dynamicIntensity = true;
+        Rs2AntibanSettings.devDebug = false;
+        Rs2AntibanSettings.moveMouseRandomly = true;
+        Rs2AntibanSettings.takeMicroBreaks = true;
+        Rs2AntibanSettings.microBreakDurationLow = 3;
+        Rs2AntibanSettings.microBreakDurationHigh = 15;
+        Rs2AntibanSettings.actionCooldownChance = 0.4;
+        Rs2AntibanSettings.microBreakChance = 0.15;
+        Rs2AntibanSettings.moveMouseRandomlyChance = 0.1;
     }
     public boolean walkToAreabyName(String  AreaName, int radius) {
         //notimplented yet
@@ -204,10 +269,10 @@ public class VoxSylvaeNavigationScript extends Script {
         }
         return false;
     }
-    private int getSkillLevel(Skill skill) {
+    private static int getSkillLevel(Skill skill) {
         return Microbot.getClient().getRealSkillLevel(skill);
     }
-    private String findNearestTeleport(WorldPoint destination) {
+    private static String findNearestTeleport(WorldPoint destination) {
         // Implement logic to find the nearest teleport to the destination
         // Return the teleport method name or null if no suitable teleport is found
         return null;
@@ -227,5 +292,10 @@ public class VoxSylvaeNavigationScript extends Script {
             this.requiredItems = requiredItems;
             this.isAvailable = false;
         }
+    }
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        Microbot.pauseAllScripts = true;
     }
 }
