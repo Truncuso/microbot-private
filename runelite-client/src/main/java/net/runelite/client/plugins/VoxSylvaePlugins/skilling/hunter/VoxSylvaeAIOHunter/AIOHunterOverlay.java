@@ -32,13 +32,15 @@ import javax.inject.Inject;
 import java.awt.*;
 public class AIOHunterOverlay extends OverlayPanel{
 
-    private final HuntersRumoursPlugin plugin;
+    private final AIOHunterPlugin plugin;
+    private final HuntersRumoursScript script;
     private final AIOHunterConfig config;
     @Inject
-    public AIOHunterOverlay(HuntersRumoursPlugin plugin,  AIOHunterConfig config) {        
+    public AIOHunterOverlay(AIOHunterPlugin plugin, HuntersRumoursScript  script,AIOHunterConfig config) {        
         super(plugin);
         this.plugin = plugin;
-
+        this.config = config;
+        this.script = script;
         setPosition(OverlayPosition.TOP_LEFT);
         setLayer(OverlayLayer.ABOVE_SCENE);        
         setNaughty();
@@ -62,7 +64,8 @@ public class AIOHunterOverlay extends OverlayPanel{
             panelComponent.getChildren().add(LineComponent.builder().build());
             // check if player is in the correct region(10038)
             int correctRegionId = 10038;
-            HunterCreature configuredCreature = config.preferredHuntingCreature();
+            HunterCreatureTarget configuredCreature = script.getTargetCreature();
+
             String region = Rs2Player.getWorldLocation() != null ? Rs2Player.getWorldLocation().getRegionID() == 10038 ? "In Region" : "Not in Region" : "Not in Region";
             panelComponent.getChildren().add(LineComponent.builder()
                     .left("Region: " + region)
@@ -76,7 +79,37 @@ public class AIOHunterOverlay extends OverlayPanel{
             panelComponent.getChildren().add(LineComponent.builder()
                     .left("Feathers: " + (Rs2Inventory.hasItem("feather") ? String.valueOf(Rs2Inventory.get("feather").quantity) : "Not Present"))
                     .build());
+            if (configuredCreature != null) {
+                String creatureName = configuredCreature.getName();               
+                String method = configuredCreature.getMethod();
+                int level = configuredCreature.getRequiredLevel();
+                String goal = configuredCreature.getGoalName();
+                int goalAmount = configuredCreature.getGoalAmount();
+                String goalType = configuredCreature.getGoalTypeName();
+            }else{
+                String creatureName = "No creature selected";
+                String method = "No method selected";
+                int level = 0;
+                String goal = "No goal selected";
+                int goalAmount = 0;
+                String goalType = "No goal type selected";
+            }
 
+            panelComponent.getChildren().add(LineComponent.builder().build());
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left("Creature: " + String(creatureName))
+                    .build());
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left("Method: " + method)
+                    .build());
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left("Level: " + configuredCreature.getRequiredLevel())
+                    .build());
+            panelComponent.getChildren().add(LineComponent.builder()
+                    .left("Goal: " + configuredCreature.getGoalName().getGoalName())
+                    .build());
+            
+            panelComponent.getChildren().add(LineComponent.builder().build());
             panelComponent.getChildren().add(LineComponent.builder().build());
             Rs2Antiban.renderAntibanOverlayComponents(panelComponent);
 
@@ -84,7 +117,8 @@ public class AIOHunterOverlay extends OverlayPanel{
                     .left(Microbot.status)
                     .right("Version:" + HuntersRumoursScript.version)
                     .build());
-
+            panelComponent.getChildren().add(LineComponent.builder().build());
+                    Rs2Antiban.renderAntibanOverlayComponents(panelComponent);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

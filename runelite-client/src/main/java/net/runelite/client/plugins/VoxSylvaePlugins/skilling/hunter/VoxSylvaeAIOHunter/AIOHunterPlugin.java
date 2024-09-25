@@ -18,10 +18,12 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.StatChanged;
 import net.runelite.client.Notifier;
 import net.runelite.client.callback.ClientThread;
@@ -74,7 +76,7 @@ import java.awt.*;
 @PluginDependency(XpTrackerPlugin.class)
 @PluginDependency(XpTrackerPlugin.class)
 @Slf4j
-public class HuntersRumoursPlugin extends Plugin{
+public class AIOHunterPlugin extends Plugin{
 
     public static int ticksSinceLogin;
     private static int idleTicks = 0;
@@ -170,6 +172,8 @@ public class HuntersRumoursPlugin extends Plugin{
         if (!isRunning) {
             isRunning = true;
             ensurePluginEnabled(BreakHandlerPlugin.class , config.devDebug());
+            ensurePluginEnabled(AntibanPlugin.class , config.devDebug());
+            
             HuntersRumoursScript.run(config);
             Microbot.showMessage("AIO hunter plugin started by user");               
         }
@@ -210,5 +214,21 @@ public class HuntersRumoursPlugin extends Plugin{
         if (isRunning) {
             HuntersRumoursScript.onGameTick();
         }        
+    }
+
+    @Subscribe
+
+    public void onItemContainerChanged(ItemContainerChanged itemContainerChangedEvent)
+
+    {
+
+        if (itemContainerChangedEvent.getContainerId() == InventoryID.INVENTORY.getId())
+
+        {
+
+        
+
+        }
+
     }
 }
