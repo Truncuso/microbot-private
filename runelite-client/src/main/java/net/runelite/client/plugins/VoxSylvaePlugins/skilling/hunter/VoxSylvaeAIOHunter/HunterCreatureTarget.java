@@ -8,7 +8,7 @@ import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
-import net.runelite.client.plugins.worldmap.*;
+
 
 public class HunterCreatureTarget {
     private String name;
@@ -77,10 +77,18 @@ public class HunterCreatureTarget {
     public int getGoalAmount() { return this.goal.getGoalAmount(); }
     public boolean isCompleted() { return this.goal.isCompleted(); }
     public void incrementCatch() { this.goal.incrementCatch(); }
-    public void getGoalName() { return this.goal.getGoalName(); }
-    public void getGoalTypeName() { return this.goal.getGoalTypeName(); }
+    public String getGoalName() { return this.goal.getGoalName(); }
+    public String getGoalTypeName() { return this.goal.getGoalTypeName(); }
+    public List<String> getHuntingAreaNames(){
+        
+        //HunterAreaUtils hunterAreaUtils = new HunterAreaUtils();
+        return HunterAreaUtils.getAreaNamesForCreature(this.name);
+
+    }
     public List<WorldPoint> getHuntingAreaLocations(){
-        List<HunterAreaLocation> allCreatures = Arrays.asList(HunterAreaLocation.values());
+        
+        //HunterAreaUtils hunterAreaUtils = new HunterAreaUtils();
+        return HunterAreaUtils.getLocationsForCreature(this.name);
 
     }
 }
