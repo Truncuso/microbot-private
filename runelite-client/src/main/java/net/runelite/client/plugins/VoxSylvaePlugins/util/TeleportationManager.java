@@ -1,50 +1,27 @@
-package net.runelite.client.plugins.VoxSylvaePlugins.util;
-import net.runelite.api.*;
+package net.runelite.client.plugins.VoxSylvaePlugins.teleportation;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.plugins.VoxSylvaePlugins.data.locationData.JewelryTeleport;
-import net.runelite.client.plugins.VoxSylvaePlugins.util.teleport.*;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.magic.Rs2Magic;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
-import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
-import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
-import net.runelite.client.plugins.microbot.util.magic.Rs2Magic;
-import net.runelite.client.plugins.microbot.util.player.Rs2Player;
 import net.runelite.client.plugins.VoxSylvaePlugins.util.teleport.*;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Inject;
-import java.util.*;
-import java.awt.event.KeyEvent;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.function.BooleanSupplier;
-
-import lombok.Getter;
-import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.WidgetLoaded;
-
-import net.runelite.api.widgets.Widget;
-import net.runelite.client.plugins.microbot.globval.enums.InterfaceTab;
+import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
 import net.runelite.client.plugins.microbot.shortestpath.ShortestPathPlugin;
-import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
-import net.runelite.client.plugins.microbot.util.keyboard.Rs2Keyboard;
-import net.runelite.client.plugins.microbot.util.math.Random;
-import net.runelite.client.plugins.microbot.util.player.Rs2Player;
-import net.runelite.client.plugins.microbot.util.tabs.Rs2Tab;
-import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
-import java.awt.*;
-import java.util.stream.Collectors;
+import net.runelite.client.plugins.microbot.shortestpath.pathfinder.Pathfinder;
+
+import javax.inject.Inject;
+
+import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.Collectors; 
 
 public class TeleportationManager{
 
@@ -52,13 +29,26 @@ public class TeleportationManager{
     @Inject
     private Client client;
 
-
-
     private Map<TeleportType, List<Teleport>> teleports;
+    private Map<String, MagicAction> teleportToMagicActionMap;
     private Teleport currentTeleport;
     private boolean isTeleporting;
     private int teleportStartTick;
-    private Map<String, MagicAction> teleportToMagicActionMap;
+    private Map<String, CachedPathInfo> distanceCache;
+    private String cacheDir = "teleport_cache/";
+    private WorldPoint currentTarget;
+    private Future<?> currentPathfindingTask;
+    private static final int CACHE_PROXIMITY_THRESHOLD = 5; // Tiles
+
+    private static class CachedPathInfo {
+        int distance;
+        long timestamp;
+
+        CachedPathInfo(int distance, long timestamp) {
+            this.distance = distance;
+            this.timestamp = timestamp;
+        }
+    }
     public TeleportationManager(Client client) {
         if (client == null) {
           this.client = Microbot.getClient();
@@ -67,7 +57,12 @@ public class TeleportationManager{
         }        
         
         initialize();
-        
+        this.teleports = new HashMap<>();
+        this.teleportToMagicActionMap = new HashMap<>();
+        this.isTeleporting = false;
+        this.distanceCache = new HashMap<>();
+        initializeTeleportToMagicActionMap();
+        loadDistanceCache();
         
 
     }
@@ -208,6 +203,150 @@ public class TeleportationManager{
         }
     }
 
+    private void loadDistanceCache() {
+        File cacheFile = new File(cacheDir + "distance_cache.json");
+        if (cacheFile.exists()) {
+            try (Reader reader = new FileReader(cacheFile)) {
+                Gson gson = new Gson();
+                Type type = new TypeToken<Map<String, Integer>>(){}.getType();
+                distanceCache = gson.fromJson(reader, type);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveDistanceCache() {
+        File cacheDir = new File(this.cacheDir);
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
+        File cacheFile = new File(cacheDir, "distance_cache.json");
+        try (Writer writer = new FileWriter(cacheFile)) {
+            Gson gson = new Gson();
+            gson.toJson(distanceCache, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void cleanOldCacheEntries(long maxAgeMillis) {
+        long now = System.currentTimeMillis();
+        distanceCache.entrySet().removeIf(entry -> now - entry.getValue().timestamp > maxAgeMillis);
+    }
+
+    public String getRegionName(WorldPoint point) {
+        // This method should be implemented to fetch the region name from the OSRS Wiki
+        // You might need to create a separate utility class for this functionality
+        // For now, we'll return a placeholder
+        return "Unknown Region";
+    }
+
+    // ... (other methods remain the same)
+
+
+
+    public Teleport findNearestTeleport(WorldPoint destination) {
+        if (currentTarget != null && currentTarget.equals(destination) && currentPathfindingTask != null && !currentPathfindingTask.isDone()) {
+            return null; // Pathfinding is already in progress for this destination
+        }
+
+        setTarget(destination);
+        
+        CompletableFuture<Teleport> pathfindingFuture = new CompletableFuture<>();
+        
+        currentPathfindingTask = CompletableFuture.runAsync(() -> {
+            Microbot.getClientThread().runOnSeperateThread(() -> {
+                try {
+                    Teleport nearest = null;
+                    double minDistance = Double.MAX_VALUE;
+
+                    for (List<Teleport> teleportList : teleports.values()) {
+                        for (Teleport teleport : teleportList) {
+                            double distance = getDistanceToViaShortestPath(teleport.getDestination(), destination);
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                nearest = teleport;
+                            }
+                        }
+                    }
+
+                    pathfindingFuture.complete(nearest);
+                } catch (Exception e) {
+                    pathfindingFuture.completeExceptionally(e);
+                }
+                return null;
+            });
+        });
+
+        try {
+            return pathfindingFuture.get(30, TimeUnit.SECONDS); // Adjust timeout as needed
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public double getDistanceToViaShortestPath(WorldPoint start, WorldPoint end) {
+        // Check if there's a nearby cached path
+        Optional<Map.Entry<String, CachedPathInfo>> nearbyCachedPath = findNearbyCachedPath(start, end);
+        if (nearbyCachedPath.isPresent()) {
+            return nearbyCachedPath.get().getValue().distance;
+        }
+
+        String cacheKey = start.toString() + "-" + end.toString();
+        CompletableFuture<Integer> pathFuture = new CompletableFuture<>();
+        
+        currentPathfindingTask = CompletableFuture.runAsync(() -> {
+            Microbot.getClientThread().runOnSeperateThread(() -> {
+                try {
+                    Pathfinder pathfinder = new Pathfinder(ShortestPathPlugin.getPathfinderConfig(), start, end);
+                    while (!pathfinder.isDone()) {
+                        Thread.sleep(100);
+                    }
+                    int distance = pathfinder.getPath().size();
+                    pathFuture.complete(distance);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    pathFuture.completeExceptionally(e);
+                }
+                return null;
+            });
+        });
+
+        try {
+            int distance = pathFuture.get(5, TimeUnit.SECONDS);
+            distanceCache.put(cacheKey, new CachedPathInfo(distance, System.currentTimeMillis()));
+            saveDistanceCache();
+            return distance;
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            e.printStackTrace();
+            return Double.MAX_VALUE;
+        }
+    }
+
+    private Optional<Map.Entry<String, CachedPathInfo>> findNearbyCachedPath(WorldPoint start, WorldPoint end) {
+        return distanceCache.entrySet().stream()
+            .filter(entry -> {
+                String[] points = entry.getKey().split("-");
+                WorldPoint cachedStart = WorldPoint.fromString(points[0]);
+                WorldPoint cachedEnd = WorldPoint.fromString(points[1]);
+                return cachedStart.distanceTo(start) <= CACHE_PROXIMITY_THRESHOLD &&
+                       cachedEnd.distanceTo(end) <= CACHE_PROXIMITY_THRESHOLD;
+            })
+            .min(Comparator.comparingLong(entry -> entry.getValue().timestamp));
+    }
+    private void setTarget(WorldPoint target) {
+        if (!Microbot.isLoggedIn()) return;
+        
+        currentTarget = target;
+
+        if (target == null) {
+            if (currentPathfindingTask != null) {
+                currentPathfindingTask.cancel(true);
+                currentPathfindingTask = null;
+            }
+        }
+    }
     public Teleport findNearestTeleport(WorldPoint destination) {
         Teleport nearest = null;
         double minDistance = Double.MAX_VALUE;
@@ -369,6 +508,13 @@ public class TeleportationManager{
                 }
             }
         }
+    }
+    
+    private void shutdown() {
+        if (currentPathfindingTask != null) {
+            currentPathfindingTask.cancel(true);
+        }
+        saveDistanceCache();
     }
     // Add more methods as needed, such as filtering by requirements, etc.
 }
