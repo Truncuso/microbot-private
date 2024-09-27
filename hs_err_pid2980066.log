@@ -1,0 +1,24 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fa7dafe04c0, pid=2980066, tid=2980271
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.12+7 (17.0.12+7) (build 17.0.12+7)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.12+7 (17.0.12+7, mixed mode, tiered, compressed oops, compressed class ptrs, parallel gc, linux-amd64)
+# Problematic frame:
+# C  [libc.so.6+0xa44c0]
+[timeout occurred during error reporting in step "printing problematic frame"] after 30 s.
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E" (or dumping to /home/cunger/10_Projects/11_private/OSRS/microbot/microbot-private/core.2980066)
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/adoptium/adoptium-support/issues
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: --add-modules=ALL-SYSTEM --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/sun.nio.fs=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Djava.import.generatesMetadataFilesAtProjectRoot=false -DDetectVMInstallationsJob.disabled=true -Dfile.encoding=utf8 -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable -javaagent:/home/cunger/.vscode/extensions/redhat.java-1.35.0-linux-x64/lombok/lombok-1.18.33.jar -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/cunger/.config/Code/User/workspaceStorage/7b9744d5926fcfd979fa94acb62063c2/redhat.java -Daether.dependencyCollector.impl=bf /home/cunger/.vscode/extensions/redhat.java-1.35.0-linux-x64/server/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar -configuration /home/cunger/.config/Code/User/globalStorage/redhat.java/1.35.0/config_linux -data /home/cunger/.config/Code/User/workspaceStorage/7b9744d5926fcfd979fa94acb62063c2/redhat.java/jdt_ws --pipe=/run/user/1000/lsp-4d652b538fc31665eef8dcf8d942eea0.sock
+
+Host: 
+[timeout occurred during error reporting in step "printing summary machine and OS info"] after 30 s.
+
+------ Timeout during error reporting after 120 s. ------
