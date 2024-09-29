@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Moonclan Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 69,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Astral rune", "quantity": 2},
+      {"name": "Earth rune", "quantity": 2}
+    ],
+    "requiredQuests": ["Lunar Diplomacy"],
+    "destinations": [
+      {"x": 2113, "y": 3915, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Moonclan Island",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Ourania Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 71,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Astral rune", "quantity": 2},
+      {"name": "Earth rune", "quantity": 6}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2469, "y": 3246, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Ourania Altar",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Waterbirth Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 72,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Astral rune", "quantity": 2},
+      {"name": "Water rune", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2546, "y": 3757, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Waterbirth Island",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Barbarian Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 75,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Astral rune", "quantity": 2},
+      {"name": "Fire rune", "quantity": 3}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2544, "y": 3569, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Barbarian Outpost",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Khazard Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 78,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 2},
+      {"name": "Astral rune", "quantity": 2},
+      {"name": "Water rune", "quantity": 4}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2634, "y": 3166, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Port Khazard",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Fishing Guild Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 85,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 3},
+      {"name": "Astral rune", "quantity": 3},
+      {"name": "Water rune", "quantity": 10}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2611, "y": 3391, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Fishing Guild",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Catherby Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 87,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 3},
+      {"name": "Astral rune", "quantity": 3},
+      {"name": "Water rune", "quantity": 10}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2804, "y": 3442, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Catherby",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Ice Plateau Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 89,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 3},
+      {"name": "Astral rune", "quantity": 3},
+      {"name": "Water rune", "quantity": 8}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2976, "y": 3944, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Ice Plateau (Wilderness)",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Trollheim Teleport",
+    "type": "LUNAR_SPELLBOOK",
+    "requiredLevel": 92,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 3},
+      {"name": "Astral rune", "quantity": 3},
+      {"name": "Earth rune", "quantity": 10}
+    ],
+    "requiredQuests": ["Eadgar's Ruse"],
+    "destinations": [
+      {"x": 2910, "y": 3611, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Trollheim",
+      "membersOnly": true
+    }
+  }
+]

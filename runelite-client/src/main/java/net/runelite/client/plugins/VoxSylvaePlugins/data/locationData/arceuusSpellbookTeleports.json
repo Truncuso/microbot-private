@@ -1,0 +1,253 @@
+[
+  {
+    "name": "Arceuus Home Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 1,
+    "requiredItems": [],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1714, "y": 3883, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Dark Altar",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Arceuus Library Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 6,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Earth rune", "quantity": 2}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1632, "y": 3838, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "North of Arceuus Library",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Draynor Manor Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 17,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Earth rune", "quantity": 1},
+      {"name": "Water rune", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3108, "y": 3352, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Draynor Manor",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Battlefront Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 23,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Earth rune", "quantity": 1},
+      {"name": "Fire rune", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1349, "y": 3739, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Ancient Grave",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Mind Altar Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 28,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Mind rune", "quantity": 2}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2979, "y": 3509, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Mind Altar",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Respawn Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 34,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Soul rune", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 0, "y": 0, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Current respawn point",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Salve Graveyard Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Soul rune", "quantity": 2}
+    ],
+    "requiredQuests": ["Priest in Peril"],
+    "destinations": [
+      {"x": 3432, "y": 3458, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Mort Myre Swamp entrance",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Fenkenstrain's Castle Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 48,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Soul rune", "quantity": 1},
+      {"name": "Earth rune", "quantity": 1}
+    ],
+    "requiredQuests": ["Priest in Peril"],
+    "destinations": [
+      {"x": 3548, "y": 3528, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Fenkenstrain's Castle",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "West Ardougne Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 61,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 2},
+      {"name": "Soul rune", "quantity": 2}
+    ],
+    "requiredQuests": ["Biohazard"],
+    "destinations": [
+      {"x": 2500, "y": 3291, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "West Ardougne graveyard",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Harmony Island Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 65,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Soul rune", "quantity": 1},
+      {"name": "Nature rune", "quantity": 1}
+    ],
+    "requiredQuests": ["The Great Brain Robbery"],
+    "destinations": [
+      {"x": 3797, "y": 2866, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Harmony Island",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Cemetery Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 71,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 1},
+      {"name": "Soul rune", "quantity": 1},
+      {"name": "Blood rune", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2978, "y": 3763, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "The Forgotten Cemetery",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Barrows Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 83,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 2},
+      {"name": "Soul rune", "quantity": 2},
+      {"name": "Blood rune", "quantity": 1}
+    ],
+    "requiredQuests": ["Priest in Peril"],
+    "destinations": [
+      {"x": 3565, "y": 3315, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Barrows",
+      "membersOnly": true
+    }
+  },
+  {
+    "name": "Ape Atoll Teleport",
+    "type": "ARCEUUS_SPELLBOOK",
+    "requiredLevel": 90,
+    "requiredItems": [
+      {"name": "Law rune", "quantity": 2},
+      {"name": "Soul rune", "quantity": 2},
+      {"name": "Blood rune", "quantity": 2}
+    ],
+    "requiredQuests": ["Monkey Madness I"],
+    "destinations": [
+      {"x": 2769, "y": 9100, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "location": "Ape Atoll Dungeon",
+      "membersOnly": true
+    }
+  }
+]

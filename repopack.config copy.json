@@ -1,0 +1,28 @@
+{
+  "output": {
+    "filePath": "repopack-output_util.txt",
+    "style": "plain",
+    "removeComments": false,
+    "removeEmptyLines": true,
+    "topFilesLength": 10,
+    "showLineNumbers": false
+  },
+  "include": ["runelite-api/src/main/java/net/runelite/api/**/*.java",
+
+              "runelite-client/src/main/java/net/runelite/client/plugins/microbot/util/math/**/*.java",              
+              "runelite-client/src/main/java/net/runelite/client/plugins/microbot/util/walker/**/*.java",       
+              "runelite-client/src/main/java/net/runelite/client/plugins/microbot/util/inventory/**/*.java",       
+              "runelite-client/src/main/java/net/runelite/client/plugins/microbot/util/gameobject/**/*.java",  
+              "runelite-client/src/main/java/net/runelite/client/plugins/microbot/util/grounditem/**/*.java"
+            ],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": ["additional-folder", 
+                        "**/*.json",
+                        "**/*.log","runelite-api/src/main/java/net/runelite/api/**/*.java","runelite-client/src/main/java/net/runelite/client/plugins/questhelper/**/*.java"]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  }
+}

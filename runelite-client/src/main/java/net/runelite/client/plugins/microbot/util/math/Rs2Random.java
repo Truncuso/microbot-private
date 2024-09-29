@@ -5,7 +5,13 @@ import net.runelite.api.Point;
 import net.runelite.client.plugins.microbot.util.Global;
 
 import java.awt.*;
+import java.util.List;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * The {@code Rs2Random} class provides a variety of random number generation methods
@@ -100,7 +106,8 @@ public class Rs2Random {
 
     private static final double GAUSS_CUTOFF = 4.0;
     private static final Random RANDOM = new Random();
-
+    
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     /**
      * Returns a non-zero random double value.
      * Ensures that the result is always greater than a very small number (1.0e-320),
@@ -367,6 +374,7 @@ public class Rs2Random {
      * @param max The maximum wait time in milliseconds.
      */
     public static void wait(int min, int max) {
+        
         wait(min, max, EWaitDir.wdLeft);
     }
 
@@ -462,5 +470,341 @@ public class Rs2Random {
 
     enum EWaitDir {
         wdLeft, wdMean, wdRight
+    }
+
+    /**
+     * Generates a set of random seeds.
+     *
+     * @param mod   The modifier to add to a numeric representation of the current date.
+     * @param start The minimum number of seeds to generate.
+     * @param stop  The maximum number of seeds to generate.
+     * @return A list of random seeds.
+     */
+    public static List<double[]> randomSeeds(int mod, int start, int stop) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        int date = Integer.parseInt(now.format(formatter));
+        RANDOM.setSeed(date + mod);
+
+        int count = SECURE_RANDOM.nextInt(stop - start + 1) + start;
+        List<double[]> seeds = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            seeds.add(new double[]{RANDOM.nextDouble(), RANDOM.nextDouble()});
+        }
+        return seeds;
+    }
+
+    /**
+     * Returns a random pixel within some bounding box based on a list of seeds.
+     *
+     * @param xMin   The left-most coordinate of the bounding box.
+     * @param yMin   The top-most coordinate of the bounding box.
+     * @param width  The width of the bounding box.
+     * @param height The height of the bounding box.
+     * @param seeds  A list of seeds to use for the randomization.
+     * @return A random [x, y] coordinate within the bounding box.
+     */
+    public static int[] randomPointIn(int xMin, int yMin, int width, int height, List<double[]> seeds) {
+        if (SECURE_RANDOM.nextInt(101) > 75) {
+            // Generate a random pixel within the full bounding box.
+            return randomFrom(xMin, yMin, width, height, true);
+        }
+        //Calculate the dimensions and position of an inner bounding box within the full bounding box.
+        double offsetPercentage = SECURE_RANDOM.nextDouble() * 0.2 + 0.15;
+        int innerXMin = (int) Math.round(width * offsetPercentage + xMin);
+        int innerYMin = (int) Math.round(height * offsetPercentage + yMin);
+        int innerWidth = (int) Math.round(width * (1.0 - (offsetPercentage * 2)));
+        int innerHeight = (int) Math.round(height * (1.0 - (offsetPercentage * 2)));
+        // Select a random seed from the list of seeds.
+        int randomIndex = SECURE_RANDOM.nextInt(seeds.size());
+        int ratioX = (int) Math.round(innerWidth * seeds.get(randomIndex)[0]);
+        int ratioY = (int) Math.round(innerHeight * seeds.get(randomIndex)[1]);
+        //Calculate the dimensions and position of a bounding box within the inner bounding box.
+        int startX = innerXMin + ratioX;
+        int startY = innerYMin + ratioY;
+        int startFixWidth = startX - xMin;
+        int endFixWidth = width - ratioX;
+        int startFixHeight = startY - yMin;
+        int endFixHeight = height - ratioY;
+        // Determine the dimensions of the bounding box within the inner bounding box.
+        int innerInnerWidth = Math.min(startFixWidth, endFixWidth);
+        int innerInnerHeight = Math.min(startFixHeight, endFixHeight);
+        //Generate a random pixel within the bounding box within the inner bounding box.
+        return randomFrom(startX, startY, innerInnerWidth, innerInnerHeight, false);
+    }
+
+    private static int[] randomFrom(int xMin, int yMin, int width, int height, boolean centered) {
+        if (centered) {
+            xMin = xMin + (int) Math.ceil(width / 2.0);
+            yMin = yMin + (int) Math.ceil(height / 2.0);
+        }
+
+        int xMinBound = xMin - (int) Math.ceil(width / 2.0);
+        int xMaxBound = xMin + (int) Math.ceil(width / 2.0);
+        int yMinBound = yMin - (int) Math.ceil(height / 2.0);
+        int yMaxBound = yMin + (int) Math.ceil(height / 2.0);
+
+        double sigmaX = (width / 2.0) * 0.33;
+        double sigmaY = (height / 2.0) * 0.33;
+
+        int x = (int) truncatedNormalSample(xMinBound, xMaxBound, (double)xMin, sigmaX);
+        int y = (int) truncatedNormalSample(yMinBound, yMaxBound, (double)yMin, sigmaY);
+        return new int[]{x, y};
+    }
+
+    /**
+     * Generate a random sample from a truncated normal distribution.
+     *
+     * @param lowerBound The lower bound of the truncated normal distribution.
+     * @param upperBound The upper bound of the truncated normal distribution.
+     * @param mean       The mean of the normal distribution (default is mid-point between bounds).
+     * @param std        The standard deviation of the normal distribution.
+     * @return A random double from the truncated normal distribution.
+     */
+    public static double truncatedNormalSample(double lowerBound, double upperBound, Double mean, Double std) {
+        if (mean == null) {
+            mean = (lowerBound + upperBound) / 2;
+        }
+        if (std == null) {
+            std = (upperBound - lowerBound) / 9;
+        }
+
+        while (true) {
+            double x1 = RANDOM.nextGaussian();
+            double x2 = RANDOM.nextGaussian();
+            double z = x1 * x1 + x2 * x2;
+            if (z >= 0 && z <= 1) {
+                double sample = mean + std * x1 * Math.sqrt(-2 * Math.log(z) / z);
+                if (sample >= lowerBound && sample <= upperBound) {
+                    return sample;
+                }
+            }
+        }
+    }
+
+    /**
+     * Generate a random sample from a Chi-squared distribution.
+     *
+     * @param df  Degrees of freedom (approximately the average result).
+     * @param min Minimum allowable output (default is 0).
+     * @param max Maximum allowable output (default is positive infinity).
+     * @return A random double from a Chi-squared distribution.
+     */
+    public static double chiSquaredSample(int df, double min, double max) {
+        /*"""
+            Generate a random sample from a Chisquared distribution. Contraining the maximum will produce abnormal means.
+            Args:
+                df: Degrees of freedom (approximately the average result).
+                min: Minimum allowable output (default is 0)
+                max: Maximum allowable output (default is infinity).
+            Returns:
+                A random float from a Chisquared distribution.
+            Examples:
+                For 100,000 samples of chisquared_sample(average = 25, min = 3):
+                - Average = 24.98367264407156
+                - Maximum = 67.39469215530804
+                - Minimum = 3.636904524316633
+                - Graphed: https://i.imgur.com/9re2ezf.png
+            ""*/
+        if (max == 0) {
+            max = Double.POSITIVE_INFINITY;
+        }
+        while (true) {
+            double x = chiSquared(df);
+            if (x >= min && x <= max) {
+                return x;
+            }
+        }
+    }
+
+    private static double chiSquared(int df) {
+        double result = 0;
+        for (int i = 0; i < df; i++) {
+            double x = RANDOM.nextGaussian();
+            result += x * x;
+        }
+        return result;
+    }
+
+    /**
+     * Returns true or false based on a probability.
+     *
+     * @param probability The probability of returning true (between 0 and 1).
+     * @return True or false.
+     */
+    public static boolean randomChance(double probability) {
+        if (probability < 0.0 || probability > 1.0) {
+            throw new IllegalArgumentException("Probability must be between 0 and 1");
+        }
+        return SECURE_RANDOM.nextDouble() < probability;
+    }
+    
+    /**
+     * Randomly selects an item from a list based on weights.
+     *
+     * @param items   The list of items to choose from.
+     * @param weights The corresponding weights for each item.
+     * @param <T>     The type of items in the list.
+     * @return A randomly selected item based on the weights.
+     */
+    public static <T> T weightedChoice(List<T> items, List<Double> weights) {
+        if (items.size() != weights.size()) {
+            throw new IllegalArgumentException("Items and weights must have the same size");
+        }
+
+        double totalWeight = weights.stream().mapToDouble(Double::doubleValue).sum();
+        double randomValue = RANDOM.nextDouble() * totalWeight;
+
+        double cumulativeWeight = 0.0;
+        for (int i = 0; i < items.size(); i++) {
+            cumulativeWeight += weights.get(i);
+            if (randomValue < cumulativeWeight) {
+                return items.get(i);
+            }
+        }
+
+        // This should never happen if the weights sum to a positive value
+        throw new IllegalStateException("No item selected");
+    }
+
+    /**
+     * Randomly selects an item from a list using randomly generated weights.
+     * 
+     * @param items The list of items to choose from.
+     * @param <T>   The type of items in the list.
+     * @return A randomly selected item based on randomly generated weights.
+     */
+    public static <T> T randomWeightedChoice(List<T> items) {
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("The list of items cannot be empty");
+        }
+
+        // Generate random weights for each item
+        List<Double> weights = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            // Use exponential distribution to generate weights
+            // This creates a more varied distribution of weights
+            weights.add(-Math.log(1 - RANDOM.nextDouble()));
+        }
+
+        // Normalize the weights so they sum to 1
+        double sumOfWeights = weights.stream().mapToDouble(Double::doubleValue).sum();
+        weights = weights.stream().map(w -> w / sumOfWeights).collect(Collectors.toList());
+
+        // Use the weightedChoice method with our generated weights
+        return weightedChoice(items, weights);
+    }
+
+    /**
+     * Randomly selects an item from a list using randomly generated weights,
+     * and returns both the selected item and its calculated probability.
+     * 
+     * @param items The list of items to choose from.
+     * @param <T>   The type of items in the list.
+     * @return A WeightedResult object containing the selected item and its probability.
+     */
+    public static <T> WeightedResult<T> randomWeightedChoiceWithProbability(List<T> items) {
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("The list of items cannot be empty");
+        }
+
+        // Generate random weights for each item
+        List<Double> weights = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            weights.add(-Math.log(1 - RANDOM.nextDouble()));
+        }
+
+        // Normalize the weights so they sum to 1
+        double sumOfWeights = weights.stream().mapToDouble(Double::doubleValue).sum();
+        weights = weights.stream().map(w -> w / sumOfWeights).collect(Collectors.toList());
+
+        // Use the weightedChoice method with our generated weights
+        T selectedItem = weightedChoice(items, weights);
+        double probability = weights.get(items.indexOf(selectedItem));
+
+        return new WeightedResult<>(selectedItem, probability);
+    }
+
+    /**
+     * A class to hold the result of a weighted random choice, including the selected item and its probability.
+     */
+    public static class WeightedResult<T> {
+        private final T item;
+        private final double probability;
+
+        public WeightedResult(T item, double probability) {
+            this.item = item;
+            this.probability = probability;
+        }
+
+        public T getItem() {
+            return item;
+        }
+
+        public double getProbability() {
+            return probability;
+        }
+    }
+      /**
+     * Generate a random sample from a truncated normal distribution with randomly-selected means.
+     * This produces a more "fancy" distribution than a standard normal distribution, which could emulate
+     * randomness in human gameplay activity.
+     *
+     * @param lowerBound The lower bound of the truncated normal distribution.
+     * @param upperBound The upper bound of the truncated normal distribution.
+     * @return A random float from a truncated normal distribution with randomly-selected means.
+     */
+    public static double fancyNormalSample(double lowerBound, double upperBound) {
+        // Default will be two means, one at 1/3rd and one at 2/3 of the range
+        double[] means = {
+            lowerBound + (upperBound - lowerBound) * 0.33,
+            lowerBound + (upperBound - lowerBound) * 0.66
+        };
+
+        // Generate probabilities for each mean proportional to the index
+        double[] p = new double[means.length];
+        double sum = 0;
+        for (int i = 0; i < means.length; i++) {
+            p[i] = Math.pow(means.length - i, 2);
+            sum += p[i];
+        }
+        for (int i = 0; i < p.length; i++) {
+            p[i] /= sum;
+        }
+
+        // Select a mean from the list with a probability proportional to the index
+        int index = selectIndexBasedOnProbability(p);
+        double mean = means[index];
+
+        // Retrieve a sample from the truncated normal distribution
+        return truncatedNormalSample(lowerBound, upperBound, mean, null);
+    }
+
+    private static int selectIndexBasedOnProbability(double[] probabilities) {
+        double randomValue = RANDOM.nextDouble();
+        double cumulativeProbability = 0.0;
+        for (int i = 0; i < probabilities.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (randomValue < cumulativeProbability) {
+                return i;
+            }
+        }
+        return probabilities.length - 1; // This should rarely happen
+    }
+
+    /**
+     * Generate multiple samples from the fancy normal distribution.
+     *
+     * @param lowerBound The lower bound of the distribution.
+     * @param upperBound The upper bound of the distribution.
+     * @param count The number of samples to generate.
+     * @return A list of samples from the fancy normal distribution.
+     */
+    public static List<Double> fancyNormalSamples(double lowerBound, double upperBound, int count) {
+        List<Double> samples = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            samples.add(fancyNormalSample(lowerBound, upperBound));
+        }
+        return samples;
     }
 }

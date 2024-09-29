@@ -1,0 +1,628 @@
+[
+  {
+    "name": "Karamja gloves 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Karamja gloves 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Gem mine underneath Shilo Village"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Gem mine"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the gem mine underneath Shilo Village."
+    }
+  },
+  {
+    "name": "Karamja gloves 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Karamja gloves 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Gem mine underneath Shilo Village"},
+      {"x": null, "y": null, "z": null, "description": "Slayer master, Duradel"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Gem mine", "Duradel"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the gem mine underneath Shilo Village and to Duradel."
+    }
+  },
+  {
+    "name": "Ardougne cloak 1",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Ardougne cloak 1", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Monastery south of Ardougne"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Ardougne Monastery"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the monastery south of Ardougne."
+    }
+  },
+  {
+    "name": "Ardougne cloak 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Ardougne cloak 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Monastery south of Ardougne"},
+      {"x": null, "y": null, "z": null, "description": "Farm north of Ardougne"}
+    ],
+    "isEquippable": true,
+    "charges": "3",
+    "additionalInfo": {
+      "locations": ["Ardougne Monastery", "Farm north of Ardougne"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited monastery teleports and 3 farm teleports."
+    }
+  },
+  {
+    "name": "Ardougne cloak 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Ardougne cloak 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Monastery south of Ardougne"},
+      {"x": null, "y": null, "z": null, "description": "Farm north of Ardougne"}
+    ],
+    "isEquippable": true,
+    "charges": "5",
+    "additionalInfo": {
+      "locations": ["Ardougne Monastery", "Farm north of Ardougne"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited monastery teleports and 5 farm teleports."
+    }
+  },
+  {
+    "name": "Ardougne cloak 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Ardougne cloak 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Monastery south of Ardougne"},
+      {"x": null, "y": null, "z": null, "description": "Farm north of Ardougne"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Ardougne Monastery", "Farm north of Ardougne"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited monastery and farm teleports."
+    }
+  },
+  {
+    "name": "Desert amulet 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Desert amulet 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Nardah"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Nardah"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Nardah."
+    }
+  },
+  {
+    "name": "Desert amulet 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Desert amulet 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Nardah"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Nardah"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Nardah."
+    }
+  },
+  {
+    "name": "Desert amulet 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Desert amulet 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Nardah"},
+      {"x": null, "y": null, "z": null, "description": "Kalphite Cave"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Nardah", "Kalphite Cave"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Nardah and Kalphite Cave."
+    }
+  },
+  {
+    "name": "Morytania legs 1",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Morytania legs 1", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Slime pit below Ectofuntus"}
+    ],
+    "isEquippable": true,
+    "charges": "2",
+    "additionalInfo": {
+      "locations": ["Slime pit"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "2 teleports to the slime pit below Ectofuntus."
+    }
+  },
+  {
+    "name": "Morytania legs 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Morytania legs 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Slime pit below Ectofuntus"}
+    ],
+    "isEquippable": true,
+    "charges": "5",
+    "additionalInfo": {
+      "locations": ["Slime pit"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "5 teleports to the slime pit below Ectofuntus."
+    }
+  },
+  {
+    "name": "Morytania legs 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Morytania legs 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Burgh de Rott"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Burgh de Rott"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Burgh de Rott."
+    }
+  },
+  {
+    "name": "Morytania legs 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Morytania legs 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Burgh de Rott"},
+      {"x": null, "y": null, "z": null, "description": "Slime pit below Ectofuntus"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Burgh de Rott", "Slime pit"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to both Burgh de Rott and the slime pit below Ectofuntus."
+    }
+  },
+  {
+    "name": "Fremennik sea boots 1",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Fremennik sea boots 1", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Rellekka"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Rellekka"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Rellekka."
+    }
+  },
+  {
+    "name": "Fremennik sea boots 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Fremennik sea boots 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Rellekka"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Rellekka"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Rellekka."
+    }
+  },
+  {
+    "name": "Fremennik sea boots 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Fremennik sea boots 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Rellekka"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Rellekka"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Rellekka."
+    }
+  },
+  {
+    "name": "Fremennik sea boots 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Fremennik sea boots 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Rellekka"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Rellekka"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Rellekka."
+    }
+  },
+  {
+    "name": "Kandarin headgear 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Kandarin headgear 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Sherlock"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Sherlock"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Sherlock."
+    }
+  },
+  {
+    "name": "Kandarin headgear 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Kandarin headgear 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Sherlock"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Sherlock"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Sherlock."
+    }
+  },
+  {
+    "name": "Wilderness sword 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Wilderness sword 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Fountain of Rune"}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Fountain of Rune"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to the Fountain of Rune."
+    }
+  },
+  {
+    "name": "Wilderness sword 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Wilderness sword 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null, "description": "Fountain of Rune"}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Fountain of Rune"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the Fountain of Rune."
+    }
+  },
+  {
+    "name": "Western banner 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Western banner 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "1",
+    "additionalInfo": {
+      "locations": ["Piscatoris Fishing Colony"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "One teleport to Piscatoris Fishing Colony."
+    }
+  },
+  {
+    "name": "Western banner 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Western banner 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Piscatoris Fishing Colony"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Piscatoris Fishing Colony."
+    }
+  },
+  {
+    "name": "Western banner 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Western banner 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Tree Gnome Stronghold"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the Tree Gnome Stronghold spirit tree."
+    }
+  },
+  {
+    "name": "Explorer's ring 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Explorer's ring 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "3",
+    "additionalInfo": {
+      "locations": ["Cabbage patch near Falador"],
+      "membersOnly": false,
+      "rechargeable": false,
+      "notes": "3 teleports to the cabbage patch south of Falador."
+    }
+  },
+  {
+    "name": "Explorer's ring 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Explorer's ring 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Cabbage patch near Falador"],
+      "membersOnly": false,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the cabbage patch south of Falador."
+    }
+  },
+  {
+    "name": "Explorer's ring 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Explorer's ring 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Cabbage patch near Falador"],
+      "membersOnly": false,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to the cabbage patch south of Falador."
+    }
+  },
+  {
+    "name": "Rada's blessing 1",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Rada's blessing 1", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "3",
+    "additionalInfo": {
+      "locations": ["Mount Quidamortem"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "3 teleports to Mount Quidamortem."
+    }
+  },
+  {
+    "name": "Rada's blessing 2",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Rada's blessing 2", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "5",
+    "additionalInfo": {
+      "locations": ["Mount Quidamortem"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "5 teleports to Mount Quidamortem."
+    }
+  },
+  {
+    "name": "Rada's blessing 3",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Rada's blessing 3", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Mount Quidamortem", "Kourend Woodland"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Mount Quidamortem, and 3 teleports to the Kourend Woodland."
+    }
+  },
+  {
+    "name": "Rada's blessing 4",
+    "type": "ACHIEVEMENT_DIARY",
+    "requiredLevel": null,
+    "requiredItems": [
+      {"name": "Rada's blessing 4", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": null, "y": null, "z": null}
+    ],
+    "isEquippable": true,
+    "charges": "Unlimited",
+    "additionalInfo": {
+      "locations": ["Mount Quidamortem", "Kourend Woodland"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Unlimited teleports to Mount Quidamortem, and unlimited teleports to the Kourend Woodland."
+    }
+  }
+]

@@ -1,0 +1,294 @@
+[
+  {
+    "name": "Games necklace",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Games necklace(8)", "quantity": 1},
+      {"name": "Games necklace(7)", "quantity": 1},
+      {"name": "Games necklace(6)", "quantity": 1},
+      {"name": "Games necklace(5)", "quantity": 1},
+      {"name": "Games necklace(4)", "quantity": 1},
+      {"name": "Games necklace(3)", "quantity": 1},
+      {"name": "Games necklace(2)", "quantity": 1},
+      {"name": "Games necklace(1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2520, "y": 3571, "z": 0},
+      {"x": 2899, "y": 3565, "z": 0},
+      {"x": 3245, "y": 9500, "z": 0},
+      {"x": 2965, "y": 4382, "z": 2},
+      {"x": 1630, "y": 3942, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 8,
+    "additionalInfo": {
+      "locations": [
+        "Barbarian Assault",
+        "Burthorpe Games Room",
+        "Tears of Guthix",
+        "Corporeal Beast",
+        "Wintertodt Camp"
+      ],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Tears of Guthix requires completion of Tears of Guthix quest. Wintertodt Camp requires visiting Zeah once."
+    }
+  },
+  {
+    "name": "Ring of dueling",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Ring of dueling(8)", "quantity": 1},
+      {"name": "Ring of dueling(7)", "quantity": 1},
+      {"name": "Ring of dueling(6)", "quantity": 1},
+      {"name": "Ring of dueling(5)", "quantity": 1},
+      {"name": "Ring of dueling(4)", "quantity": 1},
+      {"name": "Ring of dueling(3)", "quantity": 1},
+      {"name": "Ring of dueling(2)", "quantity": 1},
+      {"name": "Ring of dueling(1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3305, "y": 3226, "z": 0},
+      {"x": 3148, "y": 3636, "z": 0},
+      {"x": 2440, "y": 3090, "z": 0},
+      {"x": 1774, "y": 3109, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 8,
+    "additionalInfo": {
+      "locations": [
+        "Emir's Arena",
+        "Ferox Enclave",
+        "Castle Wars",
+        "Fortis Colosseum"
+      ],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Fortis Colosseum unlocked upon reaching Hero status in the Colosseum."
+    }
+  },
+  {
+    "name": "Amulet of glory",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Amulet of glory(6)", "quantity": 1},
+      {"name": "Amulet of glory(5)", "quantity": 1},
+      {"name": "Amulet of glory(4)", "quantity": 1},
+      {"name": "Amulet of glory(3)", "quantity": 1},
+      {"name": "Amulet of glory(2)", "quantity": 1},
+      {"name": "Amulet of glory(1)", "quantity": 1},
+      {"name": "Amulet of glory", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3087, "y": 3496, "z": 0},
+      {"x": 2918, "y": 3176, "z": 0},
+      {"name": "Draynor Village", "x": 3105, "y": 3251, "z": 0},
+      {"name": "Al Kharid", "x": 3293, "y": 3163, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 6,
+    "additionalInfo": {
+      "locations": [
+        "Edgeville",
+        "Karamja (Musa Point)",
+        "Draynor Village",
+        "Al Kharid"
+      ],
+      "membersOnly": true,
+      "rechargeable": true,
+      "notes": "Can only be charged at the Fountain of Uhld (Myths' Guild), Fountain of Heroes (Heroes' Guild), or the Fountain of Rune."
+    }
+  },
+  {
+    "name": "Ring of wealth",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Ring of wealth (5)", "quantity": 1},
+      {"name": "Ring of wealth (4)", "quantity": 1},
+      {"name": "Ring of wealth (3)", "quantity": 1},
+      {"name": "Ring of wealth (2)", "quantity": 1},
+      {"name": "Ring of wealth (1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2535, "y": 3861, "z": 0},
+      {"x": 3165, "y": 3482, "z": 0},
+      {"x": 2966, "y": 3379, "z": 0},
+      {"x": 2829, "y": 10167, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 5,
+    "additionalInfo": {
+      "locations": [
+        "Miscellania",
+        "Grand Exchange",
+        "Falador Park",
+        "Dondakan"
+      ],
+      "membersOnly": true,
+      "rechargeable": true,
+      "notes": "Can only be charged at the Fountain of Rune."
+    }
+  },
+  {
+    "name": "Slayer ring",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Slayer ring (8)", "quantity": 1},
+      {"name": "Slayer ring (7)", "quantity": 1},
+      {"name": "Slayer ring (6)", "quantity": 1},
+      {"name": "Slayer ring (5)", "quantity": 1},
+      {"name": "Slayer ring (4)", "quantity": 1},
+      {"name": "Slayer ring (3)", "quantity": 1},
+      {"name": "Slayer ring (2)", "quantity": 1},
+      {"name": "Slayer ring (1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3429, "y": 3535, "z": 0},
+      {"x": 2791, "y": 3615, "z": 0},
+      {"x": 3425, "y": 3534, "z": 0},
+      {"x": 2434, "y": 3422, "z": 0},
+      {"x": 2028, "y": 4636, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 8,
+    "additionalInfo": {
+      "locations": [
+        "Slayer Tower",
+        "Fremennik Slayer Dungeon",
+        "Tarn's Lair",
+        "Stronghold Slayer Cave",
+        "Dark Beasts"
+      ],
+      "membersOnly": true,
+      "rechargeable": false
+    }
+  },
+  {
+    "name": "Slayer ring (eternal)",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Slayer ring (eternal)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3429, "y": 3535, "z": 0},
+      {"x": 2791, "y": 3615, "z": 0},
+      {"x": 3425, "y": 3534, "z": 0},
+      {"x": 2434, "y": 3422, "z": 0},
+      {"x": 2028, "y": 4636, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": [
+        "Slayer Tower",
+        "Fremennik Slayer Dungeon",
+        "Tarn's Lair",
+        "Stronghold Slayer Cave",
+        "Dark Beasts"
+      ],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Has unlimited charges."
+    }
+  },
+  {
+    "name": "Digsite pendant",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Digsite pendant (5)", "quantity": 1},
+      {"name": "Digsite pendant (4)", "quantity": 1},
+      {"name": "Digsite pendant (3)", "quantity": 1},
+      {"name": "Digsite pendant (2)", "quantity": 1},
+      {"name": "Digsite pendant (1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3351, "y": 3342, "z": 0},
+      {"x": 3764, "y": 3869, "z": 1},
+      {"x": 3549, "y": 10456, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 5,
+    "additionalInfo": {
+      "locations": [
+        "Digsite",
+        "Fossil Island (House on the Hill)",
+        "Lithkren"
+      ],
+      "membersOnly": true,
+      "rechargeable": false
+    }
+  },
+  {
+    "name": "Necklace of passage",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Necklace of passage(5)", "quantity": 1},
+      {"name": "Necklace of passage(4)", "quantity": 1},
+      {"name": "Necklace of passage(3)", "quantity": 1},
+      {"name": "Necklace of passage(2)", "quantity": 1},
+      {"name": "Necklace of passage(1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3114, "y": 3181, "z": 0},
+      {"x": 2430, "y": 3347, "z": 0},
+      {"x": 3406, "y": 3156, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 5,
+    "additionalInfo": {
+      "locations": [
+        "Wizards' Tower",
+        "Jorral's Outpost",
+        "Desert eagle station of the eagle transport system"
+      ],
+      "membersOnly": true,
+      "rechargeable": false
+    }
+  },
+  {
+    "name": "Burning amulet",
+    "type": "ENCHANTED_JEWELLERY",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Burning amulet(5)", "quantity": 1},
+      {"name": "Burning amulet(4)", "quantity": 1},
+      {"name": "Burning amulet(3)", "quantity": 1},
+      {"name": "Burning amulet(2)", "quantity": 1},
+      {"name": "Burning amulet(1)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3236, "y": 3636, "z": 0},
+      {"x": 3045, "y": 3685, "z": 0},
+      {"x": 3028, "y": 3842, "z": 0}
+    ],
+    "isEquippable": true,
+    "charges": 5,
+    "additionalInfo": {
+      "locations": [
+        "Chaos Temple (level 15 Wilderness)",
+        "Bandit Camp (level 17 Wilderness)",
+        "Lava Maze (level 41 Wilderness)"
+      ],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports to dangerous Wilderness locations."
+    }
+  }
+]

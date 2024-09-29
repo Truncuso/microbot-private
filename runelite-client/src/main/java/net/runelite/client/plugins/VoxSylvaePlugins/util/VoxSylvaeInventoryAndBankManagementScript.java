@@ -12,6 +12,7 @@ import net.runelite.client.plugins.microbot.util.equipment.Rs2Equipment;
 import net.runelite.client.plugins.microbot.util.inventory.DropOrder;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+import net.runelite.client.plugins.microbot.util.shop.Rs2Shop;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
     private Client client;
     @Inject
     private ItemManager itemManager;
+    
 
     public static class BankItemInfo {
         public final int slot;
@@ -92,12 +94,29 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
     }
 
     
-    private boolean retrieveItemsFromBank(int itemId) {
-        
+    private boolean retrieveAllItemsFromBank(int itemId) {
+          //not open bank
+          if (!Rs2Bank.isOpen()) {
+            Microbot.log("<retrieveAllItemsFromBank> Bank did not open");
+            return false;
+        }
         if (Rs2Bank.hasItem(itemId)) {
             Rs2Bank.withdrawAll(itemId);
-            sleepUntil(() -> Rs2Inventory.hasItem(itemId), 5000);
+            sleepUntil(() -> Rs2Inventory.hasItem(itemId), (int)Rs2Random.truncatedGauss(600, 1000, 0));
             return Rs2Inventory.hasItem(itemId);
+        }
+        return false;
+    }
+    public boolean retrieveAmountItemsFromBank(int itemId, int amount) {
+        //not open bank
+        if (!Rs2Bank.isOpen()) {
+            Microbot.log("<retrieveAmountItemsFromBank> Bank did not open");
+            return false;
+        }
+        if (Rs2Bank.hasItem(itemId)) {
+            Rs2Bank.withdrawX(itemId, amount);
+            sleepUntil(() -> Rs2Inventory.hasItemAmount(itemId,amount), (int)Rs2Random.truncatedGauss(600, 1000, 0));
+            return Rs2Inventory.hasItemAmount(itemId,amount);
         }
         return false;
     }
@@ -115,6 +134,10 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
         return Rs2Bank.getItemWidget(ItemSlotId);
     }
     public BankItemInfo findItemInBank(int itemId) {
+        if(openBank()){
+            Microbot.log("<findItemInBank> Bank did not open");
+            return null;
+        }
         ItemContainer bank = client.getItemContainer(InventoryID.BANK);
         // throw exeption if bank is not open
 
@@ -143,7 +166,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
         return null; // Item not found
     }
 
-    public BankItemInfo findItemInBank(String itemName) {
+    public BankItemInfo findItemInBank(String itemName, int minItemQuantity) {
         if(openBank()){
             Microbot.log("<findItemInBank> Bank did not open");
             return null;
@@ -160,7 +183,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
 
         for (Item item : bankItems) {
             ItemComposition itemComposition = itemManager.getItemComposition(item.getId());
-            if (itemComposition.getName().equalsIgnoreCase(itemName)) {
+            if (itemComposition.getName().equalsIgnoreCase(itemName) && item.getQuantity() >= minItemQuantity) {
                 return new BankItemInfo(currentSlot, currentTab, item.getId(), itemName, item.getQuantity());
             }
 
@@ -185,7 +208,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
         }
         return -1; // Item not found
     }
-    private boolean retrieveItemsFromBank(List<Integer> itemIDs) {
+    public boolean retrieveItemsFromBankById(List<Integer> itemIDs) {
         if(openBank()){
             Microbot.log("<retrieveItemsFromBank> Bank did not open");
             return false;
@@ -211,7 +234,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
         Rs2Bank.closeBank();
         return true;
     }
-    private boolean retrieveItemsFromBank(List<String> items) {
+    private boolean retrieveItemsFromBankbyName(List<String> items) {
         if(openBank()){
             Microbot.log("<retrieveItemsFromBank> Bank did not open to retrieve items: " + items);
             return false;
@@ -277,33 +300,42 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
             if (Rs2Bank.isOpen()) {
                 return true;
             }
-            
-            if (!Rs2Bank.walkToBankAndUseBank()) {
-                System.out.println("Failed to reach the bank");
-                return false;
-            }   
+             int tryOpenBank = 0;
+            while (!Rs2Bank.isOpen()) {
+                Rs2Bank.walkToBankAndUseBank();
+                sleepUntil(() -> Rs2Shop.isOpen(),(int)Rs2Random.truncatedGauss(600, 1000, 0));
+                tryOpenBank++;
+                if (tryOpenBank > 5) {
+                    Microbot.log("<openBank> Failed to reach the bank and open it");
+                    return false;
+                }
+            }            
             
             sleepUntil(Rs2Bank::isOpen, 10000);
         } catch (Exception ignored) {            
             Microbot.pauseAllScripts = true;
-            Microbot.log("Failed to open bank");
+            Microbot.log("<openBank> Failed to open bank");
         }
         return Rs2Bank.isOpen();
     }
     
-    private void checkBeforeWithdrawAndEquip(int itemId) {
+    private boolean checkBeforeWithdrawAndEquip(int itemId) {
         if (!Rs2Equipment.isWearing(itemId)) {
             Rs2Bank.withdrawAndEquip(itemId);
            //check if it is wearing
             sleepUntil(() -> Rs2Equipment.isWearing(itemId), 5000);
+            return Rs2Equipment.isWearing(itemId);
         }
+        return true;
     }
-    private void checkBeforeWithdrawAndEquip(String itemName) {
+    private boolean checkBeforeWithdrawAndEquip(String itemName) {
         if (!Rs2Equipment.isWearing(itemName)) {
             Rs2Bank.withdrawAndEquip(itemName);
             //check if it is wearing
             sleepUntil(() -> Rs2Equipment.isWearing(itemName), 5000);
+            return Rs2Equipment.isWearing(itemName);
         }
+        return true;
     }
   
    
@@ -342,15 +374,21 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
     public boolean withdrawAndEquip(int itemId) {
         try{
         if (!Rs2Bank.openBank()) {
-            Microbot.log("<withdrawAndEquip> Bank did not open, item: " + itemId);
+                Microbot.log("<withdrawAndEquip> Bank did not open, item: " + itemId);
+                return false;
+            }
+            if (Rs2Bank.hasItem(itemId)) {
+                checkBeforeWithdrawAndEquip(itemId);
+                return true;
+            }
+            Microbot.log("<withdrawAndEquip> Missing item in bank: " + itemId);
+            return false;
+        } catch (Exception ignored) {
+            Microbot.pauseAllScripts = true;
+            Microbot.log("<withdrawAndEquip> Failed to withdraw and equip item: " + itemId);
             return false;
         }
-        if (Rs2Bank.hasItem(itemId)) {
-            checkBeforeWithdrawAndEquip(itemId);
-            return true;
-        }
-        Microbot.log("<withdrawAndEquip> Missing item in bank: " + itemId);
-        return false;
+    
     }
 
     //utitlity methods

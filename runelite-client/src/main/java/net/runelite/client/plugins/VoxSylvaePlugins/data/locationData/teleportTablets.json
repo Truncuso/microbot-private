@@ -1,0 +1,865 @@
+  [
+    {
+    "name": "Varrock teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 25,
+    "requiredItems": [
+      {"name": "Varrock teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3213, "y": 3424, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Varrock"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Can be used to teleport to Varrock."
+    }
+  },
+  {
+    "name": "Falador teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 37,
+    "requiredItems": [
+      {"name": "Falador teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2964, "y": 3378, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Falador"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Can be used to teleport to Falador."
+    }
+  },
+  {
+    "name": "Lumbridge teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 31,
+    "requiredItems": [
+      {"name": "Lumbridge teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3222, "y": 3218, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Lumbridge"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Can be used to teleport to Lumbridge."
+    }
+  },
+  {
+    "name": "Camelot teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 45,
+    "requiredItems": [
+      {"name": "Camelot teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2757, "y": 3478, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Camelot"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Can be used to teleport to Camelot."
+    }
+  },
+  {
+    "name": "Ardougne teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 51,
+    "requiredItems": [
+      {"name": "Ardougne teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2661, "y": 3305, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Ardougne"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Can be used to teleport to Ardougne."
+    }
+  },
+  {
+    "name": "House teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "House teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 0, "y": 0, "z": 0}  
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Player-owned house"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to your Player-owned House."
+    }
+  },
+  {
+    "name": "Rimmington teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Rimmington teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2954, "y": 3218, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Rimmington"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Rimmington."
+    }
+  },
+  {
+    "name": "Taverley teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Taverley teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2893, "y": 3465, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Taverley"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Taverley."
+    }
+  },
+  {
+    "name": "Pollnivneach teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Pollnivneach teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3359, "y": 3003, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Pollnivneach"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Pollnivneach."
+    }
+  },
+  {
+    "name": "Rellekka teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Rellekka teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2669, "y": 3636, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Rellekka"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Rellekka."
+    }
+  },
+  {
+    "name": "Brimhaven teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Brimhaven teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2757, "y": 3178, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Brimhaven"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Brimhaven."
+    }
+  },
+  {
+    "name": "Yanille teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Yanille teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2606, "y": 3093, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Yanille"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Yanille."
+    }
+  },
+  {
+    "name": "Trollheim teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 61,
+    "requiredItems": [
+      {"name": "Trollheim teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [
+      "Eadgar's Ruse"
+    ],
+    "destinations": [
+      {"x": 2891, "y": 3678, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Trollheim"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Requires completion of Eadgar's Ruse quest."
+    }
+  },
+  {
+    "name": "Hosidius teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Hosidius teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1744, "y": 3513, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Hosidius"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Hosidius."
+    }
+  },
+  {
+    "name": "Prifddinas teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 50,
+    "requiredItems": [
+      {"name": "Prifddinas teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [
+      "Song of the Elves"
+    ],
+    "destinations": [
+      {"x": 2262, "y": 3355, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Prifddinas"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Requires completion of Song of the Elves quest."
+    }
+  },
+    {
+        "name": "Paddewwa teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 54,
+        "requiredItems": [
+          {"name": "Paddewwa teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3097, "y": 9882, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Edgeville Dungeon"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Senntisten teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 60,
+        "requiredItems": [
+          {"name": "Senntisten teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3332, "y": 3336, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Digsite"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Kharyrll teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 66,
+        "requiredItems": [
+          {"name": "Kharyrll teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3494, "y": 3472, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Canifis"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Lassar teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 72,
+        "requiredItems": [
+          {"name": "Lassar teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3003, "y": 3475, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Ice Mountain"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Dareeyak teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 78,
+        "requiredItems": [
+          {"name": "Dareeyak teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 2969, "y": 3695, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Ruins, level 23 Wilderness"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Carrallanger teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 84,
+        "requiredItems": [
+          {"name": "Carrallanger teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3167, "y": 3667, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Graveyard of Shadows, level 18 Wilderness"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Annakarl teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 90,
+        "requiredItems": [
+          {"name": "Annakarl teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 3287, "y": 3885, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Demonic Ruins, level 47 Wilderness"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Ghorrock teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 96,
+        "requiredItems": [
+          {"name": "Ghorrock teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Desert Treasure I"
+        ],
+        "destinations": [
+          {"x": 2972, "y": 3873, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Frozen Waste Plateau, level 50 Wilderness"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Desert Treasure I quest."
+        }
+      },
+      {
+        "name": "Moonclan teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 69,
+        "requiredItems": [
+          {"name": "Moonclan teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [
+          "Lunar Diplomacy"
+        ],
+        "destinations": [
+          {"x": 2096, "y": 3914, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Next to the bank on Lunar Isle"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Requires completion of Lunar Diplomacy quest."
+        }
+      },
+      {
+        "name": "Ourania teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 71,
+        "requiredItems": [
+          {"name": "Ourania teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [],
+        "destinations": [
+          {"x": 2468, "y": 3245, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Outside the Ourania Cave"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Teleports you outside the Ourania Cave."
+        }
+      },
+      {
+        "name": "Waterbirth teleport (tablet)",
+        "type": "TELEPORT_TABLET",
+        "requiredLevel": 72,
+        "requiredItems": [
+          {"name": "Waterbirth teleport (tablet)", "quantity": 1}
+        ],
+        "requiredQuests": [],
+        "destinations": [
+          {"x": 2550, "y": 3757, "z": 0}
+        ],
+        "isEquippable": false,
+        "charges": -1,
+        "additionalInfo": {
+          "locations": ["Beside Jarvald's ship on Waterbirth Island"],
+          "membersOnly": true,
+          "rechargeable": false,
+          "notes": "Teleports you to Waterbirth Island."
+        }
+      },
+  
+  {
+    "name": "Barbarian teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 75,
+    "requiredItems": [
+      {"name": "Barbarian teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2545, "y": 3569, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Next to the Barbarian Outpost"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Barbarian Outpost."
+    }
+  },
+  {
+    "name": "Khazard teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 78,
+    "requiredItems": [
+      {"name": "Khazard teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2650, "y": 3169, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Port Khazard"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Port Khazard."
+    }
+  },
+  {
+    "name": "Fishing guild teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 85,
+    "requiredItems": [
+      {"name": "Fishing guild teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2602, "y": 3415, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Outside the Fishing Guild"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Fishing Guild."
+    }
+  },
+  {
+    "name": "Catherby teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 87,
+    "requiredItems": [
+      {"name": "Catherby teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2803, "y": 3448, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Near the bank in Catherby"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Catherby."
+    }
+  },
+  {
+    "name": "Ice plateau teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 89,
+    "requiredItems": [
+      {"name": "Ice plateau teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2978, "y": 3940, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Ice Plateau in level 53 Wilderness"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Ice Plateau in the Wilderness."
+    }
+  },
+  {
+    "name": "Arceuus Library teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 40,
+    "requiredItems": [
+      {"name": "Arceuus Library teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1630, "y": 3809, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Arceuus Library"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Arceuus Library."
+    }
+  },
+  {
+    "name": "Draynor manor teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 17,
+    "requiredItems": [
+      {"name": "Draynor manor teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3108, "y": 3352, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Draynor Manor"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Draynor Manor."
+    }
+  },
+  {
+    "name": "Battlefront teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 27,
+    "requiredItems": [
+      {"name": "Battlefront teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 1375, "y": 3737, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Battlefront"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Battlefront."
+    }
+  },
+  {
+    "name": "Mind altar teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 37,
+    "requiredItems": [
+      {"name": "Mind altar teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2980, "y": 3514, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Mind Altar"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Mind Altar."
+    }
+  },
+  {
+    "name": "Salve graveyard teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 42,
+    "requiredItems": [
+      {"name": "Salve graveyard teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3564, "y": 3476, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["River Salve graveyard"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the River Salve graveyard."
+    }
+  },
+  {
+    "name": "Fenkenstrain's Castle teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 48,
+    "requiredItems": [
+      {"name": "Fenkenstrain's Castle teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3550, "y": 3548, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Fenkenstrain's Castle"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Fenkenstrain's Castle."
+    }
+  },
+  {
+    "name": "West Ardougne teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 60,
+    "requiredItems": [
+      {"name": "West Ardougne teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2430, "y": 3330, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["West Ardougne"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to West Ardougne."
+    }
+  },
+  {
+    "name": "Harmony island teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 65,
+    "requiredItems": [
+      {"name": "Harmony island teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3796, "y": 2867, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Harmony Island"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Harmony Island."
+    }
+  },
+  {
+    "name": "Cemetery teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 71,
+    "requiredItems": [
+      {"name": "Cemetery teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3167, "y": 3682, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["The Forgotten Cemetery"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to the Forgotten Cemetery in the Wilderness."
+    }
+  },
+  {
+    "name": "Barrows teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 83,
+    "requiredItems": [
+      {"name": "Barrows teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 3565, "y": 3307, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Barrows"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Barrows."
+    }
+  },
+  {
+    "name": "Ape atoll teleport (tablet)",
+    "type": "TELEPORT_TABLET",
+    "requiredLevel": 90,
+    "requiredItems": [
+      {"name": "Ape atoll teleport (tablet)", "quantity": 1}
+    ],
+    "requiredQuests": [],
+    "destinations": [
+      {"x": 2754, "y": 2784, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "locations": ["Ape Atoll"],
+      "membersOnly": true,
+      "rechargeable": false,
+      "notes": "Teleports you to Ape Atoll."
+    }
+  }
+]

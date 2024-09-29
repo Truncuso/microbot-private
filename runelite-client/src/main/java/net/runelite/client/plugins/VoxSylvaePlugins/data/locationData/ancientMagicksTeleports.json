@@ -1,148 +1,155 @@
-{
-  "ancient_magicks_teleports": [
+[ 
     {
       "name": "Paddewwa Teleport",
-      "location": "Edgeville Dungeon",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3098,
-        "y": 9882,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 54,
-        "runes": {
-          "law": 2,
-          "fire": 1
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 54,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Fire rune", "quantity": 1}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3098, "y": 9882, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Edgeville Dungeon",
+        "membersOnly": true
       }
     },
     {
       "name": "Senntisten Teleport",
-      "location": "Senntisten",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3321,
-        "y": 3335,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 60,
-        "runes": {
-          "law": 2,
-          "soul": 1
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 60,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Soul rune", "quantity": 1}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3321, "y": 3335, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Senntisten",
+        "membersOnly": true
       }
     },
     {
       "name": "Kharyrll Teleport",
-      "location": "Canifis",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3493,
-        "y": 3472,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 66,
-        "runes": {
-          "law": 2,
-          "blood": 1
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 66,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Blood rune", "quantity": 1}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3493, "y": 3472, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Canifis",
+        "membersOnly": true
       }
     },
     {
       "name": "Lassar Teleport",
-      "location": "Ice Mountain",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3001,
-        "y": 3470,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 72,
-        "runes": {
-          "law": 2,
-          "water": 4
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 72,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Water rune", "quantity": 4}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3001, "y": 3470, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Ice Mountain",
+        "membersOnly": true
       }
     },
     {
       "name": "Dareeyak Teleport",
-      "location": "Wilderness Bandit Camp",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 2969,
-        "y": 3695,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 78,
-        "runes": {
-          "law": 2,
-          "fire": 3
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 78,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Fire rune", "quantity": 3}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 2969, "y": 3695, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Wilderness Bandit Camp",
+        "membersOnly": true
       }
     },
     {
       "name": "Carrallangar Teleport",
-      "location": "Graveyard of Shadows (Wilderness)",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3172,
-        "y": 3668,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 84,
-        "runes": {
-          "law": 2,
-          "blood": 2
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 84,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Soul rune", "quantity": 2}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3172, "y": 3668, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Graveyard of Shadows (Wilderness)",
+        "membersOnly": true
       }
     },
     {
       "name": "Annakarl Teleport",
-      "location": "Demonic Ruins (Wilderness)",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 3288,
-        "y": 3886,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 90,
-        "runes": {
-          "law": 2,
-          "blood": 2
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 90,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Blood rune", "quantity": 2}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 3288, "y": 3886, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Demonic Ruins (Wilderness)",
+        "membersOnly": true
       }
     },
     {
       "name": "Ghorrock Teleport",
-      "location": "Frozen Waste Plateau (Wilderness)",
-      "spellbook": "Ancient Magicks",
-      "coordinates": {
-        "x": 2977,
-        "y": 3873,
-        "z": 0
-      },
-      "requirements": {
-        "magic_level": 96,
-        "runes": {
-          "law": 2,
-          "water": 8
-        },
-        "members_only": true
+      "type": "ANCIENT_MAGICKS",
+      "requiredLevel": 96,
+      "requiredItems": [
+        {"name": "Law rune", "quantity": 2},
+        {"name": "Water rune", "quantity": 8}
+      ],
+      "requiredQuests": [],
+      "destinations": [
+        {"x": 2977, "y": 3873, "z": 0}
+      ],
+      "isEquippable": false,
+      "charges": -1,
+      "additionalInfo": {
+        "location": "Frozen Waste Plateau (Wilderness)",
+        "membersOnly": true
       }
     }
+  
   ]
-}

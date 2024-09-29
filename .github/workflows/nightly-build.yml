@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.parameter || 'development/development' }}
+          ref: ${{ github.event.inputs.parameter || 'origin/development' }}
           fetch-depth: 0
 
       - name: Set up JDK 11
@@ -38,8 +38,8 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "nightly-${{ github.event.inputs.parameter || 'development' }}"
+          automatic_release_tag: "nightly-${{ github.event.inputs.parameter || 'origin/development' }}"
           prerelease: true
-          title: "Nightly Build (${{ github.event.inputs.parameter || 'development' }})"
+          title: "Nightly Build (${{ github.event.inputs.parameter || 'origin/development' }})"
           files: |
             runelite-client/target/*.jar

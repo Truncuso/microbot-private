@@ -3,10 +3,16 @@ package net.runelite.client.plugins.VoxSylvaePlugins.util.teleport;
 public enum TeleportType {
     STANDARD_SPELLBOOK,
     ANCIENT_MAGICKS,
-    ARCEUUS_SPELLBOOK,
     LUNAR_SPELLBOOK,
-    JEWELRY,
+    ARCEUUS_SPELLBOOK,
+    ENCHANTED_JEWELLERY,
+    TELEPORT_TABLETS,
+    TELEPORT_SCROLLS,
+    ACHIEVEMENT_DIARY_ITEMS,
+    OTHER_ITEMS,
+    QUEST_RELATED_ITEMS,
+    SKILL_CAPES,
+    COMBAT_ACHIEVEMENT_ITEMS,
     FAIRY_RING,
-    POH,
-    ITEM
+    POH
 }

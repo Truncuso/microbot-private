@@ -1,317 +1,1051 @@
-{
-  "fairy_ring_teleports": [
-    {
+[
+  {
+    "name": "Fairy Ring AIR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2700, "y": 3247, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AIR",
       "location": "Islands: South-east of Ardougne",
-      "coordinates": { "x": 2700, "y": 3247, "z": 0 },
       "notes": "Empty island, used for clue scroll coordinates and the medium Ardougne diary. This is also the first fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AJP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Children of the Sun"],
+    "destinations": [
+      {"x": 1651, "y": 3010, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AJP",
       "location": "Varlamore: Avium Savannah",
-      "coordinates": { "x": 1651, "y": 3010, "z": 0 },
       "notes": "Requires having travelled to Civitas illa Fortis via Regulus Cento, after completion of Children of the Sun."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AJQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Death to the Dorgeshuun"],
+    "destinations": [
+      {"x": 2735, "y": 5221, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AJQ",
       "location": "Dungeons: Cave south of Dorgesh-Kaan",
-      "coordinates": { "x": 2735, "y": 5221, "z": 0 },
       "notes": "Completion of Death to the Dorgeshuun and a light source is required to enter this area.",
       "points_of_interest": ["Cave crawlers", "Cave bugs", "Cave slimes", "Molanisks", "Dorgesh-Kaan Agility Course"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AJQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Death to the Dorgeshuun"],
+    "destinations": [
+      {"x": 2735, "y": 5221, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "code": "AJQ",
+      "location": "Dungeons: Cave south of Dorgesh-Kaan",
+      "notes": "Completion of Death to the Dorgeshuun and a light source is required to enter this area.",
+      "points_of_interest": ["Cave crawlers", "Cave bugs", "Cave slimes", "Molanisks", "Dorgesh-Kaan Agility Course"]
+    }
+  },
+  {
+    "name": "Fairy Ring AJR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2780, "y": 3613, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AJR",
       "location": "Kandarin: Slayer cave south-east of Rellekka",
-      "coordinates": { "x": 2780, "y": 3613, "z": 0 },
       "points_of_interest": ["Fremennik Slayer Dungeon", "Rellekka"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AJS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2500, "y": 3896, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AJS",
       "location": "Islands: Penguins near Miscellania",
-      "coordinates": { "x": 2500, "y": 3896, "z": 0 },
       "notes": "Penguins; no other access. This is also the fourth and final fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AKP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Beneath Cursed Sands"],
+    "destinations": [
+      {"x": 3284, "y": 2705, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AKP",
       "location": "Kharidian Desert: Necropolis",
-      "coordinates": { "x": 3284, "y": 2705, "z": 0 },
       "points_of_interest": ["Sophanem", "Menaphos", "Necropolis"],
       "notes": "Unlocked by entering the Necropolis in the beginning of Beneath Cursed Sands."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AKQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2319, "y": 3619, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AKQ",
       "location": "Kandarin: Piscatoris Hunter area",
-      "coordinates": { "x": 2319, "y": 3619, "z": 0 },
       "points_of_interest": ["Kraken Cove", "Chinchompas (grey)", "Mining spots", "Piscatoris Fishing Colony"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AKR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1827, "y": 3538, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AKR",
       "location": "Great Kourend: Hosidius Vinery",
-      "coordinates": { "x": 1827, "y": 3538, "z": 0 },
       "points_of_interest": ["Hosidius Vinery", "Tithe Farm minigame"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring AKS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2571, "y": 2956, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "AKS",
       "location": "Feldip Hills: Feldip Hunter area",
-      "coordinates": { "x": 2571, "y": 2956, "z": 0 },
       "points_of_interest": ["Hunter jungle area", "Chompy hunting grounds", "Gnome glider"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring ALP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2503, "y": 3636, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "ALP",
       "location": "Islands: Lighthouse",
-      "coordinates": { "x": 2503, "y": 3636, "z": 0 },
       "points_of_interest": ["Jossik", "Barbarian Outpost", "Rellekka", "Dagannoths"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring ALQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3597, "y": 3495, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "ALQ",
       "location": "Morytania: Haunted Woods east of Canifis",
-      "coordinates": { "x": 3597, "y": 3495, "z": 0 },
       "notes": "Can be used in conjunction with the Ectophial to quickly access the fairy ring network, but this ring is surrounded by aggressive Vampyres and Leeches.",
       "points_of_interest": ["Farming patch", "Port Phasmatys"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring ALR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3059, "y": 4875, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "ALR",
       "location": "Other Realms: Abyssal Area",
-      "coordinates": { "x": 3059, "y": 4875, "z": 0 },
       "points_of_interest": ["Abyssal leeches", "Abyssal guardians", "Abyssal walkers", "Abyssal demons"],
       "notes": "Alternative area for players to get essence pouches."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring ALS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2644, "y": 3495, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "ALS",
       "location": "Kandarin: McGrubor's Wood",
-      "coordinates": { "x": 2644, "y": 3495, "z": 0 },
       "points_of_interest": ["Seers' Village", "Coal trucks", "Fishing Guild", "Ranging Guild", "Hemenster"],
       "notes": "Going here is required for the medium Kandarin Diary."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BIP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3410, "y": 3324, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BIP",
       "location": "Islands: South-west of Mort Myre",
-      "coordinates": { "x": 3410, "y": 3324, "z": 0 },
       "notes": "Empty island with a shortcut to enter Mort Myre, requiring level 50 Agility. This fairy ring is also used for the hard cryptic clue 'BIP 7013'."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BIQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3251, "y": 3095, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BIQ",
       "location": "Kharidian Desert near the Kalphite Hive",
-      "coordinates": { "x": 3251, "y": 3095, "z": 0 },
       "points_of_interest": ["Kalphite Lair", "Kalphite Queen", "Shantay Pass"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BIS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2635, "y": 3266, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BIS",
       "location": "Kandarin: Ardougne Zoo - Unicorns",
-      "coordinates": { "x": 2635, "y": 3266, "z": 0 },
       "notes": "Unicorns; no other access. Required for the medium Ardougne Diary."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BJP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2267, "y": 2976, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BJP",
       "location": "Islands: Isle of Souls",
-      "coordinates": { "x": 2267, "y": 2976, "z": 0 },
       "points_of_interest": ["Crumbling Tower", "Isle of Souls Dungeon"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BJR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Holy Grail"],
+    "destinations": [
+      {"x": 2650, "y": 4730, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BJR",
       "location": "Other Realms: Realm of the Fisher King",
-      "coordinates": { "x": 2650, "y": 4730, "z": 0 },
       "notes": "Requires partial completion of the Holy Grail quest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BJS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Regicide"],
+    "destinations": [
+      {"x": 2150, "y": 3070, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BJS",
       "location": "Islands: Near Zul-Andra",
-      "coordinates": { "x": 2150, "y": 3070, "z": 0 },
       "notes": "Requires completion of the Regicide quest. 76 Agility is needed to jump off the island."
-    },
-    {
+    }
+  },  
+  {
+    "name": "Fairy Ring BKP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2385, "y": 3035, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BKP",
       "location": "Feldip Hills: South of Castle Wars",
-      "coordinates": { "x": 2385, "y": 3035, "z": 0 },
       "points_of_interest": ["Smoke Devil Dungeon", "Chompy bird hunting grounds", "Teak tree", "Castle Wars"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BKQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3041, "y": 4532, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BKQ",
       "location": "Other Realms: Enchanted Valley",
-      "coordinates": { "x": 3041, "y": 4532, "z": 0 },
       "points_of_interest": ["Tree spirits"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BKR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)", "Priest in Peril"],
+    "destinations": [
+      {"x": 3469, "y": 3431, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BKR",
       "location": "Morytania: Mort Myre Swamp, south of Canifis",
-      "coordinates": { "x": 3469, "y": 3431, "z": 0 },
       "notes": "Swamp boat south-east (towards Barrows and Burgh de Rott)."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BKS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2412, "y": 4434, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BKS",
       "location": "Other Realms: Zanaris",
-      "coordinates": { "x": 2412, "y": 4434, "z": 0 },
       "points_of_interest": ["Impetuous Impulses", "Chaeldar", "Cosmic runic altar"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BLP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2437, "y": 5126, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BLP",
       "location": "Dungeons: TzHaar area",
-      "coordinates": { "x": 2437, "y": 5126, "z": 0 },
       "points_of_interest": ["TzHaar Fight Cave", "TzHaar Fight Pit", "TzHaar monsters"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BLQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Land of the Goblins"],
+    "destinations": [
+      {"x": 3573, "y": 4371, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BLQ",
       "location": "Other Realms: Yu'biusk",
-      "coordinates": { "x": 3573, "y": 4371, "z": 0 },
       "notes": "Requires partial completion of the Land of the Goblins quest. Used during the Hopespear's Will miniquest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BLR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2740, "y": 3351, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BLR",
       "location": "Kandarin: Legends' Guild",
-      "coordinates": { "x": 2740, "y": 3351, "z": 0 },
       "points_of_interest": ["Legends' Guild", "Mining spots", "Magic and Maple trees", "Witchaven", "East Ardougne"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring BLS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1295, "y": 3493, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "BLS",
       "location": "Kebos Lowlands: South of Mount Quidamortem",
-      "coordinates": { "x": 1295, "y": 3493, "z": 0 },
       "points_of_interest": ["Rowboat to The Stranglewood", "Mountain Guide for quick access to the Chambers of Xeric"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CIP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["The Fremennik Trials", "Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2513, "y": 3884, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CIP",
       "location": "Islands: Miscellania",
-      "coordinates": { "x": 2513, "y": 3884, "z": 0 },
       "notes": "Requires completion of The Fremennik Trials quest. Required for the medium Fremennik Diary.",
       "points_of_interest": ["Miscellania", "Etceteria", "Managing Miscellania"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CIQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2528, "y": 3127, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CIQ",
       "location": "Kandarin: North-west of Yanille",
-      "coordinates": { "x": 2528, "y": 3127, "z": 0 },
       "points_of_interest": ["Tree Gnome Village", "Yanille", "Gu'Tanoth", "Castle Wars"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CIR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1302, "y": 3762, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CIR",
       "location": "Kebos Lowlands: South of Mount Karuulm",
-      "coordinates": { "x": 1302, "y": 3762, "z": 0 },
       "notes": "The player must have visited Great Kourend at least once in order to access this fairy ring. Required for the medium Kourend & Kebos Diary.",
       "points_of_interest": ["Mount Karuulm", "Farming Guild"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CIS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1639, "y": 3868, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CIS",
       "location": "Great Kourend: Arceuus Library",
-      "coordinates": { "x": 1639, "y": 3868, "z": 0 },
       "notes": "North of the Arceuus Library in Arceuus."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CIS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1639, "y": 3868, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
+      "code": "CIS",
+      "location": "Great Kourend: Arceuus Library",
+      "notes": "North of the Arceuus Library in Arceuus."
+    }
+  },
+  {
+    "name": "Fairy Ring CJR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2705, "y": 3576, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CJR",
       "location": "Kandarin: Sinclair Mansion (east)",
-      "coordinates": { "x": 2705, "y": 3576, "z": 0 },
       "points_of_interest": ["Sinclair Mansion", "Seers' Village"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CKP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairytale II - Cure a Queen"],
+    "destinations": [
+      {"x": 2075, "y": 4848, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CKP",
       "location": "Other Realms: Cosmic entity's plane",
-      "coordinates": { "x": 2075, "y": 4848, "z": 0 },
       "notes": "Used during the Fairytale II - Cure a Queen quest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CKR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2801, "y": 3003, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CKR",
       "location": "Karamja: South of Tai Bwo Wannai Village",
-      "coordinates": { "x": 2801, "y": 3003, "z": 0 },
       "points_of_interest": ["Graahks", "Shilo Village", "Tai Bwo Wannai Village", "Nature Altar"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CKS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)", "Priest in Peril"],
+    "destinations": [
+      {"x": 3447, "y": 3470, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CKS",
       "location": "Morytania: Canifis",
-      "coordinates": { "x": 3447, "y": 3470, "z": 0 },
       "points_of_interest": ["Morytania Slayer Tower", "Canifis", "Paterdomus", "Mort Myre swamp"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CLP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3082, "y": 3206, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CLP",
       "location": "Islands: Draynor island",
-      "coordinates": { "x": 3082, "y": 3206, "z": 0 },
       "notes": "This is the solution to the hard coordinate clue '01 degrees 30 minutes north, 20 degrees 01 minutes east'."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CLR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Monkey Madness I", "Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2740, "y": 2738, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CLR",
       "location": "Islands: Ape Atoll",
-      "coordinates": { "x": 2740, "y": 2738, "z": 0 },
       "notes": "Requires completion of the Monkey Madness I quest. In addition, 48 Agility and a Ninja monkey greegree or Kruk monkey greegree is required to exit the agility course and travel to the city without taking damage."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring CLS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2682, "y": 3081, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "CLS",
       "location": "Islands: Hazelmere's home",
-      "coordinates": { "x": 2682, "y": 3081, "z": 0 },
       "notes": "Hazelmere lives nearby."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DIP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3037, "y": 4763, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DIP",
       "location": "Other Realms: Abyssal Nexus",
-      "coordinates": { "x": 3037, "y": 4763, "z": 0 },
       "points_of_interest": ["Abyssal Sire"]
-    },
-    {
-      "code": "DIP",
-      "location": "Other Realms: Abyssal Nexus",
-      "coordinates": { "x": 3037, "y": 4763, "z": 0 },
-      "points_of_interest": ["Abyssal Sire"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DIQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 0, "y": 0, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DIQ",
       "location": "Player-owned house Superior Garden",
       "notes": "Only works if the player has a fairy ring in their house."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DIR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3038, "y": 5348, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DIR",
       "location": "Other Realms: Gorak's Plane",
-      "coordinates": { "x": 3038, "y": 5348, "z": 0 },
       "notes": "The only place Goraks can be found other than the God Wars Dungeon."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DIS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3108, "y": 3149, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DIS",
       "location": "Misthalin: Wizards' Tower",
-      "coordinates": { "x": 3108, "y": 3149, "z": 0 },
       "points_of_interest": ["Wizards' Tower", "Rune essence mine"],
       "notes": "Required for the medium Lumbridge & Draynor Diary."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DJP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2658, "y": 3230, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DJP",
       "location": "Kandarin: Tower of Life",
-      "coordinates": { "x": 2658, "y": 3230, "z": 0 },
       "points_of_interest": ["Ardougne Monastery", "Ardougne cloak unlimited teleport", "East Ardougne", "Spirit tree", "Port Khazard"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DJR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 1455, "y": 3658, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DJR",
       "location": "Great Kourend: Chasm of Fire",
-      "coordinates": { "x": 1455, "y": 3658, "z": 0 },
       "points_of_interest": ["Chasm of Fire", "North-west corner of Shayzien"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DKP",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2900, "y": 3111, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DKP",
       "location": "Karamja: Gnome Glider",
-      "coordinates": { "x": 2900, "y": 3111, "z": 0 },
       "points_of_interest": ["Karambwan fishing spots"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DKR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3129, "y": 3496, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DKR",
       "location": "Misthalin: Edgeville",
-      "coordinates": { "x": 3129, "y": 3496, "z": 0 },
       "points_of_interest": ["Grand Exchange", "Edgeville bank", "Wilderness"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DKS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2744, "y": 3719, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DKS",
       "location": "Fremennik: Polar Hunter area",
-      "coordinates": { "x": 2744, "y": 3719, "z": 0 },
       "points_of_interest": ["Keldagrim entrance", "Brine Rat Cavern", "Rock crabs", "Rellekka"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DLQ",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3423, "y": 3016, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DLQ",
       "location": "Kharidian Desert: North of Nardah",
-      "coordinates": { "x": 3423, "y": 3016, "z": 0 },
       "points_of_interest": ["Desert lizards", "Jackals", "Nardah"]
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DLR",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 2213, "y": 3099, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DLR",
       "location": "Islands: Poison Waste south of Isafdar",
-      "coordinates": { "x": 2213, "y": 3099, "z": 0 },
       "notes": "Player can use Broken Handz's telescope to spectate players fighting Zulrah. There are also unattackable badgers on the island. This is also the second fairy ring in the sequence used to access the Fairy Queen's hideout during and after the Fairytale II - Cure a Queen quest."
-    },
-    {
+    }
+  },
+  {
+    "name": "Fairy Ring DLS",
+    "type": "FAIRY_RING",
+    "requiredLevel": 0,
+    "requiredItems": [
+      {"name": "Dramen staff", "quantity": 1},
+      {"name": "Lunar staff", "quantity": 1}
+    ],
+    "requiredQuests": ["In Search of the Myreque", "Fairy Tale II - Cure a Queen (partial completion)"],
+    "destinations": [
+      {"x": 3447, "y": 9824, "z": 0}
+    ],
+    "isEquippable": false,
+    "charges": -1,
+    "additionalInfo": {
       "code": "DLS",
       "location": "Dungeons: Myreque hideout under The Hollows",
-      "coordinates": { "x": 3447, "y": 9824, "z": 0 },
       "notes": "Requires completion of the In Search of the Myreque quest. Find the cracks in the walls to enter the main tunnel under the Hair of the Dog pub in Canifis."
     }
-  ]
-}
+  }
+]
