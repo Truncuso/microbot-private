@@ -22,7 +22,11 @@ public class Login {
     private static final int MAX_PLAYER_COUNT = 1950;
 
     public Login() {
+<<<<<<< HEAD
         this(getRandomWorld(true));
+=======
+        this(getRandomWorld(activeProfile.isMember()));
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     public Login(int world) {
@@ -34,6 +38,11 @@ public class Login {
     }
 
     public Login(String username, String password, int world) {
+<<<<<<< HEAD
+=======
+        if(Microbot.isLoggedIn())
+            return;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         if (Microbot.getClient().getLoginIndex() == 3 || Microbot.getClient().getLoginIndex() == 24) { // you were disconnected from the server.
             int loginScreenWidth = 804;
             int startingWidth = (Microbot.getClient().getCanvasWidth() / 2) - (loginScreenWidth / 2);
@@ -68,6 +77,7 @@ public class Login {
         }
     }
 
+<<<<<<< HEAD
     public void setWorld(int worldNumber) {
         try {
             net.runelite.http.api.worlds.World world = Microbot.getWorldService().getWorlds().findWorld(worldNumber);
@@ -88,6 +98,8 @@ public class Login {
         return getRandomWorld(isMembers, null);
     }
 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static int getRandomWorld(boolean isMembers, WorldRegion region) {
         WorldResult worldResult = Microbot.getWorldService().getWorlds();
 
@@ -125,8 +137,13 @@ public class Login {
 
             if (region != null)
                 filteredWorlds = filteredWorlds
+<<<<<<< HEAD
                     .stream()
                     .filter(x -> x.getRegion() == region).collect(Collectors.toList());
+=======
+                        .stream()
+                        .filter(x -> x.getRegion() == region).collect(Collectors.toList());
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
             World world =
                     filteredWorlds.stream()
@@ -141,4 +158,27 @@ public class Login {
 
         return isMembers ? 360 : 383;
     }
+<<<<<<< HEAD
+=======
+
+    public static int getRandomWorld(boolean isMembers) {
+        return getRandomWorld(isMembers, null);
+    }
+
+    public void setWorld(int worldNumber) {
+        try {
+            net.runelite.http.api.worlds.World world = Microbot.getWorldService().getWorlds().findWorld(worldNumber);
+            final net.runelite.api.World rsWorld = Microbot.getClient().createWorld();
+            rsWorld.setActivity(world.getActivity());
+            rsWorld.setAddress(world.getAddress());
+            rsWorld.setId(world.getId());
+            rsWorld.setPlayerCount(world.getPlayers());
+            rsWorld.setLocation(world.getLocation());
+            rsWorld.setTypes(WorldUtil.toWorldTypes(world.getTypes()));
+            Microbot.getClient().changeWorld(rsWorld);
+        } catch (Exception ex) {
+            System.out.println("Failed to find world");
+        }
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/loottracker/NpcMetadata.java
  * Copyright (c) 2023, Adam <Adam@sigterm.info>
+========
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/gpu/GLBuffer.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/loottracker/NpcMetadata.java
 package net.runelite.client.plugins.loottracker;
 
 import lombok.Data;
@@ -38,4 +43,19 @@ class NpcMetadata
 	int r6;
 	int r7;
 	int r8;
+========
+package net.runelite.client.plugins.gpu;
+
+class GLBuffer
+{
+	String name;
+	int glBufferId = -1;
+	int size = -1;
+	long clBuffer = -1;
+
+	GLBuffer(String name)
+	{
+		this.name = name;
+	}
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/gpu/GLBuffer.java
 }

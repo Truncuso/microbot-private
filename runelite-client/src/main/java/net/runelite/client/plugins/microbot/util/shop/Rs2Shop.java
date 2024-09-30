@@ -4,6 +4,10 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.MenuAction;
 import net.runelite.api.NPC;
 import net.runelite.api.events.ItemContainerChanged;
+<<<<<<< HEAD
+=======
+import net.runelite.api.widgets.ComponentID;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
@@ -41,7 +45,11 @@ public class Rs2Shop {
      * @return
      */
     public static boolean isOpen() {
+<<<<<<< HEAD
         return Rs2Widget.getWidget(WidgetInfo.SHOP_INVENTORY_ITEMS_CONTAINER) != null
+=======
+        return Rs2Widget.getWidget(ComponentID.SHOP_INVENTORY_ITEM_CONTAINER) != null
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                 && !Rs2Widget.isHidden(WidgetInfo.SHOP_INVENTORY_ITEMS_CONTAINER.getId());
     }
 
@@ -97,6 +105,10 @@ public class Rs2Shop {
      * Checks if the specified item is in stock in the shop. **Note** if the item has stock 0 this will still return true.
      *
      * @param itemName The name of the item to check.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return true if the item is in stock, false otherwise.
      */
     public static boolean hasStock(String itemName) {
@@ -117,6 +129,10 @@ public class Rs2Shop {
      *
      * @param itemName        The name of the item to check.
      * @param minimumQuantity The minimum quantity required.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return true if the item is in stock with quantity >= minimumQuantity, false otherwise.
      */
     public static boolean hasMinimumStock(String itemName, int minimumQuantity) {
@@ -159,6 +175,10 @@ public class Rs2Shop {
      * Retrieves the slot number of the specified item in the shop.
      *
      * @param itemName The name of the item to find.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return The slot number of the item, or -1 if the item is not found.
      */
     public static int getSlot(String itemName) {
@@ -238,10 +258,27 @@ public class Rs2Shop {
 
         }
 
+<<<<<<< HEAD
         Microbot.doInvoke(new NewMenuEntry(param0, param1, menuAction.getId(), identifier, rs2Item.id, rs2Item.name), new Rectangle(0, 0, 1, 1));
         //Rs2Reflection.invokeMenu(param0, param1, menuAction.getId(), identifier, rs2Item.id, action, target, -1, -1);
     }
 
 
+=======
+        Microbot.doInvoke(new NewMenuEntry(param0, param1, menuAction.getId(), identifier, rs2Item.id, rs2Item.name), (itemBounds(rs2Item) == null) ? new Rectangle(1, 1) : itemBounds(rs2Item));
+        //Rs2Reflection.invokeMenu(param0, param1, menuAction.getId(), identifier, rs2Item.id, action, target, -1, -1);
+    }
+
+    /**
+     * Method to get the bounds of the item
+     *
+     * @param rs2Item Current item to interact with
+     *
+     * @return Rectangle of the item
+     */
+    private static Rectangle itemBounds(Rs2Item rs2Item) {
+        return Rs2Widget.getWidget(19660816).getDynamicChildren()[getSlot(rs2Item.getName())+1].getBounds();
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }
 

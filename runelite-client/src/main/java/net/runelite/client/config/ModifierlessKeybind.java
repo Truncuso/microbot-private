@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/config/ModifierlessKeybind.java
  * Copyright (c) 2019 Abex
+========
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/worldhopper/ping/RLLibC.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/config/ModifierlessKeybind.java
 package net.runelite.client.config;
 
 import java.awt.event.KeyEvent;
@@ -54,4 +59,31 @@ public class ModifierlessKeybind extends Keybind
 	{
 		return matches(e, true);
 	}
+========
+package net.runelite.client.plugins.worldhopper.ping;
+
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.unix.LibC;
+import net.runelite.client.util.OSType;
+
+interface RLLibC extends LibC
+{
+	RLLibC INSTANCE = Native.loadLibrary(NAME, RLLibC.class);
+
+	int AF_INET = 2;
+	int SOCK_DGRAM = 2;
+	int SOL_SOCKET = OSType.getOSType() == OSType.MacOS ? 0xffff : 1;
+	int IPPROTO_ICMP = 1;
+	int SO_SNDTIMEO = OSType.getOSType() == OSType.MacOS ? 0x1005 : 21;
+	int SO_RCVTIMEO = OSType.getOSType() == OSType.MacOS ? 0x1006 : 20;
+
+	int socket(int domain, int type, int protocol);
+
+	int sendto(int sockfd, byte[] buf, int len, int flags, byte[] dest_addr, int addrlen);
+
+	int recvfrom(int sockfd, Pointer buf, int len, int flags, Pointer src_addr, Pointer addrlen);
+
+	int setsockopt(int sockfd, int level, int optname, Pointer optval, int optlen);
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/worldhopper/ping/RLLibC.java
 }

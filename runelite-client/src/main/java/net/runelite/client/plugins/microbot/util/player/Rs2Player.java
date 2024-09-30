@@ -18,6 +18,10 @@ import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.math.Random;
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.util.security.Login;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
 import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 
@@ -72,9 +76,17 @@ public class Rs2Player {
             return true;
         } else return antiVenomTime < VENOM_VALUE_CUTOFF;
     }
+<<<<<<< HEAD
     public static boolean hasAntiPoisonActive() {
         return antiPoisonTime > 0;
     }
+=======
+
+    public static boolean hasAntiPoisonActive() {
+        return antiPoisonTime > 0;
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static boolean hasStaminaBuffActive() {
         return staminaBuffTime > 0;
     }
@@ -105,8 +117,12 @@ public class Rs2Player {
             }
             final int poisonVarp = event.getValue();
 
+<<<<<<< HEAD
             if (poisonVarp == 0)
             {
+=======
+            if (poisonVarp == 0) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                 antiPoisonTime = -1;
             } else {
                 antiPoisonTime = poisonVarp;
@@ -132,7 +148,10 @@ public class Rs2Player {
 
     /**
      * Wait for walking
+<<<<<<< HEAD
      * 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      */
     public static void waitForWalking() {
         boolean result = sleepUntilTrue(Rs2Player::isWalking, 100, 5000);
@@ -142,7 +161,11 @@ public class Rs2Player {
 
     /**
      * Wait for walking in time
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @param time
      */
     public static void waitForWalking(int time) {
@@ -153,19 +176,36 @@ public class Rs2Player {
 
     /**
      * Wait for XP Drop
+<<<<<<< HEAD
      * 
      * @param skill
      * @return
      */
     public static boolean waitForXpDrop(Skill skill) {
         return waitForXpDrop(skill,5000, false);
+=======
+     *
+     * @param skill
+     *
+     * @return
+     */
+    public static boolean waitForXpDrop(Skill skill) {
+        return waitForXpDrop(skill, 5000, false);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     /**
      * Wait for XP Drop or if inventory is full
+<<<<<<< HEAD
      * 
      * @param skill
      * @param time
+=======
+     *
+     * @param skill
+     * @param time
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean waitForXpDrop(Skill skill, int time) {
@@ -174,6 +214,7 @@ public class Rs2Player {
 
     /**
      * Wait for XP Drop or if inventory is full
+<<<<<<< HEAD
      * 
      * @param skill
      * @param inventoryFullCheck
@@ -181,14 +222,32 @@ public class Rs2Player {
      */
     public static boolean waitForXpDrop(Skill skill, boolean inventoryFullCheck) {
         return waitForXpDrop(skill,5000, inventoryFullCheck);
+=======
+     *
+     * @param skill
+     * @param inventoryFullCheck
+     *
+     * @return
+     */
+    public static boolean waitForXpDrop(Skill skill, boolean inventoryFullCheck) {
+        return waitForXpDrop(skill, 5000, inventoryFullCheck);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     /**
      * Wait for XP Drop in time or if inventory is full
+<<<<<<< HEAD
      * 
      * @param skill
      * @param time
      * @param inventoryFullCheck
+=======
+     *
+     * @param skill
+     * @param time
+     * @param inventoryFullCheck
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean waitForXpDrop(Skill skill, int time, boolean inventoryFullCheck) {
@@ -198,7 +257,10 @@ public class Rs2Player {
 
     /**
      * Wait for animation
+<<<<<<< HEAD
      * 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      */
     public static void waitForAnimation() {
         boolean result = sleepUntilTrue(Rs2Player::isAnimating, 100, 5000);
@@ -207,8 +269,13 @@ public class Rs2Player {
     }
 
     /**
+<<<<<<< HEAD
      * Wait for animation 
      * 
+=======
+     * Wait for animation
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @param time
      */
     public static void waitForAnimation(int time) {
@@ -219,7 +286,13 @@ public class Rs2Player {
 
     /**
      * Chek if the player is animating within the past ms
+<<<<<<< HEAD
      * @param ms
+=======
+     *
+     * @param ms
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isAnimating(int ms) {
@@ -228,7 +301,11 @@ public class Rs2Player {
 
     /**
      * Check if the player is animating within the past 600ms
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isAnimating() {
@@ -237,7 +314,11 @@ public class Rs2Player {
 
     /**
      * Check if the player is walking
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isWalking() {
@@ -246,7 +327,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is moving
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isMoving() {
@@ -256,7 +341,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is interacting
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isInteracting() {
@@ -265,7 +354,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is a member
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isMember() {
@@ -282,8 +375,14 @@ public class Rs2Player {
 
     /**
      * Toggles player run
+<<<<<<< HEAD
      * 
      * @param toggle
+=======
+     *
+     * @param toggle
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean toggleRunEnergy(boolean toggle) {
@@ -305,17 +404,27 @@ public class Rs2Player {
 
     /**
      * Checks if run is enabled
+<<<<<<< HEAD
      * 
      * @return
      */
     public static boolean isRunEnabled()
     {
+=======
+     *
+     * @return
+     */
+    public static boolean isRunEnabled() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         return Microbot.getVarbitPlayerValue(173) == 1;
     }
 
     /**
      * Logs the player out of the game
+<<<<<<< HEAD
      * 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      */
     public static void logout() {
         if (Microbot.isLoggedIn()) {
@@ -330,6 +439,7 @@ public class Rs2Player {
 
     /**
      * Logouts out the player is found in an area around the player for time
+<<<<<<< HEAD
      * 
      * @param amountOfPlayers to detect before triggering logout
      * @param time in milliseconds
@@ -338,6 +448,17 @@ public class Rs2Player {
      */
     public static boolean logoutIfPlayerDetected(int amountOfPlayers, int time, int distance) {
         List<Player> players = Microbot.getClient().getPlayers();
+=======
+     *
+     * @param amountOfPlayers to detect before triggering logout
+     * @param time            in milliseconds
+     * @param distance        from the player
+     *
+     * @return
+     */
+    public static boolean logoutIfPlayerDetected(int amountOfPlayers, int time, int distance) {
+        List<Player> players = getPlayers();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         long currentTime = System.currentTimeMillis();
 
         if (distance > 0) {
@@ -370,9 +491,15 @@ public class Rs2Player {
     }
 
     /**
+<<<<<<< HEAD
      *
      * @param amountOfPlayers
      * @param time
+=======
+     * @param amountOfPlayers
+     * @param time
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean logoutIfPlayerDetected(int amountOfPlayers, int time) {
@@ -380,8 +507,13 @@ public class Rs2Player {
     }
 
     /**
+<<<<<<< HEAD
      *
      * @param amountOfPlayers
+=======
+     * @param amountOfPlayers
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean logoutIfPlayerDetected(int amountOfPlayers) {
@@ -389,9 +521,58 @@ public class Rs2Player {
     }
 
     /**
+<<<<<<< HEAD
      * Eat food at a certain health percentage, will search inventory for first possible food item.
      * 
      * @param percentage
+=======
+     * Hop if player is detected
+     *
+     * @param amountOfPlayers, time, distance
+     *
+     * @return true if player is detected and hopped
+     */
+    public static boolean hopIfPlayerDetected(int amountOfPlayers, int time, int distance) {
+        List<Player> players = getPlayers();
+        long currentTime = System.currentTimeMillis();
+
+        if (distance > 0) {
+            players = players.stream()
+                    .filter(x -> x != null && x.getWorldLocation().distanceTo(Rs2Player.getWorldLocation()) <= distance)
+                    .collect(Collectors.toList());
+        }
+        if (time > 0 && players.size() >= amountOfPlayers) {
+            // Update detection times for currently detected players
+            for (Player player : players) {
+                playerDetectionTimes.putIfAbsent(player, currentTime);
+            }
+
+            // Remove players who are no longer detected
+            playerDetectionTimes.keySet().retainAll(players);
+
+            // Check if any player has been detected for longer than the specified time
+            for (Player player : players) {
+                long detectionTime = playerDetectionTimes.getOrDefault(player, 0L);
+                if (currentTime - detectionTime >= time) { // convert time to milliseconds
+                    int randomWorld = Login.getRandomWorld(isMember());
+                    Microbot.hopToWorld(randomWorld);
+                    return true;
+                }
+            }
+        } else if (players.size() >= amountOfPlayers) {
+            int randomWorld = Login.getRandomWorld(isMember());
+            Microbot.hopToWorld(randomWorld);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Eat food at a certain health percentage, will search inventory for first possible food item.
+     *
+     * @param percentage
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean eatAt(int percentage) {
@@ -418,6 +599,10 @@ public class Rs2Player {
 
     /**
      * Gets the players current world location
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return worldpoint
      */
     public static WorldPoint getWorldLocation() {
@@ -432,6 +617,10 @@ public class Rs2Player {
 
     /**
      * Checks if the player is near a worldpoint
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isNearArea(WorldPoint worldPoint, int distance) {
@@ -441,6 +630,10 @@ public class Rs2Player {
 
     /**
      * Gets the player's local point (commonly used in instanced areas)
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return localpoint
      */
     public static LocalPoint getLocalLocation() {
@@ -449,7 +642,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player has full health
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isFullHealth() {
@@ -458,7 +655,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is in multi-combat area
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isInMulti() {
@@ -467,12 +668,22 @@ public class Rs2Player {
 
     /**
      * Drink prayer potion at prayer point level
+<<<<<<< HEAD
      * 
      * @param prayerPoints
      * @return
      */
     public static boolean drinkPrayerPotionAt(int prayerPoints) {
         if  (Microbot.getClient().getBoostedSkillLevel(Skill.PRAYER) <= prayerPoints) {
+=======
+     *
+     * @param prayerPoints
+     *
+     * @return
+     */
+    public static boolean drinkPrayerPotionAt(int prayerPoints) {
+        if (Microbot.getClient().getBoostedSkillLevel(Skill.PRAYER) <= prayerPoints) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Inventory.interact("prayer potion", "drink");
         }
         return false;
@@ -480,7 +691,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player has prayer points remaining
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean hasPrayerPoints() {
@@ -489,7 +704,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is standing on a game object
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isStandingOnGameObject() {
@@ -499,7 +718,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is standing on a ground item
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isStandingOnGroundItem() {
@@ -509,7 +732,11 @@ public class Rs2Player {
 
     /**
      * Gets the player's current animation ID
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static int getAnimation() {
@@ -519,7 +746,11 @@ public class Rs2Player {
 
     /**
      * Gets player's current pose animation ID
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static int getPoseAnimation() {
@@ -528,8 +759,14 @@ public class Rs2Player {
 
     /**
      * Gets player's current QuestState for quest
+<<<<<<< HEAD
      * 
      * @param quest
+=======
+     *
+     * @param quest
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return queststate
      */
     public static QuestState getQuestState(Quest quest) {
@@ -539,8 +776,14 @@ public class Rs2Player {
 
     /**
      * Gets player's real level for skill
+<<<<<<< HEAD
      * 
      * @param skill
+=======
+     *
+     * @param skill
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return level
      */
     public static int getRealSkillLevel(Skill skill) {
@@ -549,8 +792,14 @@ public class Rs2Player {
 
     /**
      * Gets player's boosted level for skill
+<<<<<<< HEAD
      * 
      * @param skill
+=======
+     *
+     * @param skill
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return level
      */
     public static int getBoostedSkillLevel(Skill skill) {
@@ -559,10 +808,18 @@ public class Rs2Player {
 
     /**
      * Check if the player meets the level requirement for skill
+<<<<<<< HEAD
      * 
      * @param skill
      * @param levelRequired
      * @param isBoosted
+=======
+     *
+     * @param skill
+     * @param levelRequired
+     * @param isBoosted
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean getSkillRequirement(Skill skill, int levelRequired, boolean isBoosted) {
@@ -572,9 +829,16 @@ public class Rs2Player {
 
     /**
      * Check if the player meets the level requirement for skill
+<<<<<<< HEAD
      * 
      * @param skill
      * @param levelRequired
+=======
+     *
+     * @param skill
+     * @param levelRequired
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean getSkillRequirement(Skill skill, int levelRequired) {
@@ -583,7 +847,11 @@ public class Rs2Player {
 
     /**
      * Checks if the player is ironman or hardcore ironman
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isIronman() {
@@ -593,7 +861,11 @@ public class Rs2Player {
 
     /**
      * Check if the player is group ironman
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean isGroupIronman() {
@@ -603,7 +875,11 @@ public class Rs2Player {
 
     /**
      * Gets the players current world
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return world
      */
     public static int getWorld() {
@@ -612,8 +888,14 @@ public class Rs2Player {
 
     /**
      * Gets the distance from current player location to endpoint using ShortestPath (does not work in instanced regions)
+<<<<<<< HEAD
      * 
      * @param endpoint
+=======
+     *
+     * @param endpoint
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return distance
      */
     public static int distanceTo(WorldPoint endpoint) {
@@ -625,22 +907,40 @@ public class Rs2Player {
 
     /**
      * Checks whether a player is about to logout
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean checkIdleLogout() {
         int idleClientTicks = Microbot.getClient().getKeyboardIdleTicks();
 
+<<<<<<< HEAD
         return (long)idleClientTicks >= Random.randomDelay();
+=======
+        return (long) idleClientTicks >= Random.randomDelay();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     /**
      * Checks whether a player is about to logout
+<<<<<<< HEAD
      * @param randomDelay
+=======
+     *
+     * @param randomDelay
+     *
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
      * @return
      */
     public static boolean checkIdleLogout(long randomDelay) {
         int idleClientTicks = Microbot.getClient().getKeyboardIdleTicks();
 
+<<<<<<< HEAD
         return (long)idleClientTicks >= randomDelay;
+=======
+        return (long) idleClientTicks >= randomDelay;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 }

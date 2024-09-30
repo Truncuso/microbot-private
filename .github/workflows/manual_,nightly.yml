@@ -39,6 +39,7 @@ jobs:
           title: "Nightly Build"
           files: |
             /home/runner/work/microbot/microbot/runelite-client/target/*.jar
+<<<<<<< HEAD
 
       - name: Upload Jar
         uses: "bacongobbler/azure-blob-storage-upload@main"
@@ -49,3 +50,5 @@ jobs:
           extra_args: '--pattern *.jar --destination-path nightly'
           # WARNING: this will overwrite existing blobs in your blob storage
           overwrite: 'true'
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6

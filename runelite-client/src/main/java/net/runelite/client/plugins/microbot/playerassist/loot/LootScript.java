@@ -21,6 +21,7 @@ public class LootScript extends Script {
 
 
     public boolean run(PlayerAssistConfig config) {
+<<<<<<< HEAD
         mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
             if (!super.run()) return;
             if (!Microbot.isLoggedIn()) return;
@@ -31,12 +32,30 @@ public class LootScript extends Script {
 
             if (!config.toggleLootItems()) return;
 
+=======
+
+        mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
+            if (!super.run()) return;
+            if (!Microbot.isLoggedIn()) return;
+            if (Rs2Inventory.isFull() || Rs2Inventory.getEmptySlots() <= config.minFreeSlots() || (Rs2Combat.inCombat() && !config.toggleForceLoot()))
+                return;
+
+
+
+            if (!config.toggleLootItems()) return;
+            lootItemsByValue(config);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             lootBones(config);
             lootAshes(config);
             lootRunes(config);
             lootCoins(config);
             lootUntradeableItems(config);
+<<<<<<< HEAD
             lootItemsByValue(config);
+=======
+            lootArrows(config);
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
         }, 0, 200, TimeUnit.MILLISECONDS);
         return true;
@@ -47,7 +66,11 @@ public class LootScript extends Script {
             LootingParameters arrowParams = new LootingParameters(
                     config.attackRadius(),
                     1,
+<<<<<<< HEAD
                     14,
+=======
+                    10,
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     config.minFreeSlots(),
                     config.toggleDelayedLooting(),
                     config.toggleOnlyLootMyItems(),

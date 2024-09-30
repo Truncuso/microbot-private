@@ -59,7 +59,11 @@ public class CooldownPanel extends JPanel {
         });
         timeout.addChangeListener(e -> {
             Rs2Antiban.setTIMEOUT(timeout.getValue());
+<<<<<<< HEAD
             timeoutLabel.setText("Timeout (min): " + timeout.getValue());
+=======
+            timeoutLabel.setText("Timeout (ticks): " + timeout.getValue());
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         });
     }
 
@@ -69,7 +73,11 @@ public class CooldownPanel extends JPanel {
         actionCooldownChance.setValue((int) (Rs2AntibanSettings.actionCooldownChance * 100));
         actionCooldownChanceLabel.setText("Action Cooldown Chance (%): " + actionCooldownChance.getValue());
         timeout.setValue(Rs2Antiban.getTIMEOUT());
+<<<<<<< HEAD
         timeoutLabel.setText("Timeout (min): " + timeout.getValue());
+=======
+        timeoutLabel.setText("Timeout (ticks): " + timeout.getValue());
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
     }
 }

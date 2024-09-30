@@ -300,7 +300,11 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput
 	{
 		LinkBrowser.browse(WikiPlugin.WIKI_BASE.newBuilder()
 			.addQueryParameter("search", search)
+<<<<<<< HEAD
 			.addQueryParameter(WikiPlugin.UTM_SORUCE_KEY, WikiPlugin.UTM_SORUCE_VALUE)
+=======
+			.addQueryParameter(WikiPlugin.UTM_SOURCE_KEY, WikiPlugin.UTM_SOURCE_VALUE)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 			.build()
 			.toString());
 		chatboxPanelManager.close();

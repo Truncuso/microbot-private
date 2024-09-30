@@ -15,6 +15,10 @@ public enum WoodcuttingTree {
     MAPLE("maple tree", "Maple logs",45, "Chop down"),
     MAHOGANY("mahogany tree", "Mahogany logs",50, "Chop down"),
     YEW("yew tree", "Yew logs",60, "Chop down"),
+<<<<<<< HEAD
+=======
+    BLISTERWOOD("blisterwood tree", "Blisterwood logs",62, "Chop"),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     MAGIC("magic tree", "Magic logs",75, "Chop down"),
     REDWOOD("redwood tree", "Redwood logs",90, "Cut");
 

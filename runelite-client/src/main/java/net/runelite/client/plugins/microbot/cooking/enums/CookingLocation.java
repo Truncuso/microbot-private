@@ -10,6 +10,13 @@ import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.cooking.AutoCookingConfig;
 import net.runelite.client.plugins.microbot.util.equipment.Rs2Equipment;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
+
+import java.util.HashMap;
+import java.util.Map;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 @Getter
 @RequiredArgsConstructor
@@ -24,6 +31,10 @@ public enum CookingLocation {
     ROUGES_DEN(new WorldPoint(3043, 4972, 1), CookingAreaType.FIRE, ObjectID.FIRE_43475),
     LUMBRIDGE(new WorldPoint(3231, 3196, 0), CookingAreaType.RANGE, ObjectID.RANGE_26181),
     FALADOR(new WorldPoint(3039, 3345, 0), CookingAreaType.RANGE, 40296),
+<<<<<<< HEAD
+=======
+    PORT_KHAZARD(new WorldPoint(2662, 3156, 0), CookingAreaType.FIRE, ObjectID.FIRE_43475),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     PORT_SARIM(new WorldPoint(3018, 3238, 0), CookingAreaType.RANGE, ObjectID.RANGE_26181),
     RIMMINGTON(new WorldPoint(2969, 3210, 0), CookingAreaType.RANGE, ObjectID.RANGE_9682),
     BARBARBIAN_VILLAGE(new WorldPoint(3106, 3433, 0), CookingAreaType.FIRE, ObjectID.FIRE_43475),
@@ -43,6 +54,7 @@ public enum CookingLocation {
     private final CookingAreaType cookingAreaType;
     private final int cookingObjectID;
 
+<<<<<<< HEAD
     public static CookingLocation findNearestCookingLocation(CookingItem item, WorldPoint playerWorldPoint) {
         CookingLocation nearestLocation = null;
         double nearestDistance = Double.MAX_VALUE;
@@ -71,6 +83,27 @@ public enum CookingLocation {
         int dy = y - point2.getY();
         int dz = point1.getPlane() - point2.getPlane();
         return Math.sqrt(dx * dx + dy * dy + dz * dz);
+=======
+    public static CookingLocation findNearestCookingLocation(CookingItem item) {
+        Map<Integer, CookingLocation> distanceMap = new HashMap<>();
+
+        for (CookingLocation location : values()) {
+            if (!location.hasRequirements()) continue;
+            if ((item.getCookingAreaType() != CookingAreaType.BOTH) &&
+                    (location.getCookingAreaType() != item.getCookingAreaType())) continue;
+
+            // Use Rs2Player.distanceTo instead of manual calculation
+            int distance = Rs2Player.distanceTo(location.getCookingObjectWorldPoint());
+            distanceMap.put(distance, location);
+        }
+
+        // Find the cooking location with the minimum distance
+        return distanceMap.entrySet()
+                .stream()
+                .min(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .orElse(null);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     public boolean hasRequirements() {

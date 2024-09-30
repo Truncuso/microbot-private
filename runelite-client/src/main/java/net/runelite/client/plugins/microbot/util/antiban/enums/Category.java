@@ -21,7 +21,12 @@ import net.runelite.client.plugins.microbot.util.player.Rs2Player;
  * <ul>
  *   <li>Categories for Various Activities: Includes categories such as combat, skilling (e.g., fishing, cooking, magic),
  *   processing, and collecting, each with its own logic to determine if the player is busy.</li>
+<<<<<<< HEAD
  *   <li>Custom Busy Logic: Each category overrides the <code>isBusy()</code> method, providing custom logic
+=======
+ *   <li>Custom Busy Logic: Each category overrides the <code>isBusyInternal
+ *  ()</code> method, providing custom logic
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
  *   for determining if the player is engaged in the respective activity.</li>
  *   <li>Bot Activity Control: The bot uses these categories to manage when it should take action or pause, based
  *   on whether the player is currently busy performing an activity.</li>
@@ -38,7 +43,12 @@ import net.runelite.client.plugins.microbot.util.player.Rs2Player;
  * <h3>Example:</h3>
  * <pre>
  * Category currentCategory = Category.SKILLING_COOKING;
+<<<<<<< HEAD
  * if (currentCategory.isBusy()) {
+=======
+ * if (currentCategory.isBusyInternal
+ *()) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
  *     // The player is busy cooking, so the bot may pause actions.
  * } else {
  *     // The player is idle, and the bot can continue with the next task.
@@ -47,7 +57,12 @@ import net.runelite.client.plugins.microbot.util.player.Rs2Player;
  *
  * <h3>Customization:</h3>
  * <p>
+<<<<<<< HEAD
  * Each category overrides the <code>isBusy()</code> method to implement custom logic for checking if the player is engaged
+=======
+ * Each category overrides the <code>isBusyInternal
+ *()</code> method to implement custom logic for checking if the player is engaged
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
  * in a specific task. For example, the <code>COMBAT_MID</code> category checks if the player is in combat, while the
  * <code>SKILLING_COOKING</code> category checks if the player is currently cooking. Some categories are not fully implemented
  * and include TODO notes for further customization based on game-specific conditions.
@@ -64,121 +79,201 @@ import net.runelite.client.plugins.microbot.util.player.Rs2Player;
 public enum Category {
     COMBAT_MID("Combat/Mid") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Combat.inCombat();
         }
     },
     SKILLING_AGILITY("Skilling/Agility") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isMoving();
         }
     },
     PROCESSING("Processing") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() || Microbot.isGainingExp;
         }
     },
     COLLECTING("Collecting") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isMoving() || Rs2Player.isInteracting();
         }
     },
     SKILLING_CRAFTING("Skilling/Crafting") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Antiban.isIdle();
         }
     },
     SKILLING_MAGIC("Skilling/Magic") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() || Microbot.isGainingExp;
         }
     },
     COMBAT_LOW("Combat/Low") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Combat.inCombat();
         }
     },
     SKILLING_HERBLORE("Skilling/Herblore") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Antiban.isIdle() || Microbot.isGainingExp;
         }
     },
     SKILLING_FLETCHING("Skilling/Fletching") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Antiban.isIdle();
         }
     },
     SKILLING_FISHING("Skilling/Fishing") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isInteracting();
         }
     },
     PROCESSING_MAGIC("Processing/Magic") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() && Microbot.isGainingExp;
         }
     },
     SKILLING_COOKING("Skilling/Cooking") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return AntibanPlugin.isCooking();
         }
     },
     SKILLING_FIREMAKING("Skilling/Firemaking") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.getPoseAnimation() == AnimationID.FIREMAKING;
         }
     },
     SKILLING_THIEVING("Skilling/Thieving") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Player.isAnimating();
         }
     },
     SKILLING("Skilling") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Player.isAnimating() || !Rs2Inventory.isFull();
         }
     },
     COLLECTING_NONE("Collecting/None") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isMoving();
         }
     },
     COMBAT_HIGH("Combat/High") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Combat.inCombat();
         }
     },
     SKILLING_WOODCUTTING("Skilling/Woodcutting") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Antiban.isWoodcutting();
         }
     },
     SKILLING_MINING("Skilling/Mining") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return AntibanPlugin.isMining();
         }
     },
     SKILLING_RUNECRAFT("Skilling/Runecraft") {
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Inventory.contains("pure essence", "rune essence", "Daeyalt essence", "Dark essence fragment", "blood essence");
         }
     },
@@ -199,7 +294,11 @@ public enum Category {
          * @return {@code true} if the player is animating or the inventory is full; {@code false} otherwise.
          */
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Antiban.isIdle();
         }
     },
@@ -220,7 +319,11 @@ public enum Category {
          * @return {@code true} if the player is animating or the inventory is full; {@code false} otherwise.
          */
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return !Rs2Antiban.isIdle();
         }
     },
@@ -241,7 +344,11 @@ public enum Category {
          * @return {@code true} if the player is animating or the inventory is full; {@code false} otherwise.
          */
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() || Rs2Inventory.isFull();
         }
     },
@@ -262,7 +369,11 @@ public enum Category {
          * @return {@code true} if the player is animating or the inventory is full; {@code false} otherwise.
          */
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() || Rs2Inventory.isFull();
         }
     },
@@ -283,7 +394,11 @@ public enum Category {
          * @return {@code true} if the player is animating or the inventory is full; {@code false} otherwise.
          */
         @Override
+<<<<<<< HEAD
         public boolean isBusy() {
+=======
+        public boolean isBusyInternal() {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return Rs2Player.isAnimating() || Rs2Inventory.isFull();
         }
     };
@@ -298,5 +413,16 @@ public enum Category {
         return name;
     }
 
+<<<<<<< HEAD
     public abstract boolean isBusy();
+=======
+    public boolean isBusy() {
+        if (!Microbot.isLoggedIn()) {
+            return false;
+        }
+        return isBusyInternal();
+    }
+
+    public abstract boolean isBusyInternal();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

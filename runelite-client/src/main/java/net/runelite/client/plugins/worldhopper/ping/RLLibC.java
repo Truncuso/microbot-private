@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/worldhopper/ping/RLLibC.java
  * Copyright (c) 2021, Adam <Adam@sigterm.info>
+========
+ * Copyright (c) 2019 Abex
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/config/ModifierlessKeybind.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/worldhopper/ping/RLLibC.java
 package net.runelite.client.plugins.worldhopper.ping;
 
 import com.sun.jna.Native;
@@ -47,4 +52,38 @@ interface RLLibC extends LibC
 	int recvfrom(int sockfd, Pointer buf, int len, int flags, Pointer src_addr, Pointer addrlen);
 
 	int setsockopt(int sockfd, int level, int optname, Pointer optval, int optlen);
+========
+package net.runelite.client.config;
+
+import java.awt.event.KeyEvent;
+
+public class ModifierlessKeybind extends Keybind
+{
+	public ModifierlessKeybind(int keyCode, int modifiers)
+	{
+		super(keyCode, modifiers, true);
+	}
+
+	/**
+	 * Constructs a keybind with that matches the passed KeyEvent
+	 */
+	public ModifierlessKeybind(KeyEvent e)
+	{
+		this(e.getExtendedKeyCode(), e.getModifiersEx());
+
+		assert matches(e);
+	}
+
+	/**
+	 * If the KeyEvent is from a KeyPressed event this returns if the
+	 * Event is this hotkey being pressed. If the KeyEvent is a
+	 * KeyReleased event this returns if the event is this hotkey being
+	 * released
+	 */
+	@Override
+	public boolean matches(KeyEvent e)
+	{
+		return matches(e, true);
+	}
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/config/ModifierlessKeybind.java
 }

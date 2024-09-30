@@ -19,7 +19,11 @@ public class LootingParameters {
      * @param antiLureProtection A boolean indicating whether anti-lure protection should be enabled.
      */
     public LootingParameters(int minValue, int maxValue, int range, int minItems, int minInvSlots, boolean delayedLooting, boolean antiLureProtection) {
+<<<<<<< HEAD
         setValues(minValue, maxValue, range, minItems, 0, minInvSlots, delayedLooting, antiLureProtection, null);
+=======
+        setValues(minValue, maxValue, range, minItems, 1, minInvSlots, delayedLooting, antiLureProtection, null);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     /**

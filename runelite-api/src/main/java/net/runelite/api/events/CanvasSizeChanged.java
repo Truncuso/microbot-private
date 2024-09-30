@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2020, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,9 +24,22 @@
  */
 package net.runelite.api.events;
 
+<<<<<<<< HEAD:runelite-api/src/main/java/net/runelite/api/events/CanvasSizeChanged.java
 /**
  * An event posted when the canvas size might have changed.
  */
 public class CanvasSizeChanged
 {
+========
+import static org.junit.Assert.assertNull;
+import org.junit.Test;
+
+public class MusicClueTest
+{
+	@Test
+	public void forTextEmptyString()
+	{
+		assertNull(MusicClue.forText(""));
+	}
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/test/java/net/runelite/client/plugins/cluescrolls/clues/MusicClueTest.java
 }

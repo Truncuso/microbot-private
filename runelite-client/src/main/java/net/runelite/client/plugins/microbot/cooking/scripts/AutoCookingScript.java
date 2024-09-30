@@ -63,7 +63,11 @@ public class AutoCookingScript extends Script {
                     }
 
                     if (config.useNearestCookingLocation()) {
+<<<<<<< HEAD
                         location = CookingLocation.findNearestCookingLocation(cookingItem, initialPlayerLocation);
+=======
+                        location = CookingLocation.findNearestCookingLocation(cookingItem);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     } else {
                         location = config.cookingLocation();
                         if (cookingItem.getCookingAreaType() != CookingAreaType.BOTH) {
@@ -170,6 +174,15 @@ public class AutoCookingScript extends Script {
         }, 0, 1000, TimeUnit.MILLISECONDS);
         return true;
     }
+<<<<<<< HEAD
+=======
+    
+    @Override
+    public void shutdown(){
+        super.shutdown();
+        Rs2Antiban.resetAntibanSettings();
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
     private void getState(AutoCookingConfig config, CookingLocation location) {
         if (!hasRawItem(config.cookingItem())) {

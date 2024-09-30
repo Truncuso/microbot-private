@@ -3,6 +3,10 @@ package net.runelite.client.plugins.microbot.pestcontrol;
 import com.google.common.collect.ImmutableSet;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
+<<<<<<< HEAD
+=======
+import net.runelite.api.widgets.ComponentID;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.plugins.microbot.Microbot;
@@ -69,7 +73,11 @@ public class PestControlScript extends Script {
                 final boolean isInBoat = Microbot.getClient().getWidget(WidgetInfo.PEST_CONTROL_BOAT_INFO) != null;
                 if (isInPestControl) {
                     if (!isQuickPrayerEnabled() && Microbot.getClient().getBoostedSkillLevel(Skill.PRAYER) != 0 && config.quickPrayer()) {
+<<<<<<< HEAD
                         final Widget prayerOrb = Rs2Widget.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
+=======
+                        final Widget prayerOrb = Rs2Widget.getWidget(ComponentID.MINIMAP_QUICK_PRAYER_ORB);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                         if (prayerOrb != null) {
                             Microbot.getMouse().click(prayerOrb.getCanvasLocation());
                             sleep(1000, 1500);

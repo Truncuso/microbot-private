@@ -348,6 +348,18 @@ C 0 0 2 6
 n
 r 54 148
 
+<<<<<<< HEAD
 // chasm of tears
 n
 r 50 148
+=======
+// lumbridge underground
+n
+R 50 148 50 151
+r 49 149
+r 51 150
+
+// desert mining camp (the tourist trap)
+n
+r 51 147
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6

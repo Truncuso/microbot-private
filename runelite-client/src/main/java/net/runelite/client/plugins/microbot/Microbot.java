@@ -19,6 +19,10 @@ import net.runelite.client.plugins.loottracker.LootTrackerPlugin;
 import net.runelite.client.plugins.loottracker.LootTrackerRecord;
 import net.runelite.client.plugins.microbot.configs.SpecialAttackConfigs;
 import net.runelite.client.plugins.microbot.dashboard.PluginRequestModel;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch.PouchScript;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.math.Random;
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
@@ -63,6 +67,11 @@ public class Microbot {
     public static boolean pauseAllScripts = false;
     public static String status = "IDLE";
     public static boolean enableAutoRunOn = true;
+<<<<<<< HEAD
+=======
+    public static boolean useStaminaPotsIfNeeded = true;
+    public static int runEnergyThreshold = 4000;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     @Getter
     @Setter
     public static NaturalMouse naturalMouse;
@@ -116,6 +125,16 @@ public class Microbot {
     private static ChatMessageManager chatMessageManager;
     private static ScheduledFuture<?> xpSchedulorFuture;
     private static net.runelite.api.World quickHopTargetWorld;
+<<<<<<< HEAD
+=======
+    /**
+     * Pouchscript is injected in the main MicrobotPlugin as it's being used in multiple scripts
+     */
+    @Getter
+    @Setter
+    @Inject
+    private static PouchScript pouchScript;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
     @Deprecated(since = "Use isMoving", forRemoval = true)
     public static boolean isWalking() {

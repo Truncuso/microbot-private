@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.config;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -46,6 +47,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import lombok.Getter;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ColorScheme;
@@ -53,6 +56,19 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
+<<<<<<< HEAD
+=======
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 class PluginListItem extends JPanel implements SearchablePlugin
 {
 	private static final ImageIcon ON_STAR;

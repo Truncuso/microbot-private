@@ -22,28 +22,52 @@ import static net.runelite.client.plugins.microbot.Microbot.log;
 
 public class QoLOverlay extends OverlayPanel {
     QoLConfig config;
+<<<<<<< HEAD
+=======
+    QoLPlugin plugin;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
     @Inject
     QoLOverlay(QoLPlugin plugin, QoLConfig config) {
         super(plugin);
+<<<<<<< HEAD
         this.config = config;
         setPosition(OverlayPosition.DYNAMIC);
         setLayer(OverlayLayer.ABOVE_SCENE);
+=======
+        this.plugin = plugin;
+        this.config = config;
+        setPosition(OverlayPosition.DYNAMIC);
+        //setPosition(OverlayPosition.TOP_LEFT);
+        setLayer(OverlayLayer.ABOVE_WIDGETS);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         setNaughty();
     }
 
     @Override
     public Dimension render(Graphics2D graphics) {
         try {
+<<<<<<< HEAD
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             if (config.renderMaxHitOverlay())
                 renderNpcs(graphics);
 
         } catch (Exception ex) {
+<<<<<<< HEAD
             log(ex.getMessage());
+=======
+            log("Error in QoLOverlay: " + ex.getMessage());
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
         return super.render(graphics);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     private void renderNpcs(Graphics2D graphics) {
         List<NPC> npcs;
         npcs = Microbot.getClientThread().runOnClientThread(() -> Rs2Npc.getNpcs()
@@ -54,7 +78,11 @@ public class QoLOverlay extends OverlayPanel {
                 try {
                     String text = ("Max Hit: " + Objects.requireNonNull(Rs2NpcManager.getStats(npc.getId())).getMaxHit());
 
+<<<<<<< HEAD
                     graphics.setFont(new Font("Arial", Font.BOLD, 14));
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     //npc.setOverheadText(text);
                     LocalPoint lp = npc.getLocalLocation();
                     Point textLocation = Perspective.getCanvasTextLocation(Microbot.getClient(), graphics, lp, text, npc.getLogicalHeight());

@@ -224,6 +224,13 @@ public enum Quest
 	AT_FIRST_LIGHT(3513, "At First Light"),
 	PERILOUS_MOONS(3514, "Perilous Moons"),
 	THE_RIBBITING_TALE_OF_A_LILY_PAD_LABOUR_DISPUTE(3515, "The Ribbiting Tale of a Lily Pad Labour Dispute"),
+<<<<<<< HEAD
+=======
+	THE_HEART_OF_DARKNESS(3710, "The Heart of Darkness"),
+	DEATH_ON_THE_ISLE(3711, "Death on the Isle"),
+	MEAT_AND_GREET(3712, "Meat and Greet"),
+	ETHICALLY_ACQUIRED_ANTIQUITIES(3713, "Ethically Acquired Antiquities"),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	;
 
 	@Getter

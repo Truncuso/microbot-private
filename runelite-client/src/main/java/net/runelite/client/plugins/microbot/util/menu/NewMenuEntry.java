@@ -27,7 +27,11 @@ public class NewMenuEntry implements MenuEntry {
         this.type = MenuAction.of(opcode);
         this.param0 = param0;
         this.param1 = param1;
+<<<<<<< HEAD
         this.forceLeftClick = true;
+=======
+        this.forceLeftClick = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         this.itemId = itemId;
     }
 
@@ -38,20 +42,34 @@ public class NewMenuEntry implements MenuEntry {
         this.type = MenuAction.of(opcode);
         this.param0 = param0;
         this.param1 = param1;
+<<<<<<< HEAD
         this.forceLeftClick = true;
+=======
+        this.forceLeftClick = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         this.itemId = itemId;
         this.actor = actor;
     }
 
+<<<<<<< HEAD
     public NewMenuEntry(int param0, int param1, int opcode, int identifier, int itemId, String target, TileObject gameObject) {
+=======
+    public NewMenuEntry(int param0, int param1, int opcode, int identifier, int itemId, String option, String target, TileObject gameObject) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         this.option = "Use";
         this.target = target;
         this.identifier = identifier;
         this.type = MenuAction.of(opcode);
         this.param0 = param0;
         this.param1 = param1;
+<<<<<<< HEAD
         this.forceLeftClick = true;
         this.itemId = itemId;
+=======
+        this.forceLeftClick = false;
+        this.itemId = itemId;
+        this.option = option;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         this.gameObject = gameObject;
     }
 
@@ -72,7 +90,11 @@ public class NewMenuEntry implements MenuEntry {
         this.type = MenuAction.of(opcode);
         this.param0 = param0;
         this.param1 = param1;
+<<<<<<< HEAD
         this.forceLeftClick = true;
+=======
+        this.forceLeftClick = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         this.itemId = itemId;
     }
 

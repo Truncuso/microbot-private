@@ -39,7 +39,11 @@ enum HunterAreaLocation
 	CANIFIS_HUNTER_AREA1(new WorldPoint(3553, 3438, 0), HunterCreature.SWAMP_LIZARD),
 	CANIFIS_HUNTER_AREA2(new WorldPoint(3535, 3445, 0), HunterCreature.SWAMP_LIZARD),
 	FALCONRY(new WorldPoint(2379, 3599, 0), HunterCreature.SPOTTED_KEBBIT, HunterCreature.DARK_KEBBIT,
+<<<<<<< HEAD
 		HunterCreature.DASHING_KEBBIT, HunterCreature.GREATER_SIREN),
+=======
+		HunterCreature.DASHING_KEBBIT),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	FELDIP_HUNTER_AREA(new WorldPoint(2557, 2912, 0), HunterCreature.CRIMSON_SWIFT, HunterCreature.FELDIP_WEASEL,
 		HunterCreature.TROPICAL_WAGTAIL, HunterCreature.SPINED_LARUPIA, HunterCreature.BARB_TAILED_KEBBIT,
 		HunterCreature.BLACK_WARLOCK, HunterCreature.CARNIVOROUS_CHINCHOMPA),

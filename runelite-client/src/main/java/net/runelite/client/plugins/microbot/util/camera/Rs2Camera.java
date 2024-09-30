@@ -1,9 +1,13 @@
 package net.runelite.client.plugins.microbot.util.camera;
 
+<<<<<<< HEAD
 import net.runelite.api.Actor;
 import net.runelite.api.Perspective;
 import net.runelite.api.ScriptID;
 import net.runelite.api.TileObject;
+=======
+import net.runelite.api.*;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.ConfigManager;
@@ -160,11 +164,16 @@ public class Rs2Camera {
 //        }
 //    }
 
+<<<<<<< HEAD
     public static void setPitch(float percentage) {
+=======
+    public static void adjustPitch(float percentage) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         float currentPitchPercentage = cameraPitchPercentage();
 
         if (currentPitchPercentage < percentage) {
             Rs2Keyboard.keyHold(KeyEvent.VK_UP);
+<<<<<<< HEAD
             Global.awaitExecutionUntil(() -> Rs2Keyboard.keyRelease((char) KeyEvent.VK_UP),
                     () -> cameraPitchPercentage() >= percentage, 600);
         } else {
@@ -174,6 +183,30 @@ public class Rs2Camera {
         }
     }
 
+=======
+            Global.sleepUntilTrue(() -> cameraPitchPercentage() >= percentage, 50, 5000);
+            Rs2Keyboard.keyRelease(KeyEvent.VK_UP);
+        } else {
+            Rs2Keyboard.keyHold(KeyEvent.VK_DOWN);
+            Global.sleepUntilTrue(() -> cameraPitchPercentage() <= percentage, 50, 5000);
+            Rs2Keyboard.keyRelease(KeyEvent.VK_DOWN);
+        }
+    }
+
+    public static int getPitch() {
+        return Microbot.getClient().getCameraPitch();
+    }
+
+    // set camera pitch
+    public static void setPitch(int pitch) {
+        int minPitch = 128;
+        int maxPitch = 383;
+        // clamp pitch to avoid out of bounds
+        pitch = Math.max(minPitch, Math.min(maxPitch, pitch));
+        Microbot.getClient().setCameraPitchTarget(pitch);
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static float cameraPitchPercentage() {
         int minPitch = 128;
         int maxPitch = 383;
@@ -265,6 +298,14 @@ public class Rs2Camera {
         return poly.getBounds2D().getX() <= viewportWidth && poly.getBounds2D().getY() <= viewportHeight;
     }
 
+<<<<<<< HEAD
+=======
+    // get the camera zoom
+    public static int getZoom() {
+        return Microbot.getClient().getVarcIntValue(VarClientInt.CAMERA_ZOOM_RESIZABLE_VIEWPORT);
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static void setZoom(int zoom) {
         Microbot.getClientThread().invokeLater(() -> {
             Microbot.getClient().runScript(ScriptID.CAMERA_DO_ZOOM, zoom, zoom);

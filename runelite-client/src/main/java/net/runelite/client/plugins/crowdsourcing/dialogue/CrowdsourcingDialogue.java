@@ -54,7 +54,11 @@ public class CrowdsourcingDialogue
 	private String sanitize(String dialogue)
 	{
 		String username = client.getLocalPlayer().getName();
+<<<<<<< HEAD
 		return dialogue.replaceAll(" ", " ").replaceAll(username, USERNAME_TOKEN);
+=======
+		return dialogue.replace(" ", " ").replace(username, USERNAME_TOKEN);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	}
 
 	@Subscribe

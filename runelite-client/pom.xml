@@ -29,7 +29,11 @@
 	<parent>
 		<groupId>net.runelite</groupId>
 		<artifactId>runelite-parent</artifactId>
+<<<<<<< HEAD
 		<version>1.10.37-SNAPSHOT</version>
+=======
+		<version>1.10.38-SNAPSHOT</version>
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	</parent>
 
 	<artifactId>client</artifactId>
@@ -41,7 +45,11 @@
 		<git.commit.id.abbrev>nogit</git.commit.id.abbrev>
 		<git.dirty>false</git.dirty>
 		<shade.skip>false</shade.skip>
+<<<<<<< HEAD
 		<microbot.version>1.4.7</microbot.version>
+=======
+		<microbot.version>1.4.9</microbot.version>
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	</properties>
 
 	<dependencies>

@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.agility;
 
+<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -33,13 +34,18 @@ import java.awt.Shape;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.game.AgilityShortcut;
+<<<<<<< HEAD
 import net.runelite.client.plugins.microbot.Microbot;
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.models.RS2Item;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -47,6 +53,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ColorUtil;
 
+<<<<<<< HEAD
+=======
+import javax.inject.Inject;
+import java.awt.*;
+import java.util.List;
+import java.util.Set;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 class AgilityOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2350;

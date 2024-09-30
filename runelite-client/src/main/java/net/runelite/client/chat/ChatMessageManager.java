@@ -889,7 +889,11 @@ public class ChatMessageManager
 				}
 
 				// Replace custom formatting with actual colors
+<<<<<<< HEAD
 				runeLiteFormatMessage = runeLiteFormatMessage.replaceAll(
+=======
+				runeLiteFormatMessage = runeLiteFormatMessage.replace(
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 					"<col" + chatColor.getType().name() + ">",
 					colstr);
 			}

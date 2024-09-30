@@ -9,6 +9,10 @@ import net.runelite.client.plugins.microbot.util.Global;
 import net.runelite.client.plugins.microbot.util.tabs.Rs2Tab;
 import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 
+<<<<<<< HEAD
+=======
+import static net.runelite.client.plugins.microbot.Microbot.log;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
 
 public class Rs2Combat {
@@ -61,6 +65,11 @@ public class Rs2Combat {
 
         Microbot.getMouse().click(Rs2Widget.getWidget(10485795).getBounds());
 
+<<<<<<< HEAD
+=======
+        log("Used special attack");
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
        //  Microbot.doInvoke(new NewMenuEntry(-1, 10485795, MenuAction.CC_OP.getId(), 1, -1, "Special Attack"), new Rectangle(1, 1, Microbot.getClient().getCanvasWidth(), Microbot.getClient().getCanvasHeight()));
         //Rs2Reflection.invokeMenu(-1, 10485795, MenuAction.CC_OP.getId(), 1, -1, "Use", "Special Attack", -1, -1);
         return true;

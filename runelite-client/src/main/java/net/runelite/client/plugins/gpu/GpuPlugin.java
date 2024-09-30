@@ -245,6 +245,11 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 
 	private int viewportOffsetX;
 	private int viewportOffsetY;
+<<<<<<< HEAD
+=======
+	private int viewportWidth;
+	private int viewportHeight;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 	// Uniforms
 	private int uniColorBlindMode;
@@ -880,6 +885,11 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		this.cameraYaw = cameraYaw;
 		viewportOffsetX = client.getViewportXOffset();
 		viewportOffsetY = client.getViewportYOffset();
+<<<<<<< HEAD
+=======
+		viewportWidth = client.getViewportWidth();
+		viewportHeight = client.getViewportHeight();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 		final Scene scene = client.getScene();
 		scene.setDrawDistance(getDrawDistance());
@@ -1149,9 +1159,12 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		final int canvasHeight = client.getCanvasHeight();
 		final int canvasWidth = client.getCanvasWidth();
 
+<<<<<<< HEAD
 		final int viewportHeight = client.getViewportHeight();
 		final int viewportWidth = client.getViewportWidth();
 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 		prepareInterfaceTexture(canvasWidth, canvasHeight);
 
 		// Setup FBO and anti-aliasing

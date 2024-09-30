@@ -1,7 +1,15 @@
 package net.runelite.client.plugins.microbot.util.tile;
 
 import lombok.Getter;
+<<<<<<< HEAD
 import net.runelite.api.*;
+=======
+import net.runelite.api.Client;
+import net.runelite.api.CollisionDataFlag;
+import net.runelite.api.GraphicsObject;
+import net.runelite.api.Tile;
+import net.runelite.api.coords.Direction;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.plugins.devtools.MovementFlag;
@@ -98,10 +106,14 @@ public class Rs2Tile {
 
             Set<MovementFlag> movementFlags = MovementFlag.getSetFlags(data);
 
+<<<<<<< HEAD
             if (movementFlags.isEmpty()) {
                 return true;
             }
             return false;
+=======
+            return movementFlags.isEmpty();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
         return true;
     }
@@ -117,9 +129,14 @@ public class Rs2Tile {
 
             Set<MovementFlag> movementFlags = MovementFlag.getSetFlags(data);
 
+<<<<<<< HEAD
             if (movementFlags.contains(MovementFlag.BLOCK_MOVEMENT_FULL)
                     || movementFlags.contains(MovementFlag.BLOCK_MOVEMENT_FLOOR))
                 return false;
+=======
+            return !movementFlags.contains(MovementFlag.BLOCK_MOVEMENT_FULL)
+                    && !movementFlags.contains(MovementFlag.BLOCK_MOVEMENT_FLOOR);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
         return true;
     }
@@ -223,6 +240,7 @@ public class Rs2Tile {
         int startPoint = 0;
         if (Microbot.getClient().isInInstancedRegion()) {
             LocalPoint localPoint = Rs2Player.getLocalLocation();
+<<<<<<< HEAD
              startX = localPoint.getSceneX();
              startY = localPoint.getSceneY();
              startPoint = (startX << 16) | startY;
@@ -230,6 +248,15 @@ public class Rs2Tile {
              startX = playerLoc.getX() - Microbot.getClient().getBaseX();
              startY = playerLoc.getY() - Microbot.getClient().getBaseY();
              startPoint = (startX << 16) | startY;
+=======
+            startX = localPoint.getSceneX();
+            startY = localPoint.getSceneY();
+            startPoint = (startX << 16) | startY;
+        } else {
+            startX = playerLoc.getX() - Microbot.getClient().getBaseX();
+            startY = playerLoc.getY() - Microbot.getClient().getBaseY();
+            startPoint = (startX << 16) | startY;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
 
         ArrayDeque<Integer> queue = new ArrayDeque<>();
@@ -252,6 +279,7 @@ public class Rs2Tile {
         return isVisited(targetPoint, visited);
     }
 
+<<<<<<< HEAD
     public static boolean areSurroundingTilesWalkable(WorldPoint worldPoint, int sizeX, int sizeY) {
         for (int dx = -1; dx <= sizeX; dx++) {
             for (int dy = -1; dy <= sizeY; dy++) {
@@ -264,6 +292,36 @@ public class Rs2Tile {
                 int checkY = worldPoint.getY() + dy;
 
                 if (isTileReachable(new WorldPoint(checkX, checkY, worldPoint.getPlane()))) {
+=======
+    /**
+     * Checks if any of the tiles immediately surrounding the given object are walkable.
+     * The object is defined by its position (worldPoint) and its size (sizeX x sizeY).
+     *
+     * @param worldPoint The central point of the object.
+     * @param sizeX      The size of the object along the X-axis.
+     * @param sizeY      The size of the object along the Y-axis.
+     * @return true if any surrounding tile is walkable, false otherwise.
+     */
+    public static boolean areSurroundingTilesWalkable(WorldPoint worldPoint, int sizeX, int sizeY) {
+        int plane = worldPoint.getPlane();
+
+        // Calculate the boundaries of the object
+        int minX = worldPoint.getX() - (sizeX - 1) / 2;
+        int minY = worldPoint.getY() - (sizeY - 1) / 2;
+        int maxX = minX + sizeX - 1;
+        int maxY = minY + sizeY - 1;
+
+        // Loop over the tiles surrounding the object
+        for (int x = minX - 1; x <= maxX + 1; x++) {
+            for (int y = minY - 1; y <= maxY + 1; y++) {
+                // Skip the tiles that are part of the object itself
+                if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
+                    continue;
+                }
+
+                // Check if the surrounding tile is walkable
+                if (isTileReachable(new WorldPoint(x, y, plane))) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     return true;
                 }
             }
@@ -296,13 +354,73 @@ public class Rs2Tile {
             x = localPoint.getSceneX();
             y = localPoint.getSceneY();
         } else {
+<<<<<<< HEAD
              baseX = Microbot.getClient().getTopLevelWorldView().getBaseX();
              baseY = Microbot.getClient().getTopLevelWorldView().getBaseY();
              x = worldPoint.getX() - baseX;
              y = worldPoint.getY() - baseY;
+=======
+            baseX = Microbot.getClient().getTopLevelWorldView().getBaseX();
+            baseY = Microbot.getClient().getTopLevelWorldView().getBaseY();
+            x = worldPoint.getX() - baseX;
+            y = worldPoint.getY() - baseY;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
 
 
         return isWithinBounds(x, y) && visited[x][y];
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Gets the neighboring tile in the specified direction from the source tile.
+     * <p>
+     * This method calculates the neighboring tile based on the given direction
+     * (NORTH, SOUTH, EAST, WEST) and returns the corresponding WorldPoint.
+     *
+     * @param direction The direction in which to find the neighboring tile.
+     * @param source    The source tile from which to find the neighboring tile.
+     *
+     * @return The neighboring tile in the specified direction.
+     *
+     * @throws IllegalArgumentException if the direction is not one of the expected values.
+     */
+    private static WorldPoint getNeighbour(Direction direction, WorldPoint source) {
+        switch (direction) {
+            case NORTH:
+                return source.dy(1);
+            case SOUTH:
+                return source.dy(-1);
+            case WEST:
+                return source.dx(-1);
+            case EAST:
+                return source.dx(1);
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Finds the nearest walkable tile from the given source tile.
+     * <p>
+     * This method iterates through all possible directions (NORTH, SOUTH, EAST, WEST)
+     * from the source tile and checks if the neighboring tile in that direction is walkable.
+     * If a walkable tile is found, it is returned.
+     *
+     * @param source The source tile from which to find the nearest walkable tile.
+     *
+     * @return The nearest walkable tile, or null if no walkable tile is found.
+     */
+    public static WorldPoint getNearestWalkableTile(WorldPoint source) {
+        for (Direction direction : Direction.values()) {
+            WorldPoint neighbour = getNeighbour(direction, source);
+            if (isTileReachable(neighbour)) {
+                return neighbour;
+            }
+        }
+
+        return null;
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

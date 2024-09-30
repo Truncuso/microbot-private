@@ -54,6 +54,10 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.widgets.ComponentID;
+<<<<<<< HEAD
+=======
+import net.runelite.client.callback.ClientThread;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -109,12 +113,19 @@ public class KourendLibraryPlugin extends Plugin
 	@Inject
 	private ItemManager itemManager;
 
+	@Inject
+	private ClientThread clientThread;
+
 	private KourendLibraryPanel panel;
 	private NavigationButton navButton;
 	private boolean buttonAttached = false;
 	private WorldPoint lastBookcaseClick = null;
 	private WorldPoint lastBookcaseAnimatedOn = null;
+<<<<<<< HEAD
 	private EnumSet<Book> playerBooks = null;
+=======
+	private EnumSet<Book> playerBooks = EnumSet.noneOf(Book.class);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	private QuestState depthsOfDespairState = QuestState.FINISHED;
 
 	@Getter(AccessLevel.PACKAGE)
@@ -146,7 +157,17 @@ public class KourendLibraryPlugin extends Plugin
 		overlayManager.add(overlay);
 		overlayManager.add(tutorialOverlay);
 
+<<<<<<< HEAD
 		updatePlayerBooks();
+=======
+		clientThread.invoke(() ->
+		{
+			if (client.getGameState() == GameState.LOGGED_IN)
+			{
+				updatePlayerBooks();
+			}
+		});
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 		if (!config.hideButton())
 		{
@@ -163,7 +184,11 @@ public class KourendLibraryPlugin extends Plugin
 		buttonAttached = false;
 		lastBookcaseClick = null;
 		lastBookcaseAnimatedOn = null;
+<<<<<<< HEAD
 		playerBooks = null;
+=======
+		playerBooks = EnumSet.noneOf(Book.class);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 		npcsToMark.clear();
 	}
 
@@ -342,7 +367,14 @@ public class KourendLibraryPlugin extends Plugin
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged itemContainerChangedEvent)
 	{
+<<<<<<< HEAD
 		updatePlayerBooks();
+=======
+		if (itemContainerChangedEvent.getContainerId() == InventoryID.INVENTORY.getId())
+		{
+			updatePlayerBooks();
+		}
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	}
 
 	@Subscribe
@@ -384,6 +416,10 @@ public class KourendLibraryPlugin extends Plugin
 		}
 
 		playerBooks = books;
+<<<<<<< HEAD
+=======
+		updateBooksPanel();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	}
 
 	private void updateBooksPanel()

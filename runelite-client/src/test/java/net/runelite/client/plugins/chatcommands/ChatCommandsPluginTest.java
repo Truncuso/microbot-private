@@ -920,7 +920,11 @@ public class ChatCommandsPluginTest
 	@Test
 	public void testNightmareNoPb()
 	{
+<<<<<<< HEAD
 		ChatMessage chatMessage = new ChatMessage(null, GAMEMESSAGE, "", "Your Nightmare kill count is: <col=ff0000>1130</col>", null, 0);
+=======
+		ChatMessage chatMessage = new ChatMessage(null, GAMEMESSAGE, "", "Your Nightmare kill count is: <col=ff0000>1,130</col>", null, 0);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 		chatCommandsPlugin.onChatMessage(chatMessage);
 
 		chatMessage = new ChatMessage(null, GAMEMESSAGE, "", "Team size: <col=ff0000>Solo</col> Fight duration: <col=ff0000>10:47</col>. Personal best: 8:44", null, 0);
@@ -1257,10 +1261,17 @@ public class ChatCommandsPluginTest
 	@Test
 	public void testGuardiansOfTheRift()
 	{
+<<<<<<< HEAD
 		ChatMessage chatMessage = new ChatMessage(null, GAMEMESSAGE, "", "Amount of rifts you have closed: <col=ff0000>167</col>.", null, 0);
 		chatCommandsPlugin.onChatMessage(chatMessage);
 
 		verify(configManager).setRSProfileConfiguration("killcount", "guardians of the rift", 167);
+=======
+		ChatMessage chatMessage = new ChatMessage(null, GAMEMESSAGE, "", "Amount of rifts you have closed: <col=ff0000>1,627</col>.", null, 0);
+		chatCommandsPlugin.onChatMessage(chatMessage);
+
+		verify(configManager).setRSProfileConfiguration("killcount", "guardians of the rift", 1627);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	}
 
 	@Test

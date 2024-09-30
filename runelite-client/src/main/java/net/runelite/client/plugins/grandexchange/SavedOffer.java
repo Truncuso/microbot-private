@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/grandexchange/SavedOffer.java
  * Copyright (c) 2019, Adam <Adam@sigterm.info>
+========
+ * Copyright (c) 2020, Jordan Zomerlei <https://github.com/JZomerlei>
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/mining/MiningSession.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/grandexchange/SavedOffer.java
 package net.runelite.client.plugins.grandexchange;
 
 import lombok.Data;
@@ -36,4 +41,20 @@ class SavedOffer
 	private int price;
 	private int spent;
 	private GrandExchangeOfferState state;
+========
+package net.runelite.client.plugins.mining;
+
+import java.time.Instant;
+import lombok.Getter;
+
+class MiningSession
+{
+	@Getter
+	private Instant lastMined;
+
+	void setLastMined()
+	{
+		lastMined = Instant.now();
+	}
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/mining/MiningSession.java
 }

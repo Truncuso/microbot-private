@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/mining/MiningSession.java
  * Copyright (c) 2020, Jordan Zomerlei <https://github.com/JZomerlei>
+========
+ * Copyright (c) 2023, Adam <Adam@sigterm.info>
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/loottracker/NpcMetadata.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/mining/MiningSession.java
 package net.runelite.client.plugins.mining;
 
 import java.time.Instant;
@@ -36,4 +41,22 @@ class MiningSession
 	{
 		lastMined = Instant.now();
 	}
+========
+package net.runelite.client.plugins.loottracker;
+
+import lombok.Data;
+
+@Data
+class NpcMetadata
+{
+	int id;
+	int r1;
+	int r2;
+	int r3;
+	int r4;
+	int r5;
+	int r6;
+	int r7;
+	int r8;
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/loottracker/NpcMetadata.java
 }

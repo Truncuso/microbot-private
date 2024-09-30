@@ -35,7 +35,11 @@ import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Client;
+<<<<<<< HEAD
 import net.runelite.api.NpcID;
+=======
+import net.runelite.api.NullNpcID;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
@@ -51,7 +55,11 @@ import net.runelite.client.util.Text;
 @Singleton
 public class FarmingContractManager
 {
+<<<<<<< HEAD
 	private static final int GUILDMASTER_JANE_NPC_ID = NpcID.GUILDMASTER_JANE_8587;
+=======
+	private static final int GUILDMASTER_JANE_NPC_ID = NullNpcID.NULL_8628;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	private static final int FARMING_GUILD_REGION_ID = 4922;
 	private static final Pattern CONTRACT_ASSIGN_PATTERN = Pattern.compile("(?:We need you to grow|Please could you grow) (?:some|a|an) ([a-zA-Z ]+)(?: for us\\?|\\.)");
 	private static final String CONTRACT_REWARDED = "You'll be wanting a reward then. Here you go.";

@@ -22,6 +22,7 @@ import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.keyboard.Rs2Keyboard;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+<<<<<<< HEAD
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
 import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 
@@ -30,6 +31,16 @@ import java.util.concurrent.TimeUnit;
 
 public class AmethystMiningScript extends Script {
     public static String version = "1.1.1";
+=======
+import net.runelite.client.plugins.microbot.util.tile.Rs2Tile;
+import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
+import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
+
+import java.util.concurrent.TimeUnit;
+
+public class AmethystMiningScript extends Script {
+    public static String version = "1.1.2";
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static Status status = Status.IDLE;
     public static WallObject oreVein;
     private static AmethystMiningConfig config;
@@ -174,11 +185,15 @@ public class AmethystMiningScript extends Script {
 
     private WallObject findClosestVein() {
         return Rs2GameObject.getWallObjects().stream()
+<<<<<<< HEAD
                 .filter(this::isVein)
                 .sorted(Comparator.comparingInt(this::distanceToPlayer))
                 .filter(Rs2GameObject::hasLineOfSight)
                 .findFirst()
                 .orElse(null);
+=======
+                .filter(this::isVein).min((a, b) -> Integer.compare(distanceToPlayer(a), distanceToPlayer(b))).orElse(null);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     private boolean isVein(WallObject wallObject) {
@@ -187,7 +202,13 @@ public class AmethystMiningScript extends Script {
     }
 
     private int distanceToPlayer(WallObject wallObject) {
+<<<<<<< HEAD
         return Microbot.getClient().getLocalPlayer().getWorldLocation().distanceTo(wallObject.getWorldLocation());
+=======
+        WorldPoint closestWalkableNeighbour = Rs2Tile.getNearestWalkableTile(wallObject.getWorldLocation());
+        if (closestWalkableNeighbour == null) return 999;
+        return Microbot.getClient().getLocalPlayer().getWorldLocation().distanceTo2D(closestWalkableNeighbour);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     private void interactWithVein(WallObject vein) {
@@ -201,7 +222,11 @@ public class AmethystMiningScript extends Script {
 
     private boolean walkToMiningSpot() {
         WorldPoint miningWorldPoint = miningSpot.getWorldPoint();
+<<<<<<< HEAD
         return Rs2Walker.walkTo(miningWorldPoint, 5);
+=======
+        return Rs2Walker.walkTo(miningWorldPoint, 8);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     private void moveToMiningSpot() {

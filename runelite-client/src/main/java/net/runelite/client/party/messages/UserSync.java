@@ -22,8 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/party/messages/UserSync.java
 package net.runelite.client.party.messages;
 
 public class UserSync extends PartyMemberMessage
+========
+package net.runelite.api.events;
+
+/**
+ * An event posted when the canvas size might have changed.
+ */
+public class CanvasSizeChanged
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-api/src/main/java/net/runelite/api/events/CanvasSizeChanged.java
 {
 }

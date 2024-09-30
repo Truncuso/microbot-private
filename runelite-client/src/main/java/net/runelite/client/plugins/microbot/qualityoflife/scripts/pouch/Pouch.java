@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
  * Copyright (c) 2019 Adam <Adam@sigterm.info>
@@ -23,12 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 package net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ItemID;
+<<<<<<< HEAD
 
 enum Pouch
 {
@@ -36,12 +40,27 @@ enum Pouch
 	MEDIUM(6, 3),
 	LARGE(9, 7),
 	GIANT(12, 9);
+=======
+import net.runelite.api.Skill;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+
+import java.util.Arrays;
+
+public enum Pouch
+{
+	SMALL(new int[] {ItemID.SMALL_POUCH}, 3, 3, 1),
+	MEDIUM(new int[] { ItemID.MEDIUM_POUCH, ItemID.MEDIUM_POUCH_5511}, 6, 3, 25),
+	LARGE(new int[] {ItemID.LARGE_POUCH, ItemID.LARGE_POUCH_5513}, 9, 7, 50),
+	GIANT(new int[] {ItemID.GIANT_POUCH, ItemID.GIANT_POUCH_5515}, 12, 9, 75);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 	private final int baseHoldAmount;
 	private final int degradedBaseHoldAmount;
 
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
+<<<<<<< HEAD
 	private int holding;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean degraded;
@@ -61,11 +80,40 @@ enum Pouch
 	}
 
 	int getHoldAmount()
+=======
+	private int[] itemIds;
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PACKAGE)
+	private int holding;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean degraded;
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PACKAGE)
+	private boolean unknown = true;
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
+	private int levelRequired;
+
+
+	Pouch(int[] itemIds, int holdAmount, int degradedHoldAmount, int levelRequired)
+	{
+		this.itemIds = itemIds;
+		this.baseHoldAmount = holdAmount;
+		this.degradedBaseHoldAmount = degradedHoldAmount;
+		this.levelRequired = levelRequired;
+	}
+
+	public int getHoldAmount()
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	{
 		return degraded ? degradedBaseHoldAmount : baseHoldAmount;
 	}
 
+<<<<<<< HEAD
 	int getRemaining()
+=======
+	public int getRemaining()
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	{
 		final int holdAmount = degraded ? degradedBaseHoldAmount : baseHoldAmount;
 		return holdAmount - holding;
@@ -115,4 +163,63 @@ enum Pouch
 				return null;
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	public boolean fill() {
+		if (!hasRequiredRunecraftingLevel()) return false;
+		if (!hasItemsToFillPouch()) return false;
+		if (!hasPouchInInventory()) return false;
+
+		if (getRemaining() > 0) {
+			for (int i = 0; i < itemIds.length; i++) {
+				if (Rs2Inventory.interact(itemIds[i], "fill"))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean empty() {
+		if (!hasRequiredRunecraftingLevel()) return false;
+		if (!hasPouchInInventory()) return false;
+
+		if (getHolding() > 0)  {
+			for (int i = 0; i < itemIds.length; i++) {
+				if (Rs2Inventory.interact(itemIds[i], "empty"))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean check() {
+		if (!hasRequiredRunecraftingLevel()) return false;
+
+		for (int i = 0; i < itemIds.length; i++) {
+			if (Rs2Inventory.interact(itemIds[i], "check"))
+				return true;
+		}
+
+		return false;
+	}
+
+	public boolean hasRequiredRunecraftingLevel() {
+		return Rs2Player.getSkillRequirement(Skill.RUNECRAFT, getLevelRequired());
+	}
+
+	public boolean hasItemsToFillPouch() {
+		return Rs2Inventory.hasItem(ItemID.PURE_ESSENCE) || Rs2Inventory.hasItem(ItemID.DAEYALT_ESSENCE) || Rs2Inventory.hasItem(ItemID.GUARDIAN_ESSENCE);
+	}
+
+	public boolean hasPouchInInventory() {
+		return Rs2Inventory.hasItem(itemIds);
+	}
+
+	public boolean isDegraded() {
+		return degraded;
+	}
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

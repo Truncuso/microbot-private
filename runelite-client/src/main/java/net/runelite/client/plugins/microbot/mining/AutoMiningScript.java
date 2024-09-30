@@ -88,4 +88,13 @@ public class AutoMiningScript extends Script {
         }, 0, 100, TimeUnit.MILLISECONDS);
         return true;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void shutdown(){
+        super.shutdown();
+        Rs2Antiban.resetAntibanSettings();
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

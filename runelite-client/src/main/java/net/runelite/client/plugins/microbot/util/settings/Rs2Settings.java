@@ -8,8 +8,13 @@ import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 
 import java.awt.event.KeyEvent;
 
+<<<<<<< HEAD
 import static net.runelite.client.plugins.microbot.util.Global.*;
 import static net.runelite.client.plugins.microbot.globval.VarbitIndices.TOGGLE_ROOFS;
+=======
+import static net.runelite.client.plugins.microbot.globval.VarbitIndices.TOGGLE_ROOFS;
+import static net.runelite.client.plugins.microbot.util.Global.*;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 public class Rs2Settings {
     public static boolean enableDropShiftSetting() {
@@ -50,15 +55,28 @@ public class Rs2Settings {
         }
     }
 
+<<<<<<< HEAD
     public static boolean isLevelUpNotificationsEnabled() { return Microbot.getVarbitValue(Varbits.DISABLE_LEVEL_UP_INTERFACE) == 0; }
 
     public static boolean disableLevelUpNotifications() {
         if(isLevelUpNotificationsEnabled()){
+=======
+    public static boolean isLevelUpNotificationsEnabled() {
+        return Microbot.getVarbitValue(Varbits.DISABLE_LEVEL_UP_INTERFACE) == 0;
+    }
+
+    public static boolean disableLevelUpNotifications() {
+        if (isLevelUpNotificationsEnabled()) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             Rs2Tab.switchToSettingsTab();
             Rs2Widget.clickWidget(7602208);
             final boolean isSettingsInterfaceVisible = Rs2Widget.getWidget(8781825) != null;
             sleepUntilOnClientThread(() -> isSettingsInterfaceVisible);
+<<<<<<< HEAD
             if(isSettingsInterfaceVisible){
+=======
+            if (isSettingsInterfaceVisible) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                 Rs2Widget.clickWidget(8781834);
                 Rs2Keyboard.typeString("level-");
                 Rs2Widget.clickWidget("Disable level-up interface");

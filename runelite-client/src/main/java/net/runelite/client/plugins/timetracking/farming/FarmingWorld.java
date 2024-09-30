@@ -40,6 +40,10 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.NpcID;
+<<<<<<< HEAD
+=======
+import net.runelite.api.NullNpcID;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.plugins.timetracking.Tab;
@@ -82,7 +86,11 @@ class FarmingWorld
 		));
 
 		add(new FarmingRegion("Avium Savannah", 6702, true,
+<<<<<<< HEAD
 			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.HARDWOOD_TREE, NpcID.MARCELLUS_12936)
+=======
+			new FarmingPatch("", Varbits.FARMING_4771, PatchImplementation.HARDWOOD_TREE, NullNpcID.NULL_13401)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 		), 6446);
 
 		add(new FarmingRegion("Brimhaven", 11058, false,

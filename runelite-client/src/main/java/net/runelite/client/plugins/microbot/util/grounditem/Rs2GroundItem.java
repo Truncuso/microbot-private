@@ -9,6 +9,10 @@ import net.runelite.client.plugins.grounditems.GroundItem;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.util.math.Random;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
 import net.runelite.client.plugins.microbot.util.models.RS2Item;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
@@ -25,7 +29,10 @@ import java.util.stream.Collectors;
 
 import static net.runelite.api.TileItem.OWNERSHIP_SELF;
 import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
+<<<<<<< HEAD
 import static net.runelite.client.plugins.microbot.util.Global.sleepUntilTrue;
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 @Slf4j
 public class Rs2GroundItem {
@@ -95,10 +102,17 @@ public class Rs2GroundItem {
             }
             LocalPoint localPoint1 = LocalPoint.fromWorld(Microbot.getClient(), groundItem.location);
             if (localPoint1 != null) {
+<<<<<<< HEAD
                 Microbot.doInvoke(new NewMenuEntry(param0, param1, menuAction.getId(), identifier, -1, target),
                         Perspective.getCanvasTilePoly(Microbot.getClient(), localPoint1).getBounds());
             } else {
                 Microbot.doInvoke(new NewMenuEntry(param0, param1, menuAction.getId(), identifier, -1, target),
+=======
+                Microbot.doInvoke(new NewMenuEntry(action, param0, param1, menuAction.getId(), identifier, -1, target),
+                        Perspective.getCanvasTilePoly(Microbot.getClient(), localPoint1).getBounds());
+            } else {
+                Microbot.doInvoke(new NewMenuEntry(action, param0, param1, menuAction.getId(), identifier, -1, target),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                         new Rectangle(1, 1, Microbot.getClient().getCanvasWidth(), Microbot.getClient().getCanvasHeight()));
 
             }
@@ -256,6 +270,29 @@ public class Rs2GroundItem {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Waits for the ground item to despawn while performing an action. (The action should be an interaction with the ground item)
+     *<p> This method proves to be more reliable than {@link Rs2Inventory#waitForInventoryChanges} as it could cause endless loops of trying to loot the same item if the items was looted by another player
+     * or if the player has a Open Herb Sack, Gem Bag or Seed Box etc... and the item was deposited directly into one of those containers bypassing the inventory, resulting in no inventory change.
+     *
+     * <p> This method won't be plagued by the same issues as it monitors the ground item itself for despawn/change.
+     *
+     * @param actionWhileWaiting The action to perform while waiting for the item to despawn
+     * @param groundItem The ground item to monitor for despawn
+     * @return true if the ground item despawns, false otherwise
+     */
+    public static boolean waitForGroundItemDespawn(Runnable actionWhileWaiting,GroundItem groundItem){
+        sleepUntil(() ->  {
+            actionWhileWaiting.run();
+            sleepUntil(() -> groundItem != GroundItemsPlugin.getCollectedGroundItems().get(groundItem.getLocation(), groundItem.getId()), Random.random(600, 2100));
+            return groundItem != GroundItemsPlugin.getCollectedGroundItems().get(groundItem.getLocation(), groundItem.getId());
+        });
+        return groundItem != GroundItemsPlugin.getCollectedGroundItems().get(groundItem.getLocation(), groundItem.getId());
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     private static boolean coreLoot(GroundItem groundItem) {
         final int quantity = groundItem.isStackable() ? 1 : groundItem.getQuantity();
         for (int i = 0; i < quantity; i++) {
@@ -272,19 +309,39 @@ public class Rs2GroundItem {
                     return false;
             }
             Microbot.pauseAllScripts = true;
+<<<<<<< HEAD
             Rs2Inventory.waitForInventoryChanges(() -> interact(groundItem));
+=======
+            /** switched to waitForGroundItemDespawn instead of waitForInventoryChanges
+             *  as waitForInventoryChanges can cause endless loops of trying to loot the same item
+             *  even after it has been successfully looted by the player or another player.
+             *  Or if the player has a Open Herb Sack, Gem Bag or Seed Box etc it wont trigger an inventory change.
+             */
+
+            waitForGroundItemDespawn(() -> interact(groundItem), groundItem);
+//            Rs2Inventory.waitForInventoryChanges(() -> interact(groundItem));
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
         return true;
     }
 
     private static boolean validateLoot(Predicate<GroundItem> filter) {
+<<<<<<< HEAD
         boolean hasLootableItems = sleepUntilTrue(() -> hasLootableItems(filter), 600, 5000);
+=======
+        boolean hasLootableItems = hasLootableItems(filter);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         //If there are no more lootable items we succesfully looted everything in the filter
         // true to let the script know that we succesfully looted
         if (!hasLootableItems) {
             Microbot.pauseAllScripts = false;
             return true;
         }
+<<<<<<< HEAD
+=======
+        // This is needed to make sure we dont get stuck in a endless pause if something goes wrong
+        Microbot.pauseAllScripts = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         // If we reach this statement, we most likely still have items to loot, and we return false to the script
         // Script above can handle extra logic if the looting failed
         return false;
@@ -298,7 +355,10 @@ public class Rs2GroundItem {
 
         List<GroundItem> groundItems = GroundItemsPlugin.getCollectedGroundItems().values().stream()
                 .filter(filter)
+<<<<<<< HEAD
                 .sorted(Comparator.comparingInt(value -> value.getLocation().distanceTo(Rs2Player.getWorldLocation())))
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                 .collect(Collectors.toList());
 
         if (groundItems.size() < params.getMinItems()) return false;
@@ -416,7 +476,11 @@ public class Rs2GroundItem {
         return false;
     }
 
+<<<<<<< HEAD
     @Deprecated(since="1.4.6", forRemoval = true)
+=======
+    @Deprecated(since = "1.4.6", forRemoval = true)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static boolean lootAllItemBasedOnValue(int value, int range) {
         RS2Item[] groundItems = Microbot.getClientThread().runOnClientThread(() ->
                 Rs2GroundItem.getAll(range)
@@ -433,7 +497,11 @@ public class Rs2GroundItem {
         return false;
     }
 
+<<<<<<< HEAD
     @Deprecated(since="1.4.6", forRemoval = true)
+=======
+    @Deprecated(since = "1.4.6", forRemoval = true)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     public static boolean loot(int itemId) {
         if (Rs2Inventory.isFull(itemId)) return false;
         RS2Item[] groundItems = Microbot.getClientThread().runOnClientThread(() ->

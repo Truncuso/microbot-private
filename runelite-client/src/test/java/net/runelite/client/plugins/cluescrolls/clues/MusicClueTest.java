@@ -27,11 +27,19 @@ package net.runelite.client.plugins.cluescrolls.clues;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
+<<<<<<<< HEAD:runelite-client/src/test/java/net/runelite/client/plugins/cluescrolls/clues/MusicClueTest.java
 public class MusicClueTest
+========
+public class CipherClueTest
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/test/java/net/runelite/client/plugins/cluescrolls/clues/CipherClueTest.java
 {
 	@Test
 	public void forTextEmptyString()
 	{
+<<<<<<<< HEAD:runelite-client/src/test/java/net/runelite/client/plugins/cluescrolls/clues/MusicClueTest.java
 		assertNull(MusicClue.forText(""));
+========
+		assertNull(CipherClue.forText(""));
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/test/java/net/runelite/client/plugins/cluescrolls/clues/CipherClueTest.java
 	}
 }

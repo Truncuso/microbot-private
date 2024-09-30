@@ -28,11 +28,16 @@ package net.runelite.api;
 /**
  * An enumeration of PK skulls.
  */
+<<<<<<< HEAD
 public enum SkullIcon
+=======
+public final class SkullIcon
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 {
 	/**
 	 * White skull from PVP world or wilderness
 	 */
+<<<<<<< HEAD
 	SKULL,
 	/**
 	 * Red skull from Tzhaar Fight Pits
@@ -58,4 +63,73 @@ public enum SkullIcon
 	 * Deadman mode sprite carrying five keys
 	 */
 	DEAD_MAN_FIVE,
+=======
+	public static final int SKULL = 0;
+	/**
+	 * Red skull from Tzhaar Fight Pits
+	 */
+	public static final int SKULL_FIGHT_PIT = 1;
+	/**
+	 * White skull used on High Risk worlds
+	 */
+	public static final int SKULL_HIGH_RISK = 2;
+	/**
+	 * Forinthry surge buff in the Revenant caves
+	 */
+	public static final int FORINTHRY_SURGE = 3;
+	/**
+	 * Grey skull used on Deadman worlds
+	 */
+	public static final int SKULL_DEADMAN = 7;
+	/**
+	 * PK skull carrying one loot key
+	 */
+	public static final int LOOT_KEYS_ONE = 8;
+	/**
+	 * PK skull carrying two loot keys
+	 */
+	public static final int LOOT_KEYS_TWO = 9;
+	/**
+	 * PK skull carrying two loot keys
+	 */
+	public static final int LOOT_KEYS_THREE = 10;
+	/**
+	 * PK skull carrying two loot keys
+	 */
+	public static final int LOOT_KEYS_FOUR = 11;
+	/**
+	 * PK skull carrying two loot keys
+	 */
+	public static final int LOOT_KEYS_FIVE = 12;
+	/**
+	 * Forinthry surge skull used on Deadman worlds
+	 */
+	public static final int FORINTHRY_SURGE_DEADMAN = 14;
+	/**
+	 * Forinthry surge while carrying one loot key
+	 */
+	public static final int FORINTHRY_SURGE_KEYS_ONE = 15;
+	/**
+	 * Forinthry surge while carrying two loot keys
+	 */
+	public static final int FORINTHRY_SURGE_KEYS_TWO = 16;
+	/**
+	 * Forinthry surge while carrying three loot keys
+	 */
+	public static final int FORINTHRY_SURGE_KEYS_THREE = 17;
+	/**
+	 * Forinthry surge while carrying four loot keys
+	 */
+	public static final int FORINTHRY_SURGE_KEYS_FOUR = 18;
+	/**
+	 * Forinthry surge while carrying five loot keys
+	 */
+	public static final int FORINTHRY_SURGE_KEYS_FIVE = 19;
+
+	/**
+	 * The player does not have a skull.
+	 */
+	public static final int NONE = -1;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

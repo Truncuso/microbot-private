@@ -1,9 +1,18 @@
-# Contributing to runelite
+# Contributing to RuneLite
 
+<<<<<<< HEAD
 We'd love for you to contribute to our source code and to make runelite even better than it is
 today!
 
 Check out the Developer's Guide on the [wiki](https://github.com/runelite/runelite/wiki) for setup instructions, and general tips and tricks.
+=======
+We'd love for you to contribute to our source code and to make RuneLite even better than it is
+today!
+
+Check out the [Developer Guide](https://github.com/runelite/runelite/wiki/Developer-Guide) for setup instructions, and general tips and tricks.
+
+If you want to make or contribute to a plugin hub plugin, this is *not* the correct guide; instead read the plugin hub development guide, which is linked from the developer guide.
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 Here are the guidelines we'd like you to follow:
 
@@ -14,12 +23,16 @@ Here are the guidelines we'd like you to follow:
 
 ## <a name="question"></a> Got a Question or Problem?
 
+<<<<<<< HEAD
 If you have questions about how to contribute to runelite, please join our [Discord](https://discord.gg/ArdAhnN) server.
+=======
+If you have questions about how to contribute to RuneLite, please join our [Discord](https://runelite.net/discord) server.
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 ## <a name="issue"></a> Found an Issue?
 
 If you find a bug in the source code or a mistake in the documentation, you can help us by
-submitting an issue to our [GitHub Repository][github]. Even better you can submit a Pull Request
+submitting an issue to our [GitHub Repository](https://github.com/runelite/runelite). Even better you can submit a Pull Request
 with a fix.
 
 **Please see the [Submission Guidelines](#submit) below.**
@@ -84,7 +97,7 @@ In GitHub, send a pull request to `runelite:master`.
 If we suggest changes, then:
 
 * Make the required updates.
-* Re-run runelite and make sure any and all tests are still passing.
+* Re-run RuneLite and make sure any and all tests are still passing.
 * Commit your changes to your branch (e.g. `my-fix-branch`).
 * Push the changes to your GitHub repository (this will update your Pull Request).
 
@@ -130,7 +143,10 @@ from the main (upstream) repository:
 ## <a name="format"></a> Coding Format
 
 To ensure consistency throughout the source code, review our [code conventions](https://github.com/runelite/runelite/wiki/Code-Conventions).
+<<<<<<< HEAD
 
 
 [github]: https://github.com/runelite/runelite
 [discord]: https://discord.gg/ArdAhnN
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6

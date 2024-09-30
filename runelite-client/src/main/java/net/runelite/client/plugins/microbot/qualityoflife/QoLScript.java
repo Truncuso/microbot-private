@@ -52,7 +52,11 @@ public class QoLScript extends Script {
                     handleWorkbenchActions();
                 }
 
+<<<<<<< HEAD
                 if (QoLPlugin.executeLoadoutActions && !QoLPlugin.LOADOUT_TO_LOAD.isEmpty()) {
+=======
+                if (QoLPlugin.executeLoadoutActions && !QoLPlugin.loadoutToLoad.isEmpty()) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     handleInventorySetup();
                 }
 
@@ -64,7 +68,11 @@ public class QoLScript extends Script {
             } catch (Exception ex) {
                 log.error("Error in QoLScript execution: {}", ex.getMessage(), ex);
             }
+<<<<<<< HEAD
         }, 0, 5000, TimeUnit.MILLISECONDS);
+=======
+        }, 0, 300, TimeUnit.MILLISECONDS);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         return true;
     }
 
@@ -81,12 +89,20 @@ public class QoLScript extends Script {
         if (!openBank()) {
             Microbot.log("Bank did not open");
             QoLPlugin.executeLoadoutActions = false;
+<<<<<<< HEAD
             QoLPlugin.LOADOUT_TO_LOAD = "";
+=======
+            QoLPlugin.loadoutToLoad = "";
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return;
         }
 
         try {
+<<<<<<< HEAD
             Rs2InventorySetup inventorySetup = new Rs2InventorySetup(QoLPlugin.LOADOUT_TO_LOAD, mainScheduledFuture);
+=======
+            Rs2InventorySetup inventorySetup = new Rs2InventorySetup(QoLPlugin.loadoutToLoad, mainScheduledFuture);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
             if (!inventorySetup.doesEquipmentMatch()) {
                 inventorySetup.loadEquipment();
@@ -95,10 +111,17 @@ public class QoLScript extends Script {
                 inventorySetup.loadInventory();
             }
             QoLPlugin.executeLoadoutActions = false;
+<<<<<<< HEAD
             QoLPlugin.LOADOUT_TO_LOAD = "";
         } catch (Exception ignored) {
             QoLPlugin.executeLoadoutActions = false;
             QoLPlugin.LOADOUT_TO_LOAD = "";
+=======
+            QoLPlugin.loadoutToLoad = "";
+        } catch (Exception ignored) {
+            QoLPlugin.executeLoadoutActions = false;
+            QoLPlugin.loadoutToLoad = "";
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             Microbot.pauseAllScripts = false;
             Microbot.log("Failed to load inventory setup");
         }
@@ -196,8 +219,13 @@ public class QoLScript extends Script {
     }
 
     private boolean openFurnace() {
+<<<<<<< HEAD
         sleepUntil(() -> Rs2Widget.isProductionWidgetOpen() || Rs2Widget.isGoldCraftingWidgetOpen(), 10000);
         return Rs2Widget.isProductionWidgetOpen() || Rs2Widget.isGoldCraftingWidgetOpen();
+=======
+        sleepUntil(() -> Rs2Widget.isProductionWidgetOpen() || Rs2Widget.isGoldCraftingWidgetOpen() || Rs2Widget.isSilverCraftingWidgetOpen(), 10000);
+        return Rs2Widget.isProductionWidgetOpen() || Rs2Widget.isGoldCraftingWidgetOpen() || Rs2Widget.isSilverCraftingWidgetOpen();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
 

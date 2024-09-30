@@ -45,6 +45,12 @@ public class ConfigProfile
 	@Setter(AccessLevel.PACKAGE)
 	private String bankPin;
 	@Getter
+<<<<<<< HEAD
+=======
+	@Setter(AccessLevel.PACKAGE)
+	private boolean isMember;
+	@Getter
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	@Setter
 	private boolean sync;
 	@Getter

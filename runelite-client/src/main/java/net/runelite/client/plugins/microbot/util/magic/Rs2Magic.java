@@ -6,10 +6,21 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.globval.enums.InterfaceTab;
 import net.runelite.client.plugins.microbot.util.camera.Rs2Camera;
+<<<<<<< HEAD
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
 import net.runelite.client.plugins.microbot.util.npc.Rs2Npc;
+=======
+import net.runelite.client.plugins.microbot.util.dialogues.Rs2Dialogue;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
+import net.runelite.client.plugins.microbot.util.math.Random;
+import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
+import net.runelite.client.plugins.microbot.util.npc.Rs2Npc;
+import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+import net.runelite.client.plugins.microbot.util.settings.Rs2SpellBookSettings;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.tabs.Rs2Tab;
 import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
@@ -17,15 +28,29 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import java.awt.*;
 import java.util.Arrays;
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import java.util.stream.Collectors;
 
 import static net.runelite.api.Varbits.SHADOW_VEIL;
 import static net.runelite.client.plugins.microbot.Microbot.log;
+<<<<<<< HEAD
 import static net.runelite.client.plugins.microbot.util.Global.sleep;
 import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
 
 public class Rs2Magic {
     public static boolean canCast(MagicAction magicSpell) {
+=======
+import static net.runelite.client.plugins.microbot.util.Global.*;
+
+public class Rs2Magic {
+    public static boolean canCast(MagicAction magicSpell) {
+        if (!Rs2SpellBookSettings.setAllFiltersOn()) {
+            return false;
+        }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         if (Rs2Tab.getCurrentTab() != InterfaceTab.MAGIC) {
             Rs2Tab.switchToMagicTab();
             sleep(150, 300);
@@ -43,6 +68,7 @@ public class Rs2Magic {
         }
 
         Widget widget = Arrays.stream(Rs2Widget.getWidget(14286851).getStaticChildren()).filter(x -> x.getSpriteId() == magicSpell.getSprite()).findFirst().orElse(null);
+<<<<<<< HEAD
         if (widget == null) {
             widget = Arrays.stream(Rs2Widget.getWidget(14286851).getStaticChildren()).filter(x -> x.getId() == magicSpell.getWidgetId()).findFirst().orElse(null);
         }
@@ -50,13 +76,24 @@ public class Rs2Magic {
     }
 
     public static void cast(MagicAction magicSpell) {
+=======
+
+        return widget != null;
+    }
+
+    public static boolean cast(MagicAction magicSpell) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         MenuAction menuAction;
         Rs2Tab.switchToMagicTab();
         Microbot.status = "Casting " + magicSpell.getName();
         sleep(150, 300);
         if (!canCast(magicSpell)) {
             log("Unable to cast " + magicSpell.getName());
+<<<<<<< HEAD
             return;
+=======
+            return false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
         int identifier = 1;
         if (magicSpell.getName().toLowerCase().contains("teleport") || magicSpell.getName().toLowerCase().contains("Bones to") || Arrays.stream(magicSpell.getActions()).anyMatch(x -> x != null && x.equalsIgnoreCase("cast"))) {
@@ -70,6 +107,10 @@ public class Rs2Magic {
 
         Microbot.doInvoke(new NewMenuEntry("cast", -1, magicSpell.getWidgetId(), menuAction.getId(), identifier, -1, magicSpell.getName()), new Rectangle(Rs2Widget.getWidget(magicSpell.getWidgetId()).getBounds()));
         //Rs2Reflection.invokeMenu(-1, magicSpell.getWidgetId(), menuAction.getId(), 1, -1, "Cast", "<col=00ff00>" + magicSpell.getName() + "</col>", -1, -1);
+<<<<<<< HEAD
+=======
+        return true;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     public static void castOn(MagicAction magicSpell, Actor actor) {
@@ -244,6 +285,42 @@ public class Rs2Magic {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public static boolean npcContact(String npcName) {
+        if (!isLunar()) {
+            Microbot.log("Tried casting npcContact, but lunar spellbook was not found.");
+            return false;
+        }
+        final int chooseCharacterWidgetId = 4915200;
+        boolean didCast = cast(MagicAction.NPC_CONTACT);
+        if (!didCast) return false;
+        boolean result = sleepUntilTrue(() -> Rs2Widget.getWidget(chooseCharacterWidgetId) != null && !Rs2Widget.isHidden(chooseCharacterWidgetId), 100, 5000);
+        if (!result) return false;
+        boolean clickResult = Rs2Widget.clickWidget(npcName, Optional.of(75), 0, false);
+        if (!clickResult) return false;
+        Rs2Player.waitForAnimation();
+        return true;
+    }
+
+    public static boolean repairPouchesWithLunar() {
+        log("Repairing pouches...");
+        if (npcContact("dark mage")) {
+            sleep(Random.randomGaussian(Random.random(600, 1200), 300));
+            Rs2Dialogue.clickContinue();
+            sleep(Random.randomGaussian(Random.random(1000, 2200), 300));
+            Rs2Widget.sleepUntilHasWidget("Can you repair my pouches?");
+            sleep(Random.randomGaussian(Random.random(600, 1200), 300));
+            Rs2Widget.clickWidget("Can you repair my pouches?", Optional.of(162), 0, true);
+            sleep(Random.randomGaussian(Random.random(1000, 2200), 300));
+            Rs2Dialogue.clickContinue();
+            sleep(Random.randomGaussian(1500, 300));
+            Rs2Tab.switchToInventoryTab();
+        }
+        return !Rs2Inventory.hasDegradedPouch();
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     private static void alch(Widget alch) {
         alch(alch, null, 300, 600);
     }

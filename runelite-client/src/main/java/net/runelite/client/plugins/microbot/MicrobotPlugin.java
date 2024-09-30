@@ -10,6 +10,10 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.ProfileManager;
 import net.runelite.client.eventbus.Subscribe;
+<<<<<<< HEAD
+=======
+import net.runelite.client.events.ConfigChanged;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.NPCManager;
 import net.runelite.client.game.SpriteManager;
@@ -18,6 +22,10 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.plugins.PluginManager;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch.PouchScript;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
 import net.runelite.client.plugins.microbot.util.equipment.Rs2Equipment;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
@@ -83,6 +91,12 @@ public class MicrobotPlugin extends Plugin {
     private WorldMapPointManager worldMapPointManager;
     @Inject
     private NaturalMouse naturalMouse;
+<<<<<<< HEAD
+=======
+    @Inject
+    private PouchScript pouchScript;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     @Override
     protected void startUp() throws AWTException {
         Microbot.pauseAllScripts = false;
@@ -105,9 +119,16 @@ public class MicrobotPlugin extends Plugin {
             overlayManager.add(microbotOverlay);
         }
 
+<<<<<<< HEAD
         new InputSelector(clientToolbar);
 
         //TODO: Rs2NpcManager.loadJson();
+=======
+        Microbot.setPouchScript(pouchScript);
+        pouchScript.startUp();
+
+        new InputSelector(clientToolbar);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     protected void shutDown() {
@@ -122,7 +143,11 @@ public class MicrobotPlugin extends Plugin {
 
     @Subscribe
     public void onItemContainerChanged(ItemContainerChanged event) {
+<<<<<<< HEAD
 
+=======
+        pouchScript.onItemContainerChanged(event);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         if (event.getContainerId() == InventoryID.BANK.getId()) {
             Rs2Bank.storeBankItemsInMemory(event);
         } else if (event.getContainerId() == InventoryID.INVENTORY.getId()) {
@@ -171,7 +196,11 @@ public class MicrobotPlugin extends Plugin {
                             .setType(Microbot.targetMenu.getType())
                             .setParam0(Microbot.targetMenu.getParam0())
                             .setParam1(Microbot.targetMenu.getParam1())
+<<<<<<< HEAD
                             .setForceLeftClick(true);
+=======
+                            .setForceLeftClick(false);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
             if (Microbot.targetMenu.getItemId() > 0) {
                 try {
@@ -186,10 +215,22 @@ public class MicrobotPlugin extends Plugin {
 
     @Subscribe
     private void onMenuOptionClicked(MenuOptionClicked event) {
+<<<<<<< HEAD
+=======
+        Microbot.getPouchScript().onMenuOptionClicked(event);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         Microbot.targetMenu = null;
         System.out.println(event.getMenuEntry());
     }
 
+<<<<<<< HEAD
+=======
+    @Subscribe
+    private void onChatMessage(ChatMessage event) {
+        Microbot.getPouchScript().onChatMessage(event);
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     @SneakyThrows
     private void startPlugin(Plugin p) {
         SwingUtilities.invokeAndWait(() ->
@@ -214,4 +255,18 @@ public class MicrobotPlugin extends Plugin {
             Rs2Tile.addDangerousGraphicsObjectTile(graphicsObject, 600 * ticks);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Subscribe
+    public void onConfigChanged(ConfigChanged ev) {
+        if (ev.getKey().equals("displayPouchCounter")) {
+            if (ev.getNewValue() == "true") {
+                Microbot.getPouchScript().startUp();
+            } else {
+                Microbot.getPouchScript().shutdown();
+            }
+        }
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

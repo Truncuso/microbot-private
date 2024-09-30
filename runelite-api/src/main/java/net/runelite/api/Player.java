@@ -25,7 +25,11 @@
 package net.runelite.api;
 
 import java.awt.Polygon;
+<<<<<<< HEAD
 import javax.annotation.Nullable;
+=======
+import org.intellij.lang.annotations.MagicConstant;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 /**
  * Represents a player entity in the game.
@@ -94,10 +98,26 @@ public interface Player extends Actor
 
 	/**
 	 * Gets the displayed skull icon of the player.
+<<<<<<< HEAD
 	 * Only works on the local player.
 	 *
 	 * @return the skull icon
 	 */
 	@Nullable
 	SkullIcon getSkullIcon();
+=======
+	 *
+	 * @return the id skull icon, or -1 if unskulled.
+	 * @see SkullIcon
+	 */
+	@MagicConstant(valuesFromClass = SkullIcon.class)
+	int getSkullIcon();
+
+	/**
+	 * Sets the displayed skull icon of the player.
+	 * @param skullIcon The id of the skull icon, or -1 to remove the skull icon.
+	 * @see SkullIcon
+	 */
+	void setSkullIcon(@MagicConstant(valuesFromClass = SkullIcon.class) int skullIcon);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

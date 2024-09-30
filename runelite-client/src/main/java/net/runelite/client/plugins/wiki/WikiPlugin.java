@@ -74,8 +74,13 @@ public class WikiPlugin extends Plugin
 {
 	static final HttpUrl WIKI_BASE = HttpUrl.get("https://oldschool.runescape.wiki");
 	static final HttpUrl WIKI_API = WIKI_BASE.newBuilder().addPathSegments("api.php").build();
+<<<<<<< HEAD
 	static final String UTM_SORUCE_KEY = "utm_source";
 	static final String UTM_SORUCE_VALUE = "runelite";
+=======
+	static final String UTM_SOURCE_KEY = "utm_source";
+	static final String UTM_SOURCE_VALUE = "runelite";
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 	private static final String MENUOP_WIKI = "Wiki";
 
@@ -346,7 +351,11 @@ public class WikiPlugin extends Plugin
 				.addQueryParameter("type", type)
 				.addQueryParameter("id", "" + id)
 				.addQueryParameter("name", name)
+<<<<<<< HEAD
 				.addQueryParameter(UTM_SORUCE_KEY, UTM_SORUCE_VALUE);
+=======
+				.addQueryParameter(UTM_SOURCE_KEY, UTM_SOURCE_VALUE);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
 			if (location != null)
 			{
@@ -419,7 +428,11 @@ public class WikiPlugin extends Plugin
 			}
 		}
 
+<<<<<<< HEAD
 		if (WidgetUtil.componentToInterface(widgetID) == InterfaceID.SKILLS)
+=======
+		if (event.getType() == MenuAction.CC_OP.getId() && WidgetUtil.componentToInterface(widgetID) == InterfaceID.SKILLS)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 		{
 			Widget w = getWidget(widgetID, widgetIndex);
 			if (w.getActions() == null || w.getParentId() != ComponentID.SKILLS_CONTAINER)
@@ -442,7 +455,30 @@ public class WikiPlugin extends Plugin
 				.onClick(ev -> LinkBrowser.browse(WIKI_BASE.newBuilder()
 					.addPathSegment("w")
 					.addPathSegment(Text.removeTags(ev.getTarget()))
+<<<<<<< HEAD
 					.addQueryParameter(UTM_SORUCE_KEY, UTM_SORUCE_VALUE)
+=======
+					.addQueryParameter(UTM_SOURCE_KEY, UTM_SOURCE_VALUE)
+					.build().toString()));
+		}
+
+		if (event.getType() == MenuAction.CC_OP.getId() && WidgetUtil.componentToInterface(widgetID) == InterfaceID.COMBAT_ACHIEVEMENTS_TASKS)
+		{
+			Widget w = getWidget(widgetID, widgetIndex);
+			if (w.getActions() == null || w.getParentId() != ComponentID.COMBAT_ACHIEVEMENTS_TASKS_LIST)
+			{
+				return;
+			}
+
+			client.getMenu().createMenuEntry(-1)
+				.setTarget(w.getName())
+				.setOption(MENUOP_WIKI)
+				.setType(MenuAction.RUNELITE)
+				.onClick(ev -> LinkBrowser.browse(WIKI_BASE.newBuilder()
+					.addPathSegment("w")
+					.addPathSegment(Text.removeTags(ev.getTarget()))
+					.addQueryParameter(UTM_SOURCE_KEY, UTM_SOURCE_VALUE)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 					.build().toString()));
 		}
 	}

@@ -65,6 +65,10 @@ public class Layout
 
 	public String toCodeString()
 	{
+<<<<<<< HEAD
 		return toCode().replaceAll("#", "").replaceAll("¤", "");
+=======
+		return toCode().replace("#", "").replace("¤", "");
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 	}
 }

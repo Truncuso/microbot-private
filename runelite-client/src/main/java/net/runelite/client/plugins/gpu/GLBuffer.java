@@ -1,5 +1,9 @@
 /*
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/gpu/GLBuffer.java
  * Copyright (c) 2021, Adam <Adam@sigterm.info>
+========
+ * Copyright (c) 2019, TheStonedTurtle <https://github.com/TheStonedTurtle>
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/bank/ContainerPrices.java
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<<< HEAD:runelite-client/src/main/java/net/runelite/client/plugins/gpu/GLBuffer.java
 package net.runelite.client.plugins.gpu;
 
 class GLBuffer
@@ -35,4 +40,15 @@ class GLBuffer
 	{
 		this.name = name;
 	}
+========
+package net.runelite.client.plugins.bank;
+
+import lombok.Value;
+
+@Value
+class ContainerPrices
+{
+	private long gePrice;
+	private long highAlchPrice;
+>>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6:runelite-client/src/main/java/net/runelite/client/plugins/bank/ContainerPrices.java
 }

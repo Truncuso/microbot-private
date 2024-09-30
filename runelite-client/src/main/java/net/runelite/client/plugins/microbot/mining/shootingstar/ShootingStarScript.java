@@ -78,13 +78,21 @@ public class ShootingStarScript extends Script {
 
                         if (plugin.useNearestHighTierStar()) {
                             star = plugin.getClosestHighestTierStar();
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                             if (star == null) {
                                 Microbot.showMessage("Unable to find a star within your tier range. Consider disabling useNearestHighTierStar until higher mining level.");
                                 shutdown();
                                 return;
                             }
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                             plugin.updateSelectedStar(star);
                         } else {
                             star = plugin.getSelectedStar();
@@ -174,11 +182,19 @@ public class ShootingStarScript extends Script {
 
                         boolean bankClosed = Rs2Bank.closeBank();
                         if (!bankClosed || Rs2Bank.isOpen()) return;
+<<<<<<< HEAD
                         
                         if(checkSelectedStar()) {
                             if(!star.equals(plugin.getSelectedStar()))
                                 return;
                             
+=======
+
+                        if (checkSelectedStar()) {
+                            if (!star.equals(plugin.getSelectedStar()))
+                                return;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                             state = ShootingStarState.WALKING;
                             return;
                         }
@@ -204,6 +220,10 @@ public class ShootingStarScript extends Script {
         state = null;
         star = null;
         pickaxe = null;
+<<<<<<< HEAD
+=======
+        Rs2Antiban.resetAntibanSettings();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     private boolean isUsingInventorySetup(ShootingStarConfig config) {
@@ -263,10 +283,18 @@ public class ShootingStarScript extends Script {
         Star selectedStar = plugin.getSelectedStar();
 
         if (selectedStar == null) {
+<<<<<<< HEAD
             if (plugin.useNearestHighTierStar() && !shouldBank(config)) {
                 return ShootingStarState.WAITING_FOR_STAR;
             }
             return ShootingStarState.BANKING;
+=======
+            if (shouldBank(config)) {
+                return ShootingStarState.BANKING;
+            }
+
+            return ShootingStarState.WAITING_FOR_STAR;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
 
         if (!star.equals(selectedStar)) {
@@ -289,11 +317,19 @@ public class ShootingStarScript extends Script {
                 plugin.removeStar(plugin.getSelectedStar());
                 plugin.updatePanelList(true);
 
+<<<<<<< HEAD
                 if (plugin.useNearestHighTierStar() && !shouldBank(config)) {
                     return ShootingStarState.WAITING_FOR_STAR;
                 }
 
                 return ShootingStarState.BANKING;
+=======
+                if (shouldBank(config)) {
+                    return ShootingStarState.BANKING;
+                }
+
+                return ShootingStarState.WAITING_FOR_STAR;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             }
 
             star.setObjectID(starObject.getId());
@@ -324,7 +360,11 @@ public class ShootingStarScript extends Script {
     private boolean hasStarGameObjectChanged(GameObject starObject) {
         // If the GameObject does not exist anymore
         if (starObject == null) return true;
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         // If the GameObject has updated to a new tier
         return star.getObjectID() != starObject.getId();
     }

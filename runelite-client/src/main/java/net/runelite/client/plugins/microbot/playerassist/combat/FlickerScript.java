@@ -12,6 +12,10 @@ import net.runelite.client.plugins.microbot.playerassist.enums.PrayerStyle;
 import net.runelite.client.plugins.microbot.playerassist.model.Monster;
 import net.runelite.client.plugins.microbot.util.npc.Rs2Npc;
 import net.runelite.client.plugins.microbot.util.npc.Rs2NpcManager;
+<<<<<<< HEAD
+=======
+import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.client.plugins.microbot.util.prayer.Rs2Prayer;
 import net.runelite.client.plugins.microbot.util.prayer.Rs2PrayerEnum;
 
@@ -76,7 +80,11 @@ public class FlickerScript extends Script {
                     handlePrayerFlick();
                 }
                 // if currentMonstersAttackingUs is empty, disable all prayers
+<<<<<<< HEAD
                 if (currentMonstersAttackingUs.isEmpty()) {
+=======
+                if (currentMonstersAttackingUs.isEmpty() && !Rs2Player.isInteracting() && (Rs2Prayer.isPrayerActive(Rs2PrayerEnum.PROTECT_MELEE) || Rs2Prayer.isPrayerActive(Rs2PrayerEnum.PROTECT_MAGIC) || Rs2Prayer.isPrayerActive(Rs2PrayerEnum.PROTECT_RANGE) || Rs2Prayer.isQuickPrayerEnabled())){
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                     Rs2Prayer.disableAllPrayers();
                 }
 
@@ -84,7 +92,11 @@ public class FlickerScript extends Script {
             } catch (Exception ex) {
                 System.err.println("Error: " + ex.getMessage());
             }
+<<<<<<< HEAD
         }, 0, 50, TimeUnit.MILLISECONDS);
+=======
+        }, 0, 200, TimeUnit.MILLISECONDS);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         return true;
     }
 
@@ -94,7 +106,10 @@ public class FlickerScript extends Script {
      */
     private void handlePrayerFlick() {
         lastPrayerTick = currentTick;
+<<<<<<< HEAD
         log.info("Ficked on tick: " + Microbot.getClient().getTickCount());
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         Rs2PrayerEnum prayerToToggle;
         switch (prayFlickAttackStyle) {
             case MAGE:

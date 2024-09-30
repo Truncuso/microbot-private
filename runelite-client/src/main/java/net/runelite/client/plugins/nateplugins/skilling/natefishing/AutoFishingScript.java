@@ -26,7 +26,11 @@ enum State {
 
 public class AutoFishingScript extends Script {
 
+<<<<<<< HEAD
     public static String version = "1.4.0";
+=======
+    public static String version = "1.4.1";
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     State state;
 
     public boolean run(AutoFishConfig config) {
@@ -93,6 +97,13 @@ public class AutoFishingScript extends Script {
             case KARAMBWANJI:
             case SHRIMP:
                 return Rs2Inventory.hasItem("small fishing net");
+<<<<<<< HEAD
+=======
+            case SARDINE:
+                return Rs2Inventory.hasItem("fishing rod") && Rs2Inventory.hasItem("bait");
+            case MACKEREL:
+                return Rs2Inventory.hasItem("big fishing net");
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             case TROUT:
                 return Rs2Inventory.hasItem("fly fishing rod") && Rs2Inventory.hasItem("feather");
             case TUNA:
@@ -119,4 +130,13 @@ public class AutoFishingScript extends Script {
         }
         return null;
     }
+<<<<<<< HEAD
+=======
+    
+    @Override
+    public void shutdown(){
+        super.shutdown();
+        Rs2Antiban.resetAntibanSettings();
+    }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 }

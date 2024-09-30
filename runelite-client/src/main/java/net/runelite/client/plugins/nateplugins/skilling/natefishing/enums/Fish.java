@@ -8,7 +8,14 @@ import net.runelite.client.game.FishingSpot;
 @RequiredArgsConstructor
 public enum Fish {
     SHRIMP("shrimp", FishingSpot.SHRIMP.getIds(),"net"),
+<<<<<<< HEAD
     TROUT("trout/salmon", FishingSpot.SALMON.getIds(),"lure"),
+=======
+    SARDINE("sardine/herring", FishingSpot.SHRIMP.getIds(),"bait"),
+    MACKEREL("mackerel/cod/bass", FishingSpot.SHARK.getIds(),"big net"),
+    TROUT("trout/salmon", FishingSpot.SALMON.getIds(),"lure"),
+    PIKE("pike", FishingSpot.SALMON.getIds(),"bait"),
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     TUNA("tuna/swordfish", FishingSpot.LOBSTER.getIds(),"harpoon"),
     CAVE_EEL("cave eel", FishingSpot.CAVE_EEL.getIds(), "bait"),
     LOBSTER("lobster", FishingSpot.LOBSTER.getIds(),"cage"),

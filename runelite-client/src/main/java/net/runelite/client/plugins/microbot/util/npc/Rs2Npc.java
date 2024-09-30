@@ -186,6 +186,14 @@ public class Rs2Npc {
         if (npc == null) return false;
         Microbot.status = action + " " + npc.getName();
         try {
+<<<<<<< HEAD
+=======
+            if (!hasLineOfSight(npc) || !Rs2Tile.isTileReachable(npc.getWorldLocation())) {
+                Rs2Walker.walkTo(npc.getWorldLocation(), 1);
+                return false;
+            }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             NPCComposition npcComposition = Microbot.getClientThread().runOnClientThread(() -> Microbot.getClient().getNpcDefinition(npc.getId()));
 
             int index = 0;
@@ -284,6 +292,7 @@ public class Rs2Npc {
     public static boolean pickpocket(String npcName) {
         NPC npc = getNpc(npcName);
 
+<<<<<<< HEAD
         if (npc == null) return false;
 
         if (!hasLineOfSight(npc)) {
@@ -292,14 +301,20 @@ public class Rs2Npc {
         }
 
         return interact(npc, "pickpocket");
+=======
+        return pickpocket(npc);
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     public static boolean pickpocket(Map<NPC, HighlightedNpc> highlightedNpcs) {
         for (NPC npc : highlightedNpcs.keySet()) {
+<<<<<<< HEAD
             if (!hasLineOfSight(npc)) {
                 Rs2Walker.walkTo(npc.getWorldLocation(), 1);
                 return false;
             }
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return interact(npc, "pickpocket");
         }
         return false;
@@ -311,6 +326,10 @@ public class Rs2Npc {
 
     public static boolean hasLineOfSight(NPC npc) {
         if (npc == null) return false;
+<<<<<<< HEAD
+=======
+        if (npc.getWorldLocation().equals(Rs2Player.getWorldLocation())) return true;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         return new WorldArea(
                 npc.getWorldLocation(),
                 npc.getComposition().getSize(),

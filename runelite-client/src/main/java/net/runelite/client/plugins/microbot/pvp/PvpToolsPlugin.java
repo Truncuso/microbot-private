@@ -491,11 +491,19 @@ public class PvpToolsPlugin extends Plugin
         panel.totalRiskLabel.repaint();
 
         int itemLimit = 0;
+<<<<<<< HEAD
         if (player.getSkullIcon() != null && player.getSkullIcon() == SkullIcon.SKULL)
         {
             itemLimit = 1;
         }
         if (player.getSkullIcon() == null)
+=======
+        if (player.getSkullIcon() >= 0 && player.getSkullIcon() == SkullIcon.SKULL)
+        {
+            itemLimit = 1;
+        }
+        if (player.getSkullIcon() == -1)
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         {
             itemLimit = 4;
         }

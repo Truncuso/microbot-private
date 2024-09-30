@@ -152,6 +152,20 @@ public interface PlayerAssistConfig extends Config {
     }
 
     @ConfigItem(
+<<<<<<< HEAD
+=======
+            keyName = "ReachableNpcs",
+            name = "Only attack reachable npcs",
+            description = "Only attack npcs that we can reach with melee",
+            position = 7,
+            section = combatSection
+    )
+    default boolean attackReachableNpcs() {
+        return true;
+    }
+
+    @ConfigItem(
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             keyName = "Food",
             name = "Auto eat food",
             description = "Automatically eats food",
@@ -335,6 +349,21 @@ public interface PlayerAssistConfig extends Config {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    //Force loot regardless if we are in combat or not
+    @ConfigItem(
+            keyName = "forceLoot",
+            name = "Force Loot",
+            description = "Force loot regardless if we are in combat or not",
+            position = 100,
+            section = lootSection
+    )
+    default boolean toggleForceLoot() {
+        return false;
+    }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     //set center tile manually
     @ConfigItem(
             keyName = "Center Tile",

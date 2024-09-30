@@ -95,8 +95,14 @@ public class FlaxScript extends Script {
     }
 
     @Override
+<<<<<<< HEAD
     public void shutdown() {
         super.shutdown();
+=======
+    public void shutdown(){
+        super.shutdown();
+        Rs2Antiban.resetAntibanSettings();
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
     private void getState(AutoLooterConfig config) {

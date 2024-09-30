@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch;/*
  * Copyright (c) 2019 Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -25,6 +26,11 @@ package net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch;/*
 
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
+=======
+package net.runelite.client.plugins.microbot.qualityoflife.scripts.pouch;
+
+import com.google.common.collect.ImmutableMap;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -32,11 +38,17 @@ import net.runelite.api.ItemID;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuOptionClicked;
+<<<<<<< HEAD
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.Script;
 
 import javax.inject.Inject;
+=======
+import net.runelite.client.plugins.microbot.Microbot;
+import net.runelite.client.plugins.microbot.Script;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.regex.Matcher;
@@ -44,6 +56,7 @@ import java.util.regex.Pattern;
 
 import static java.lang.Math.min;
 
+<<<<<<< HEAD
 @Slf4j
 @PluginDescriptor(
         name = "Essence Pouch",
@@ -51,6 +64,8 @@ import static java.lang.Math.min;
         tags = {"pouch", "runecraft"},
         enabledByDefault = false
 )
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 public class PouchScript extends Script {
     private final int INVENTORY_SIZE = 28;
 
@@ -71,13 +86,20 @@ public class PouchScript extends Script {
             .put("twelve", 12)
             .build();
 
+<<<<<<< HEAD
     @Inject
     private PouchOverlay essencePouchOverlay;
 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     private final Deque<ClickOperation> clickedItems = new ArrayDeque<>();
     private final Deque<ClickOperation> checkedPouches = new ArrayDeque<>();
     private int lastEssence;
     private int lastSpace;
+<<<<<<< HEAD
+=======
+    private boolean isRunning = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
     public void startUp() {
         // Reset pouch state
@@ -88,16 +110,28 @@ public class PouchScript extends Script {
         }
 
         lastEssence = lastSpace = -1;
+<<<<<<< HEAD
+=======
+        isRunning = true;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
     }
 
 
     @Override
     public void shutdown() {
+<<<<<<< HEAD
+=======
+        isRunning = false;
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         super.shutdown();
     }
 
     public void onChatMessage(ChatMessage event) {
+<<<<<<< HEAD
         if (event.getType() != ChatMessageType.GAMEMESSAGE) {
+=======
+        if (!isRunning || event.getType() != ChatMessageType.GAMEMESSAGE) {
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             return;
         }
 
@@ -117,10 +151,44 @@ public class PouchScript extends Script {
                 }
                 while (!checkedPouches.isEmpty());
             }
+<<<<<<< HEAD
+=======
+        } else if (!clickedItems.isEmpty()) {
+            if (event.getMessage().contains("You cannot add any more")) {
+                do {
+                    final ClickOperation op = clickedItems.pop();
+                    if (op.tick >= Microbot.getClient().getTickCount()) {
+                        Pouch pouch = op.pouch;
+                        pouch.setHolding(pouch.getHoldAmount());
+                        System.out.println(pouch.getHolding());
+                        pouch.setUnknown(false);
+                        break;
+                    }
+                }
+                while (!clickedItems.isEmpty());
+            } else if (event.getMessage().contains("There is no")) {
+                do {
+                    final ClickOperation op = clickedItems.pop();
+                    if (op.tick >= Microbot.getClient().getTickCount()) {
+                        Pouch pouch = op.pouch;
+                        pouch.setHolding(0);
+                        pouch.setUnknown(false);
+                        break;
+                    }
+                }
+                while (!clickedItems.isEmpty());
+            }
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         }
     }
 
     public void onItemContainerChanged(ItemContainerChanged event) {
+<<<<<<< HEAD
+=======
+        if (!isRunning)
+            return;
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         if (InventoryID.INVENTORY.getId() != event.getContainerId()) {
             return;
         }
@@ -203,23 +271,36 @@ public class PouchScript extends Script {
                 pouch.setUnknown(false);
             }
 
+<<<<<<< HEAD
             log.debug("{}: {}", pouch.name(), essenceGot);
 
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
             essence -= essenceGot;
             space += essenceGot;
 
             pouch.addHolding(essenceGot);
         }
 
+<<<<<<< HEAD
         if (!clickedItems.isEmpty()) {
             log.debug("End processing with {} events left", clickedItems.size());
         }
+=======
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
 
         lastSpace = newSpace;
         lastEssence = newEss;
     }
 
     public void onMenuOptionClicked(MenuOptionClicked event) {
+<<<<<<< HEAD
+=======
+        if (!isRunning) {
+            return;
+        }
+
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
         int itemId = event.getItemId();
 
         if (itemId == -1) {
@@ -232,6 +313,7 @@ public class PouchScript extends Script {
         }
         final int tick = Microbot.getClient().getTickCount() + 3;
         System.out.println(event.getMenuOption());
+<<<<<<< HEAD
         switch (event.getMenuOption()) {
             case "Fill":
                 clickedItems.add(new ClickOperation(pouch, tick, 1));
@@ -243,6 +325,19 @@ public class PouchScript extends Script {
                 checkedPouches.add(new ClickOperation(pouch, tick));
                 break;
             case "Take":
+=======
+        switch (event.getMenuOption().toLowerCase()) {
+            case "fill":
+                clickedItems.add(new ClickOperation(pouch, tick, 1));
+                break;
+            case "empty":
+                clickedItems.add(new ClickOperation(pouch, tick, -1));
+                break;
+            case "check":
+                checkedPouches.add(new ClickOperation(pouch, tick));
+                break;
+            case "take":
+>>>>>>> eaf3305b337d54b17a015219ff53601454d5a3b6
                 // Dropping pouches clears them, so clear when picked up
                 pouch.setHolding(0);
                 break;
