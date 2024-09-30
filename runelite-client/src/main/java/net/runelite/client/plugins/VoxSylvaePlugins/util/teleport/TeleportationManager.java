@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.plugins.VoxSylvaePlugins.data.locationData.FairyRingTeleportLoader;
-import net.runelite.client.plugins.VoxSylvaePlugins.data.locationData.SpellbookTeleportLoader;
-import net.runelite.client.plugins.VoxSylvaePlugins.data.locationData.TeleportItemLoader;
+import net.runelite.client.plugins.VoxSylvaePlugins.data.teleportationData.FairyRingTeleportLoader;
+import net.runelite.client.plugins.VoxSylvaePlugins.data.teleportationData.SpellbookTeleportLoader;
+import net.runelite.client.plugins.VoxSylvaePlugins.data.teleportationData.TeleportItemLoader;
 import net.runelite.client.plugins.VoxSylvaePlugins.util.VoxSylvaeInventoryAndBankManagementScript;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.antiban.Rs2AntibanSettings;
@@ -46,7 +46,7 @@ public class TeleportationManager{
     private boolean isTeleporting;
     private int teleportStartTick;
     private Map<String, CachedPathInfo> distanceCache;
-    private String cacheDir = "teleport_cache/";
+    private String cacheDir = "../.../data/teleportCacheData/";
     private WorldPoint currentTarget;
     private Future<?> currentPathfindingTask;
     private ExecutorService pathfindingExecutor;
@@ -88,23 +88,24 @@ public class TeleportationManager{
         }        
         
         initialize();
-        this.teleports = new HashMap<>();
-        this.teleportToMagicActionMap = new HashMap<>();
-        this.isTeleporting = false;
-        this.distanceCache = new HashMap<>();
-        initializeTeleportToMagicActionMap();
-        loadDistanceCache();
-        this.pathfindingExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        
         
 
     }
 
    
     public void initialize() {
-        this.teleports = new HashMap<>();
-        this.isTeleporting = false;
+        
+        
+        
         loadTeleportData();
         initializeTeleportToMagicActionMap();
+        loadDistanceCache();
+                
+        this.isTeleporting = false;
+        
+        
+        this.pathfindingExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
     private List<Teleport> loadTeleportsFromFile(String filename) {
         try (FileReader reader = new FileReader("../data/locationData/" + filename)) {
@@ -117,6 +118,7 @@ public class TeleportationManager{
         }
     }
     private void initializeTeleportToMagicActionMap() {
+        this.teleportToMagicActionMap = new HashMap<>();
         teleportToMagicActionMap.put("Varrock Teleport", MagicAction.VARROCK_TELEPORT);
         teleportToMagicActionMap.put("Lumbridge Teleport", MagicAction.LUMBRIDGE_TELEPORT);
         teleportToMagicActionMap.put("Falador Teleport", MagicAction.FALADOR_TELEPORT);
@@ -164,7 +166,7 @@ public class TeleportationManager{
         teleportToMagicActionMap.put("Ice Plateau Teleport", MagicAction.ICE_PLATEAU_TELEPORT);
     }
     private void loadTeleportData() {
-        
+        this.teleports = new HashMap<>();
         SpellbookTeleportLoader SpellbookLoader = new SpellbookTeleportLoader();
         SpellbookLoader.loadSpellbookTeleports(teleports, "standardSpellbookTeleports.json");
         SpellbookLoader.loadSpellbookTeleports(teleports, "ancientMagicksTeleports.json");
@@ -212,6 +214,7 @@ public class TeleportationManager{
 
 
     private void loadDistanceCache() {
+        this.distanceCache = new HashMap<>();        
         File cacheFile = new File(cacheDir + "distance_cache.json");
         if (cacheFile.exists()) {
             try (Reader reader = new FileReader(cacheFile)) {

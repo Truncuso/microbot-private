@@ -6,7 +6,6 @@ import net.runelite.client.plugins.microbot.util.antiban.Rs2AntibanSettings;
 import net.runelite.client.plugins.VoxSylvaePlugins.util.teleport.Teleport;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.coords.WorldArea;
-import net.runelite.api.Skill;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.magic.Rs2Magic;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
@@ -14,18 +13,17 @@ import net.runelite.client.plugins.microbot.util.gameobject.Rs2GameObject;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
+import net.runelite.client.plugins.microbot.util.tile.Rs2Tile;
 import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
-import net.runelite.api.Skill;
-import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemID;
 import net.runelite.client.plugins.microbot.Script;
-
+import 
 
 import net.runelite.client.plugins.microbot.util.keyboard.Rs2Keyboard;
 
 
 import javax.inject.Inject;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.Random;
 
@@ -35,7 +33,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import static net.runelite.client.plugins.microbot.util.Global.sleep;
-
+import net.runelite.api.*;
 public class VoxSylvaeNavigationScript extends Script {
     enum NavigationState {
         IDLE,
@@ -45,48 +43,52 @@ public class VoxSylvaeNavigationScript extends Script {
         INTERACTING
     }
     @Inject
-    VoxSylvaeInventoryAndBankManagementScript inventoryAndBankManagementScript;
+    private VoxSylvaeInventoryAndBankManagementScript inventoryAndBankManagementScript;
     @Inject
-    TeleportationManager teleportationManager;
+    private Client client;
+    private static TeleportationManager teleportationManager;
     private static Map<String, Teleport> availableTeleports = new HashMap<>();
     private static final WorldPoint BANK_LOCATION = new WorldPoint(3183, 3436, 0); // Example: Varrock West Bank
     private NavigationState navigationState = NavigationState.IDLE;
     private WorldPoint currentDesiredLocation;
+    private VoxSylvaeNavigationConfig config;
     public NavigationState getNavigationState() {
         return navigationState;
     }
     public WorldPoint getCurrentDesiredLocation() {
         return currentDesiredLocation;
     }
-    private static void initialize() {
+    private void initialize() {
+        //add cache for path, init teleporatiom manager
+        teleportationManager = new TeleportationManager(client);
         loadAllTeleports();
         checkPlayerTeleports();
     }
 
-    private static void loadAllTeleports() {
-        // get all completed quests and add them to the list of available teleports
-        List<String> completedQuests = new ArrayList<>();
-        Rs2Player.
-        availableTeleports = TeleportationManager.getTeleports();
-        // Add all possible teleports here
-        availableTeleports.put("Varrock", new TeleportInfo(Rs2Magic.Spell.VARROCK_TELEPORT, new WorldPoint(3212, 3424, 0), 25, "Law rune", "Air rune", "Fire rune"));
-        availableTeleports.put("Lumbridge", new TeleportInfo(Rs2Magic.Spell.LUMBRIDGE_TELEPORT, new WorldPoint(3225, 3219, 0), 31, "Law rune", "Air rune", "Earth rune"));
-        availableTeleports.put("Falador", new TeleportInfo(Rs2Magic.Spell.FALADOR_TELEPORT, new WorldPoint(2964, 3379, 0), 37, "Law rune", "Air rune", "Water rune"));
-        // Add more teleports as needed
+    private void loadAllTeleports() {
+        
+
+        
     }
-    private boolean hasAllItemsInInventory(List<String> items) {
-        for (String item : items) {
-            if (!Rs2Inventory.hasItem(item)) {
-                return false;
-            }
-        }
-        return true;
+    public TeleportationManager(Client client, VoxSylvaeNavigationConfig config) {
+        this.config = config;
+        if (client == null) {
+          this.client = Microbot.getClient();
+        }else{
+          this.client = client;
+        }        
+        
+        initialize();
+       
+        
+
     }
+ 
     private static void checkPlayerTeleports() {
         int magicLevel = getSkillLevel(Skill.MAGIC);
-        for (Map.Entry<String, TeleportInfo> entry : availableTeleports.entrySet()) {
-            TeleportInfo info = entry.getValue();
-            if (magicLevel >= info.requiredLevel && hasAllItemsInInventory(info.requiredItems)) {
+        for (Map.Entry<String, Teleport> entry : availableTeleports.entrySet()) {
+            Teleport teleportEntry = entry.getValue();
+            if (magicLevel >= teleportEntry.getRequiredLevel() && VoxSylvaeInventoryAndBankManagementScript.hasAllItemsInInventory(teleportEntry.getRequiredItems())) {
                 info.isAvailable = true;
             }
         }
@@ -110,19 +112,19 @@ public class VoxSylvaeNavigationScript extends Script {
     public boolean walkToWithRandomizedDistance(WorldPoint destination, int minDistance, int maxDistance) {
         Random random = new Random();
         int distance = random.nextInt(maxDistance - minDistance + 1) + minDistance;
-        return walkTo(destination, distance);
+        return navigateTo(destination, distance);
     }
-    public boolean walkToWithTeleport(WorldPoint destination, int distance) {
+    private boolean walkToWithTeleport(WorldPoint destination, int distance) {
         // find the nearest teleport to the destination
-        Teleport nearestTeleport = teleportationManager.findNearestTeleport(destination);
+        Teleport nearestTeleport = teleportationManager.findNearestTeleport(destination, true);
         
         if (Rs2Walker.getDistanceBetween(Rs2Player.getWorldLocation(), destination) > distance) {
-            return walkTo(destination, distance);
+            return navigateTo(destination, distance);
         } else {
             return true;
         }
     }
-    public boolean walkTo(WorldPoint destination, int distance) {
+    private boolean navigateTo(WorldPoint destination, int distance) {
         this.navigationState = NavigationState.WALKING;
         this.currentDesiredLocation = destination;
         mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
@@ -130,26 +132,28 @@ public class VoxSylvaeNavigationScript extends Script {
                 Microbot.log("Walk todestination.");
                 //Rs2Walker.walkTo(NORTH_OF_WEB, 2);
                 //return sleepUntil(() -> Rs2Walker.getDistanceBetween(playerLocation, NORTH_OF_WEB) < 5 && !Rs2Player.isMoving(), 300);
-                sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving(), 300);
+                sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving());
+                this.navigationState = NavigationState.IDLE;
             } catch (Exception ex) {
+                this.navigationState = NavigationState.IDLE;
                 System.out.println(ex.getMessage());
             }
-        }, 0, 1000, TimeUnit.MILLISECONDS);
+        }, 0, 600, TimeUnit.MILLISECONDS);
         //sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving(), 300);
-        this.navigationState = NavigationState.IDLE;
+        
         return true;
     }
-    public boolean openBank ( WorldPoint desiredBankLocation) {
+    public boolean navigateAndOpenBank ( WorldPoint desiredBankLocation) {
         if (Rs2Player.getWorldLocation().equals(desiredBankLocation)) {
             
             return inventoryAndBankManagementScript.openBank();
         } else {
-            walkTo(desiredBankLocation, 2);
-
+            naviagateTo(desiredBankLocation, 2);
+            sleepUntil(()->NavigationState.IDLE == navigationState);
             return inventoryAndBankManagementScript.openBank();
         }
     }
-    public boolean walkToWithAntiBan(WorldPoint destination, int distance) {
+    public boolean navigateWithAntiBan(WorldPoint destination, int distance) {
         // get antiban settings
         //Rs2AntibanSettings Rs2AntibanSettings = new Rs2AntibanSettings();
         Microbot.pauseAllScripts = false;
@@ -178,121 +182,66 @@ public class VoxSylvaeNavigationScript extends Script {
         Rs2AntibanSettings.microBreakChance = 0.15;
         Rs2AntibanSettings.moveMouseRandomlyChance = 0.1;
     }
-    public boolean walkToAreabyName(String  AreaName, int radius) {
+    public boolean navigateToAreaByName(String  AreaName, int radius) {
         //notimplented yet
         assert false;
-        WorldPoint destinationArea = NULL;
-        return walkTo(destinationArea, radius);        
-    }
-
-    public static boolean useTransportation(String transportType, int objectId) {
-        if (transportType.equals("Fairy Ring")) {
-            Rs2GameObject fairyRing = Rs2GameObject.findObjectById(objectId);
-            if (fairyRing != null) {
-                return Rs2GameObject.interact(fairyRing, "Configure");
-            }
-        } else {
-        
-        mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
-                Rs2GameObject transportObject = Rs2GameObject.findObjectById(objectId);
-                if (transportObject != null) {
-                    return Rs2GameObject.interact(transportObject, transportType);
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }, 0, 1000, TimeUnit.MILLISECONDS);  
-        }
-        return false;
-    }
-
-    public static boolean useItemOnObject(String itemName, int objectId) {
-        if (Rs2Inventory.hasItem(itemName)) {
-            Rs2GameObject targetObject = Rs2GameObject.findObjectById(objectId);
-            if (targetObject != null) {
-                Rs2Inventory.get(itemName).useOn(targetObject);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean performTeleport(String teleportName) {
-        navigationState = NavigationState.TELEPORTING;
-        TeleportInfo teleport = availableTeleports.get(teleportName);
-
-        if (teleport == null) {
-            System.out.println("Unknown teleport: " + teleportName);
-            navigationState = NavigationState.IDLE;
-            return false;
-        }
-
-        List<String> missingItems = new ArrayList<>();
-        for (String item : teleport.requiredItems) {
-            if (!Rs2Inventory.hasItem(item)) {
-                missingItems.add(item);
-            }
-        }
-
-        if (!missingItems.isEmpty()) {
-            navigationState = NavigationState.BANKING;
-            // get missing items from bank not implemented yet
-            assert false;
-            navigationState = NavigationState.IDLE;
-            return False
-        }
-        
-        
-        navigationState = NavigationState.IDLE;
-        return true;
-    }
-
-    
-    public boolean navigateToArea(String areaName) {
         WorldPoint currentLocation = Rs2Player.getWorldLocation();
         // logic for getting area location coordiantes
         
         if (currentLocation != null) {
              
-            WorldPoint destinationArea = NULL;
+            WorldPoint destinationArea = null;
             // First, try to teleport close to the destination
             //TODO implement this
             //TeleportationType nearestTeleport = findNearestTeleport(destination);
-            //WorldPoint nearestTeleportationLocation
+            WorldPoint nearestTeleportationLocation = null;
             //
             if (nearestTeleportationLocation != null) {
-                return false
+                return false;
                 //HunterMovementUtils.teleportToLocation(nearestTeleport, destination);
             }
             
             // Then, walk to the exact location
-            return walkTo(destinationArea,0);
+            return walkTo(destinationArea,radius);
         }
-        return false;
+        return false;   
     }
+
+    
+    public boolean navigateToAreaByName(String areaName) {
+        return navigateToAreaByName(areaName, 2);
+        
+    }
+    public boolean canNavigateToObject(GameObject gameObject) {
+        return !Rs2Tile.areSurroundingTilesWalkable(gameObject.getWorldLocation(), gameObject.sizeX(), gameObject.sizeY());
+    }
+      
+    
+
+    public static boolean useItemOnObject(String itemName, int objectId) {
+        TileObject targetObject = Rs2GameObject.findObjectById(objectId);            
+        taragetObjectReachable = h
+        if (Rs2Inventory.hasItem(itemName)) {
+
+            
+            if (targetObject != null ) {
+                useItemOnObject(Rs2Inventory.get(itemName)).getId(),cookingObject.getId())
+                return true;
+            }
+        }else{
+            Microbot.log(itemName + " not in inventory. ," + targetObject!=null:targetObeject.getName(), null);
+            return false;
+        }
+        
+    }
+
+ 
+
     private static int getSkillLevel(Skill skill) {
         return Microbot.getClient().getRealSkillLevel(skill);
     }
-    private static String findNearestTeleport(WorldPoint destination) {
-        // Implement logic to find the nearest teleport to the destination
-        // Return the teleport method name or null if no suitable teleport is found
-        return null;
-    }
-    private static class TeleportInfo {
-        
-        MagicAction spell;
-        WorldPoint destination;
-        int requiredLevel;
-        List<String> requiredItems;
-        boolean isAvailable;
 
-        TeleportInfo(MagicAction spell, WorldPoint destination, int requiredLevel, String... requiredItems) {
-            this.spell = spell;
-            this.destination = destination;
-            this.requiredLevel = requiredLevel;
-            this.requiredItems = requiredItems;
-            this.isAvailable = false;
-        }
-    }
+
     @Override
     public void shutdown() {
         super.shutdown();

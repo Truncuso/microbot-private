@@ -22,6 +22,7 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -69,6 +70,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.awt.event.KeyEvent;
+import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
 public class VoxSylvaeUitl {
     public static void ensurePluginEnabled(Class pluginClass,  boolean devDebug){
         if (!Microbot.isPluginEnabled(pluginClass)) {
@@ -143,12 +145,16 @@ public class VoxSylvaeUitl {
         int world = Login.getRandomWorld(true, null);
         boolean isHopped = Microbot.hopToWorld(world);
         if (!isHopped) return;
-        boolean result = sleepUntil(() -> Rs2Widget.findWidget("Switch World") != null);
+        Rs2Widget.sleepUntilHasWidget("Switch World");
+        boolean result = sleepUntil(() -> Rs2Widget.findWidget("Switch World", null, false) != null, 10);
         if (result) {
             Rs2Keyboard.keyPress(KeyEvent.VK_SPACE);
             sleepUntil(() -> Microbot.getClient().getGameState() == GameState.HOPPING);
             sleepUntil(() -> Microbot.getClient().getGameState() == GameState.LOGGED_IN);
         }
+    }
+    public static int getSkillLevel(Skill skill) {
+        return Microbot.getClient().getRealSkillLevel(skill);
     }
     
 }

@@ -23,13 +23,14 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 
 import net.runelite.client.plugins.microbot.Script;
-
+import net.runelite.client.plugins.microbot.shortestpath.ShortestPathPlugin;
 import net.runelite.client.plugins.microbot.util.dialogues.Rs2Dialogue;
 
 import net.runelite.client.plugins.microbot.util.math.Rs2Random;
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
 import net.runelite.client.plugins.microbot.util.npc.Rs2NpcManager;
-
+import static net.runelite.client.plugins.microbot.util.Global.sleepUntil;
+import static net.runelite.client.plugins.microbot.util.Global.sleep;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -40,18 +41,35 @@ import net.runelite.client.plugins.questhelper.runeliteobjects.extendedruneliteo
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.apache.commons.lang3.ObjectUtils.Null;
 
 @Slf4j
-public class VoxSylvaeInventoryAndBankManagementScript extends Script {
+public class VoxSylvaeInventoryAndBankManagementScript {
 
     @Inject
     private Client client;
     @Inject
     private ItemManager itemManager;
     
+    public ScheduledFuture<?> mainScheduledFuture;
+    public boolean isRunning() {
+        return mainScheduledFuture != null && !mainScheduledFuture.isDone();
+    }
+    public void shutdown() {
+        if (mainScheduledFuture != null && !mainScheduledFuture.isDone()) {
+            mainScheduledFuture.cancel(true);
+            ShortestPathPlugin.exit();
+            if (Microbot.getClientThread().scheduledFuture != null)
+                Microbot.getClientThread().scheduledFuture.cancel(true);
+            
+            Microbot.pauseAllScripts = false;
+            Microbot.getSpecialAttackConfigs().reset();
+        }
+    }
+
 
     public static class BankItemInfo {
         public final int slot;
@@ -272,8 +290,8 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
             Rs2InventorySetup rs2InventorySetup = new Rs2InventorySetup(inventorySetupName, mainScheduledFuture);
             
             if (!rs2InventorySetup.hasSpellBook()) {
-                Microbot.showMessage("Your spellbook is not matching "+inventorySetupName+" the inventory setup.");
-                sleep(10000);
+                Microbot.showMessage("Your spellbook is not matching "+ inventorySetupName + " the inventory setup.");
+                sleep(100);
                 return false;
             }
             
@@ -314,19 +332,25 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
             sleepUntil(Rs2Bank::isOpen, 10000);
         } catch (Exception ignored) {            
             Microbot.pauseAllScripts = true;
-            Microbot.log("<openBank> Failed to open bank");
+            Microbot.log("<openBank> Failed to open bank, with exception: " + ignored.getMessage());
         }
         return Rs2Bank.isOpen();
     }
     
     private boolean checkBeforeWithdrawAndEquip(int itemId) {
-        if (!Rs2Equipment.isWearing(itemId)) {
-            Rs2Bank.withdrawAndEquip(itemId);
-           //check if it is wearing
-            sleepUntil(() -> Rs2Equipment.isWearing(itemId), 5000);
-            return Rs2Equipment.isWearing(itemId);
+        try {
+            if (!Rs2Equipment.isWearing(itemId)) {
+                Rs2Bank.withdrawAndEquip(itemId);
+            //check if it is wearing
+                sleepUntil(() -> Rs2Equipment.isWearing(itemId), 5000);
+                return Rs2Equipment.isWearing(itemId);
+            }
+            return true;
+        } catch (Exception ignored) {            
+            Microbot.pauseAllScripts = true;
+            Microbot.log("<openBank> Failed to open bank, with exception: " + ignored.getMessage());
+            return false;
         }
-        return true;
     }
     private boolean checkBeforeWithdrawAndEquip(String itemName) {
         if (!Rs2Equipment.isWearing(itemName)) {
@@ -373,7 +397,7 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
 
     public boolean withdrawAndEquip(int itemId) {
         try{
-        if (!Rs2Bank.openBank()) {
+            if (!Rs2Bank.openBank()) {
                 Microbot.log("<withdrawAndEquip> Bank did not open, item: " + itemId);
                 return false;
             }
@@ -385,12 +409,26 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
             return false;
         } catch (Exception ignored) {
             Microbot.pauseAllScripts = true;
-            Microbot.log("<withdrawAndEquip> Failed to withdraw and equip item: " + itemId);
+            Microbot.log("<withdrawAndEquip> Failed to withdraw and equip item: " + itemId+" with exception: " + ignored.getMessage());
             return false;
         }
     
     }
+    private <T>boolean hasAllItemsInInventory(List<T> items) {
+        for (T item : items) {
 
+            if (item.getClass() == String.class && !Rs2Inventory.hasItem((String)item)) {
+                //Rs2Item invItem = Rs2Inventory.getItem((String)item);
+                Microbot.log("<hasAllItemsInInventory> Missing item in inventory: " + item);
+                return false;
+            }
+            if (item.getClass() == Integer.class && !Rs2Inventory.hasItem((Integer)item)) {
+                Microbot.log("<hasAllItemsInInventory> Missing item in inventory: " + item);
+                return false;                
+            }
+        }
+        return true;
+    }
     //utitlity methods
 
     public void equipGraceful() {
@@ -406,9 +444,9 @@ public class VoxSylvaeInventoryAndBankManagementScript extends Script {
         List<Integer> digsitePendants = List.of(ItemID.DIGSITE_PENDANT_1, ItemID.DIGSITE_PENDANT_2, ItemID.DIGSITE_PENDANT_3, ItemID.DIGSITE_PENDANT_4, ItemID.DIGSITE_PENDANT_5);
         return withdrawAndEquipItemWithMultipleIds(digsitePendants);     
     }
-    @Override
-    public void shutdown() {
-        super.shutdown();
-        Microbot.pauseAllScripts = true;
-    }
+    //@Override
+    //public void shutdown() {
+    //    super.shutdown();
+    //    Microbot.pauseAllScripts = true;
+    //}
 }
