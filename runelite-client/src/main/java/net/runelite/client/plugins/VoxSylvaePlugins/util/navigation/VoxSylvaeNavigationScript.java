@@ -9,6 +9,7 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.magic.Rs2Magic;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
+import net.runelite.client.plugins.microbot.vorkath.VorkathScript;
 import net.runelite.client.plugins.microbot.util.gameobject.Rs2GameObject;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
 import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
@@ -16,8 +17,7 @@ import net.runelite.client.plugins.microbot.util.player.Rs2Player;
 import net.runelite.client.plugins.microbot.util.tile.Rs2Tile;
 import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
 import net.runelite.client.plugins.microbot.Script;
-import 
-
+import net.runelite.client.plugins.microbot.crafting.enums.BoltTips;
 import net.runelite.client.plugins.microbot.util.keyboard.Rs2Keyboard;
 
 
@@ -50,7 +50,7 @@ public class VoxSylvaeNavigationScript extends Script {
     private static Map<String, Teleport> availableTeleports = new HashMap<>();
     private static final WorldPoint BANK_LOCATION = new WorldPoint(3183, 3436, 0); // Example: Varrock West Bank
     private NavigationState navigationState = NavigationState.IDLE;
-    private WorldPoint currentDesiredLocation;
+    private WorldPoint currentDesiredLocation = null;
     private VoxSylvaeNavigationConfig config;
     public NavigationState getNavigationState() {
         return navigationState;
@@ -70,7 +70,18 @@ public class VoxSylvaeNavigationScript extends Script {
 
         
     }
-    public TeleportationManager(Client client, VoxSylvaeNavigationConfig config) {
+    public boolean run(Client client, VoxSylvaeNavigationConfig config) {
+        Microbot.enableAutoRunOn = true;
+        Microbot.pauseAllScripts = false;
+        
+        //init = true;
+        //state = State.BANKING;
+        //hasEquipment = false;
+        //hasInventory = false;
+        //VorkathScript.config = config;
+        //tempVorkathKills = config.SellItemsAtXKills();
+        Microbot.getSpecialAttackConfigs().setSpecialAttack(true);
+        
         this.config = config;
         if (client == null) {
           this.client = Microbot.getClient();
@@ -80,16 +91,27 @@ public class VoxSylvaeNavigationScript extends Script {
         
         initialize();
        
-        
-
+        mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
+            try {
+                if (!Microbot.isLoggedIn()) return;
+                if (!super.run()) return;
+             
+                
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }, 0, 1000, TimeUnit.MILLISECONDS);
+        return true;
     }
- 
+
+    
+    
     private static void checkPlayerTeleports() {
         int magicLevel = getSkillLevel(Skill.MAGIC);
         for (Map.Entry<String, Teleport> entry : availableTeleports.entrySet()) {
             Teleport teleportEntry = entry.getValue();
             if (magicLevel >= teleportEntry.getRequiredLevel() && VoxSylvaeInventoryAndBankManagementScript.hasAllItemsInInventory(teleportEntry.getRequiredItems())) {
-                info.isAvailable = true;
+                //info.isAvailable = true;
             }
         }
     }
@@ -109,12 +131,8 @@ public class VoxSylvaeNavigationScript extends Script {
             return walkTo(finalDestination,2);
         }
     }*/
-    public boolean walkToWithRandomizedDistance(WorldPoint destination, int minDistance, int maxDistance) {
-        Random random = new Random();
-        int distance = random.nextInt(maxDistance - minDistance + 1) + minDistance;
-        return navigateTo(destination, distance);
-    }
-    private boolean walkToWithTeleport(WorldPoint destination, int distance) {
+  
+    private boolean navigateToWithTeleport(WorldPoint destination, int distance) {
         // find the nearest teleport to the destination
         Teleport nearestTeleport = teleportationManager.findNearestTeleport(destination, true);
         

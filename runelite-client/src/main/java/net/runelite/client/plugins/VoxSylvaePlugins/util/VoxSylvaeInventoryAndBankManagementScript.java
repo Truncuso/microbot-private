@@ -414,7 +414,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         }
     
     }
-    private <T>boolean hasAllItemsInInventory(List<T> items) {
+    public <T>boolean hasAllItemsInInventory(List<T> items) {
         for (T item : items) {
 
             if (item.getClass() == String.class && !Rs2Inventory.hasItem((String)item)) {
