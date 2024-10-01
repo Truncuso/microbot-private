@@ -145,7 +145,7 @@ public class Transport {
     @Getter
     private String npcName;
 
-    Transport(final WorldPoint origin, final WorldPoint destination) {
+    public Transport(final WorldPoint origin, final WorldPoint destination) {
         this.origin = origin;
         this.destination = destination;
     }

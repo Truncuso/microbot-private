@@ -18,10 +18,14 @@ import net.runelite.client.plugins.microbot.util.tile.Rs2Tile;
 import net.runelite.client.plugins.skillcalculator.skills.MagicAction;
 import net.runelite.client.plugins.microbot.Script;
 import net.runelite.client.plugins.microbot.crafting.enums.BoltTips;
+import net.runelite.client.plugins.microbot.shortestpath.ShortestPathPlugin;
 import net.runelite.client.plugins.microbot.util.keyboard.Rs2Keyboard;
 
 
 import javax.inject.Inject;
+
+import lombok.Getter;
+
 import java.awt.event.KeyEvent;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -37,10 +41,10 @@ import net.runelite.api.*;
 public class VoxSylvaeNavigationScript extends Script {
     enum NavigationState {
         IDLE,
+        WAITING_FOR_PATH_FINDING,
         WALKING,
-        TELEPORTING,
-        BANKING,
-        INTERACTING
+        WAITING_FOR_TELEPORTAION,
+        TELEPORTING,        
     }
     @Inject
     private VoxSylvaeInventoryAndBankManagementScript inventoryAndBankManagementScript;
@@ -50,8 +54,13 @@ public class VoxSylvaeNavigationScript extends Script {
     private static Map<String, Teleport> availableTeleports = new HashMap<>();
     private static final WorldPoint BANK_LOCATION = new WorldPoint(3183, 3436, 0); // Example: Varrock West Bank
     private NavigationState navigationState = NavigationState.IDLE;
+    @Getter
+    private String statusLast = "...";
     private WorldPoint currentDesiredLocation = null;
     private VoxSylvaeNavigationConfig config;
+    public String getNavigationStatus() {
+       return statusLast; 
+    }
     public NavigationState getNavigationState() {
         return navigationState;
     }
@@ -143,15 +152,31 @@ public class VoxSylvaeNavigationScript extends Script {
         }
     }
     private boolean navigateTo(WorldPoint destination, int distance) {
-        this.navigationState = NavigationState.WALKING;
+        this.navigationState = NavigationState.WAITING_FOR_PATH_FINDING;
         this.currentDesiredLocation = destination;
         mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
             try {
-                Microbot.log("Walk todestination.");
-                //Rs2Walker.walkTo(NORTH_OF_WEB, 2);
-                //return sleepUntil(() -> Rs2Walker.getDistanceBetween(playerLocation, NORTH_OF_WEB) < 5 && !Rs2Player.isMoving(), 300);
-                sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving());
-                this.navigationState = NavigationState.IDLE;
+                while (this.navigationState != NavigationState.IDLE) {
+                    
+                
+                
+                    //Rs2Walker.walkTo(NORTH_OF_WEB, 2);
+                    //return sleepUntil(() -> Rs2Walker.getDistanceBetween(playerLocation, NORTH_OF_WEB) < 5 && !Rs2Player.isMoving(), 300);
+                    if (ShortestPathPlugin.getPathfinder() == null) {
+                        if (ShortestPathPlugin.getMarker() == null)
+                            break;
+                            statusLast = "[VS Navigation] Waiting for pathfinder ready...";
+                        continue;
+                    }
+                    if (!ShortestPathPlugin.getPathfinder().isDone()) {
+                        statusLast = "[VS Navigation] Waiting for path calculation...";
+                        continue;
+                    }
+                    Microbot.log("Start Walk to destination. " + "x:" + destination.getX() + "y:" + destination.getY() + "distance:" + distance);
+                    this.navigationState = NavigationState.WALKING;
+                    sleepUntil(() -> Rs2Walker.walkTo(destination, distance) && !Rs2Player.isMoving());
+                    this.navigationState = NavigationState.IDLE;
+                }
             } catch (Exception ex) {
                 this.navigationState = NavigationState.IDLE;
                 System.out.println(ex.getMessage());

@@ -2,10 +2,13 @@ package net.runelite.client.plugins.VoxSylvaePlugins.util.navigation;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.shortestpath.ShortestPathPlugin;
 import net.runelite.client.plugins.microbot.shortestpath.Transport;
+import net.runelite.client.plugins.microbot.shortestpath.pathfinder.Pathfinder;
+import net.runelite.client.plugins.microbot.shortestpath.Transport;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
@@ -17,14 +20,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
-import net.runelite.api.widgets.ComponentID;
+import java.awt.image.BufferedImage;
+
 import net.runelite.api.*;
-import net.runelite.api.coords.WorldPoint;
+
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
+
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
-import net.runelite.api.widgets.ComponentID;
+import net.runelite.api.widgets.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.worldmap.WorldMap;
 import net.runelite.client.callback.ClientThread;
@@ -37,8 +41,10 @@ import net.runelite.client.input.KeyManager;
 import javax.inject.Inject;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.awt.datatransfer.StringSelection;
 
 @PluginDescriptor(
         name = PluginDescriptor.TRUNC + "Example",
@@ -109,7 +115,9 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
     }
     @Subscribe
     public void onMenuEntryAdded(MenuEntryAdded event) {
+        Pathfinder pathfinder = ShortestPathPlugin.getPathfinder();
         if (client.isKeyPressed(KeyCode.KC_SHIFT) && event.getOption().equals(WALK_HERE) && event.getTarget().isEmpty()) {
+            
             if (config.drawTransports()) {
                 addMenuEntry(event, ADD_START, TRANSPORT, 1);
                 addMenuEntry(event, ADD_END, TRANSPORT, 1);
@@ -170,6 +178,12 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
     private static final String WALK_HERE = "Walk here";
     public static final BufferedImage MARKER_IMAGE = ImageUtil.loadImageResource(ShortestPathPlugin.class, "marker.png");
     private MenuEntry lastClick;
+    private Point lastMenuOpenedPoint;
+    private static final WorldPoint transportStart = null;
+    @Subscribe
+    public void onMenuOpened(MenuOpened event) {
+        lastMenuOpenedPoint = client.getMouseCanvasPosition();
+    }
     private void onMenuOptionClicked(MenuEntry entry) {
         Player localPlayer = client.getLocalPlayer();
         if (localPlayer == null) {
@@ -189,7 +203,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
                     currentLocation.getX() + " " + currentLocation.getY() + " " + currentLocation.getPlane() + " " +
                     lastClick.getOption() + " " + Text.removeTags(lastClick.getTarget()) + " " + lastClick.getIdentifier()
             );
-            Transport transport = new Transport(transportStart, transportEnd);
+            Transport transport = new Transport((WorldPoint)transportStart,(WorldPoint) transportEnd);
             pathfinderConfig.getTransports().computeIfAbsent(transportStart, k -> new ArrayList<>()).add(transport);
         }
 

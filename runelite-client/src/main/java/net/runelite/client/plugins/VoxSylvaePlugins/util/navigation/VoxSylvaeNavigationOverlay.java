@@ -128,11 +128,14 @@ public class VoxSylvaeNavigationOverlay extends OverlayPanel {
                     .build());
         }
         panelComponent.getChildren().add(LineComponent.builder()
-                .left("State")
+                .left("State: ")
                 .right(navigationScript.getNavigationState()+"")
                 .rightColor( (navigationScript.getNavigationState() == VoxSylvaeNavigationScript.NavigationState.IDLE)? Color.GREEN:Color.RED )
                 .build());
-
+        panelComponent.getChildren().add(LineComponent.builder()
+        .left("Status:")
+        .right(navigationScript.getNavigationStatus()+"")
+        .build());
         return super.render(graphics);
     }
 }
