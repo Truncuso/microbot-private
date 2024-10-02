@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.VoxSylvaePlugins.data.locationData;
+package net.runelite.client.plugins.VoxSylvaePlugins.data.teleportationData;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class FairyRingTeleportLoader {
 
-    private static final String FAIRY_RING_JSON_PATH = "../data/locationData/";
+    private static final String FAIRY_RING_JSON_PATH = "../data/teleportationData/";
 
     // Method to load the fairy ring teleports from the JSON file
     public void loadFairyRingTeleports(Map<TeleportType, List<Teleport>> teleports, String fileName) {

@@ -3,9 +3,11 @@ package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model;
 import java.util.List;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.coords.WorldPoint;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -24,10 +26,7 @@ public abstract class ScraperResult {
         public String getItemName() { return itemName; }
         public int getQuantity() { return quantity; }
     }
-    private List<String> names;
-    private List<Integer> ids;
-    private List<String> imagePaths;
-    private Map<String, String> additionalInfo;
+   
     @Getter
     @Setter
     public static class LocationResult extends ScraperResult {
@@ -152,40 +151,6 @@ public abstract class ScraperResult {
                     '}';
         }
     }
-
-    @Getter
-    @Setter
-    public static class ItemResult extends ScraperResult {
-        private String name;
-        private List<Integer> ids;
-        private List<String> imagePaths;
-        private boolean noteable;
-        private List<String> options;
-        private boolean stackable;
-        private boolean tradeable;
-        private boolean equipable;
-        private String examine;
-        private List<Integer> quantity; // For drops
-        private double rarity; // For drops
-        private boolean lootStatus; // For drops
-
-        @Override
-        public String toString() {
-            return "ItemResult{" +
-                    "name='" + name + '\'' +
-                    ", ids=" + ids +
-                    ", imagePaths=" + imagePaths +
-                    ", noteable=" + noteable +
-                    ", options=" + options +
-                    ", stackable=" + stackable +
-                    ", tradeable=" + tradeable +
-                    ", equipable=" + equipable +
-                    ", examine='" + examine + '\'' +
-                    ", quantity=" + quantity +
-                    ", rarity=" + rarity +
-                    ", lootStatus=" + lootStatus +
-                    '}';
-        }
-    }
-
+   
+   
 }

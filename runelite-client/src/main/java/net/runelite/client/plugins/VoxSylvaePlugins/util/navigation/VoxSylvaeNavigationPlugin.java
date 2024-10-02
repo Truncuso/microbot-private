@@ -58,6 +58,8 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
     private VoxSylvaeNavigationConfig config;
     @Inject
     private Client client;
+    @Inject
+    private ShortestPathPlugin shortestPathPlugin;
     @Provides
     VoxSylvaeNavigationConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(VoxSylvaeNavigationConfig.class);
@@ -118,11 +120,11 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
         Pathfinder pathfinder = ShortestPathPlugin.getPathfinder();
         if (client.isKeyPressed(KeyCode.KC_SHIFT) && event.getOption().equals(WALK_HERE) && event.getTarget().isEmpty()) {
             
-            if (config.drawTransports()) {
-                addMenuEntry(event, ADD_START, TRANSPORT, 1);
-                addMenuEntry(event, ADD_END, TRANSPORT, 1);
+            //if (config.drawTransports()) {
+            //    addMenuEntry(event, ADD_START, TRANSPORT, 1);
+             //   addMenuEntry(event, ADD_END, TRANSPORT, 1);
                 // addMenuEntry(event, "Copy Position");
-            }
+            //}
 
             addMenuEntry(event, SET, TARGET, 1);
             if (pathfinder != null) {
@@ -153,7 +155,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
             }
         }
 
-        final Shape minimap = getMinimapClipArea();
+        final Shape minimap = shortestPathPlugin.getMinimapClipArea();
 
         if (minimap != null && pathfinder != null &&
                 minimap.contains(client.getMouseCanvasPosition().getX(), client.getMouseCanvasPosition().getY())) {
@@ -179,7 +181,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
     public static final BufferedImage MARKER_IMAGE = ImageUtil.loadImageResource(ShortestPathPlugin.class, "marker.png");
     private MenuEntry lastClick;
     private Point lastMenuOpenedPoint;
-    private static final WorldPoint transportStart = null;
+    private static WorldPoint transportStart = null;
     @Subscribe
     public void onMenuOpened(MenuOpened event) {
         lastMenuOpenedPoint = client.getMouseCanvasPosition();
@@ -204,7 +206,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
                     lastClick.getOption() + " " + Text.removeTags(lastClick.getTarget()) + " " + lastClick.getIdentifier()
             );
             Transport transport = new Transport((WorldPoint)transportStart,(WorldPoint) transportEnd);
-            pathfinderConfig.getTransports().computeIfAbsent(transportStart, k -> new ArrayList<>()).add(transport);
+            //shortestPathPlugin.pathfinderConfig.getTransports().computeIfAbsent(transportStart, k -> new ArrayList<>()).add(transport);
         }
 
         if (entry.getOption().equals("Copy Position")) {
@@ -219,7 +221,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
         }
 
         if (entry.getOption().equals(SET) && entry.getTarget().equals(START)) {
-            setStart(getSelectedWorldPoint());
+            //shortestPathPlugin.setStart(getSelectedWorldPoint());
         }
 
         if (entry.getOption().equals(CLEAR) && entry.getTarget().equals(PATH)) {
@@ -238,7 +240,7 @@ public class VoxSylvaeNavigationPlugin extends Plugin {
                         client.getSelectedSceneTile().getWorldLocation();
             }
         } else {
-            return calculateMapPoint(client.isMenuOpen() ? lastMenuOpenedPoint : client.getMouseCanvasPosition());
+            return shortestPathPlugin.calculateMapPoint(client.isMenuOpen() ? lastMenuOpenedPoint : client.getMouseCanvasPosition());
         }
         return null;
     }

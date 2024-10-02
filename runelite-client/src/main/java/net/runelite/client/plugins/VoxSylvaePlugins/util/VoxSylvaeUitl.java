@@ -137,7 +137,7 @@ public class VoxSylvaeUitl {
      */
     private void hopWorld() {
         // Stock level dropped below minimum, pause or stop execution
-        System.out.println("Stock level dropped below minimum threshold.");
+        System.out.println("Hopping world");
         Rs2Shop.closeShop();
         Rs2Bank.closeBank();
         sleep(2400, 4800); // this sleep is required to avoid the message: please finish what you're doing before using the world switcher.
@@ -146,11 +146,24 @@ public class VoxSylvaeUitl {
         boolean isHopped = Microbot.hopToWorld(world);
         if (!isHopped) return;
         Rs2Widget.sleepUntilHasWidget("Switch World");
-        boolean result = sleepUntil(() -> Rs2Widget.findWidget("Switch World", null, false) != null, 10);
+        sleepUntil(() -> Rs2Widget.findWidget("Switch World", null, false) != null, 5000);
+        Widget SwitchWorldWidget = Rs2Widget.findWidget("Switch World", null, false);
+        if (SwitchWorldWidget == null) {
+            System.out.println("Switch World Widget not found");
+            return;
+        }
+        boolean result = Rs2Widget.clickWidget(SwitchWorldWidget);
         if (result) {
             Rs2Keyboard.keyPress(KeyEvent.VK_SPACE);
-            sleepUntil(() -> Microbot.getClient().getGameState() == GameState.HOPPING);
-            sleepUntil(() -> Microbot.getClient().getGameState() == GameState.LOGGED_IN);
+            sleepUntil(() -> Microbot.getClient().getGameState() == GameState.HOPPING, 5000);
+            sleepUntil(() -> Microbot.getClient().getGameState() == GameState.LOGGED_IN, 5000);
+            if (Microbot.getClient().getGameState() == GameState.LOGGED_IN) {
+                System.out.println("Successfully hopped to world " + world);
+            } else {
+                Microbot.pauseAllScripts = true;
+                System.out.println("Failed to hop to world " + world);
+            }
+            
         }
     }
     public static int getSkillLevel(Skill skill) {

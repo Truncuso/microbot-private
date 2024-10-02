@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.VoxSylvaePlugins.data.locationData;
+package net.runelite.client.plugins.VoxSylvaePlugins.data.teleportationData;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class TeleportItemLoader {
 
-    private static final String ITEM_TELEPORT_JSON_PATH = "../data/locationData/";
+    private static final String ITEM_TELEPORT_JSON_PATH = "../data/teleportationData/";
 
     public void loadTeleportItemLoaderTeleports(Map<TeleportType, List<Teleport>> teleports, String fileName) {
         try (FileReader reader = new FileReader(ITEM_TELEPORT_JSON_PATH+fileName)) {

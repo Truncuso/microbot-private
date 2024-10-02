@@ -595,7 +595,8 @@ public class TeleportationManager{
             VoxSylvaeInventoryAndBankManagementScript.BankItemInfo bankItem = null;
             bankItem = inventoryAndBankManagementScript.findItemInBank(requiredItem.getName(), 
                                                                         requiredItem.getQuantity());
-            boolean itemRetrieved = inventoryAndBankManagementScript.retrieveAmountItemsFromBank(bankItem.itemId,
+            List<Integer> items= List.of(bankItem.itemId);
+            boolean itemRetrieved = inventoryAndBankManagementScript.retrieveItemsFromNearestBankById(  items,
                                                                                                     requiredItem.getQuantity());
             if (itemRetrieved) {
                 needBankItems.add(bankItem);

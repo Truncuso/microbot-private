@@ -59,7 +59,7 @@ public class HunterCreatureTarget {
         }
         
     }
-    public HunterCreature(String name, int requiredLevel, String method, List<CreatureLocation> locations) {
+    public HunterCreatureTarget(String name, int requiredLevel, String method, List<CreatureLocation> locations) {
         this.name = name;
         this.requiredLevel = requiredLevel;
         this.method = method;

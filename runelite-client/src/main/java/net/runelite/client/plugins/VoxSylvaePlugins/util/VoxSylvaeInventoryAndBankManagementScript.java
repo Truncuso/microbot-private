@@ -11,6 +11,7 @@ import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
 import net.runelite.client.plugins.microbot.util.equipment.Rs2Equipment;
 import net.runelite.client.plugins.microbot.util.inventory.DropOrder;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
 import net.runelite.client.plugins.microbot.util.shop.Rs2Shop;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
@@ -45,6 +46,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.apache.commons.lang3.ObjectUtils.Null;
+import java.util.*;
 
 @Slf4j
 public class VoxSylvaeInventoryAndBankManagementScript {
@@ -112,9 +114,9 @@ public class VoxSylvaeInventoryAndBankManagementScript {
     }
 
     
-    private boolean retrieveAllItemsFromBank(int itemId) {
+    private boolean retrieveAllItemsFromNearestBank(int itemId) {
           //not open bank
-          if (!Rs2Bank.isOpen()) {
+          if (!openNearestBank()) {
             Microbot.log("<retrieveAllItemsFromBank> Bank did not open");
             return false;
         }
@@ -125,9 +127,9 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         }
         return false;
     }
-    public boolean retrieveAmountItemsFromBank(int itemId, int amount) {
+    public boolean retrieveAmountItemsFromNearestBank(int itemId, int amount) {
         //not open bank
-        if (!Rs2Bank.isOpen()) {
+        if (!openNearestBank()) {
             Microbot.log("<retrieveAmountItemsFromBank> Bank did not open");
             return false;
         }
@@ -152,7 +154,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         return Rs2Bank.getItemWidget(ItemSlotId);
     }
     public BankItemInfo findItemInBank(int itemId) {
-        if(openBank()){
+        if(!openNearestBank()){
             Microbot.log("<findItemInBank> Bank did not open");
             return null;
         }
@@ -185,7 +187,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
     }
 
     public BankItemInfo findItemInBank(String itemName, int minItemQuantity) {
-        if(openBank()){
+        if(!openNearestBank()){
             Microbot.log("<findItemInBank> Bank did not open");
             return null;
         }
@@ -226,8 +228,8 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         }
         return -1; // Item not found
     }
-    public boolean retrieveItemsFromBankById(List<Integer> itemIDs) {
-        if(openBank()){
+    public boolean retrieveItemsFromNearestBankById(List<Integer> itemIDs, int amount) {
+        if (!openNearestBank()) {
             Microbot.log("<retrieveItemsFromBank> Bank did not open");
             return false;
         }
@@ -235,8 +237,8 @@ public class VoxSylvaeInventoryAndBankManagementScript {
                     
         for (int itemID : itemIDs) {
             if (Rs2Bank.hasItem(itemID)) {
-                Rs2Bank.withdrawItem(itemID);
-                sleepUntil(() -> Rs2Inventory.hasItem(itemID), 50);
+                Rs2Bank.withdrawX(itemID, amount);
+                sleepUntil(() -> Rs2Inventory.hasItem(itemID), (int)Rs2Random.fancyNormalSample(600, 1000));
                 if (!Rs2Inventory.hasItem(itemID)) {
                     Microbot.log("Failed to withdraw item: " + itemID);
                     Rs2Bank.closeBank();
@@ -252,36 +254,39 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         Rs2Bank.closeBank();
         return true;
     }
-    private boolean retrieveItemsFromBankbyName(List<String> items) {
-        if(openBank()){
+    private boolean retrieveItemsFromNearestBankByName(List<String> items) {
+        if (!openNearestBank()) {
             Microbot.log("<retrieveItemsFromBank> Bank did not open to retrieve items: " + items);
             return false;
         }
 
-                    
-        for (String item : items) {
-            if (Rs2Bank.hasItem(item)) {
-                Rs2Bank.withdrawItem(item);
-                sleepUntil(() -> Rs2Inventory.hasItem(item), 50);
-                if (!Rs2Inventory.hasItem(item)) {
-                    Microbot.log("Failed to withdraw item: " + item);
+        try {           
+            for (String item : items) {
+                if (Rs2Bank.hasItem(item)) {
+                    Rs2Bank.withdrawItem(item);
+                    sleepUntil(() -> Rs2Inventory.hasItem(item), (int)Rs2Random.fancyNormalSample(600, 1000));
+                    if (!Rs2Inventory.hasItem(item)) {
+                        Microbot.log("Failed to withdraw item: " + item);
+                        Rs2Bank.closeBank();
+                        return false;
+                    }
+                } else {
+                    System.out.println("Missing item in bank: " + item);
                     Rs2Bank.closeBank();
                     return false;
                 }
-            } else {
-                System.out.println("Missing item in bank: " + item);
-                Rs2Bank.closeBank();
-                return false;
             }
+        } catch (Exception ignored) {           
+            Microbot.pauseAllScripts = true;
+            Microbot.log("Failed to get "+items+" from, with exception: " + ignored.getMessage());
         }
-
         Rs2Bank.closeBank();
         return true;
     }
     public boolean loadInventoryAndEquipment(String inventorySetupName) {
         boolean hasEquipment = false;
         boolean hasInventory = false;
-        if (!openBank()) {
+        if (!openNearestBank()) {
             Microbot.log("Bank did not open");
             
             return false;
@@ -304,24 +309,25 @@ public class VoxSylvaeInventoryAndBankManagementScript {
             }
             if (!hasInventory && rs2InventorySetup.doesEquipmentMatch()) {
                 hasInventory = rs2InventorySetup.loadInventory();
-                sleep(1000);
+                Rs2Random.wait(600, 800);
             }
         } catch (Exception ignored) {            
-            Microbot.pauseAllScripts = false;
-            Microbot.log("Failed to "+inventorySetupName+"load inventory setup");
+            Microbot.pauseAllScripts = true;
+            Microbot.log("Failed to "+inventorySetupName+"load inventory setup, with exception: " + ignored.getMessage());
         }
+        Rs2Bank.closeBank();
         return hasInventory && hasEquipment;
     }
     
-    public boolean openBank () {
+    public boolean openNearestBank () {
         try {
             if (Rs2Bank.isOpen()) {
                 return true;
             }
-             int tryOpenBank = 0;
+            int tryOpenBank = 0;
             while (!Rs2Bank.isOpen()) {
-                Rs2Bank.walkToBankAndUseBank();
-                sleepUntil(() -> Rs2Shop.isOpen(),(int)Rs2Random.truncatedGauss(600, 1000, 0));
+              
+                sleepUntil(() ->   Rs2Bank.walkToBankAndUseBank(),(int)Rs2Random.truncatedGauss(5000, 10000, 0));
                 tryOpenBank++;
                 if (tryOpenBank > 5) {
                     Microbot.log("<openBank> Failed to reach the bank and open it");
@@ -348,7 +354,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
             return true;
         } catch (Exception ignored) {            
             Microbot.pauseAllScripts = true;
-            Microbot.log("<openBank> Failed to open bank, with exception: " + ignored.getMessage());
+            Microbot.log("<checkBeforeWithdrawAndEquip> Failed to withdraw item: "+itemId+"from bank with exception: " + ignored.getMessage());
             return false;
         }
     }
@@ -364,24 +370,23 @@ public class VoxSylvaeInventoryAndBankManagementScript {
   
    
     public boolean withdrawAndEquipItemWithMultipleIds(List<Integer> itemIds) {
-        if (!Rs2Bank.openBank()) {
+        if (!openNearestBank()) {
             Microbot.log("<withdrawAndEquipItemWithMultipleIds> Bank did not open, cant get any item with ids: " + itemIds);
             return false;
             
         }
         for (int itemId : itemIds) {
-            if (Rs2Bank.hasItem(itemId)) {
-                checkBeforeWithdrawAndEquip(itemId);
-                return true;
+            if (Rs2Bank.hasItem(itemId)) {                
+                return checkBeforeWithdrawAndEquip(itemId);
             } else {
               continue;
             }
         }
         Microbot.log("<withdrawAndEquipItemWithMultipleIds> Missing all items in bank: " + itemIds);        
-        return true;
+        return false;
     }
     public boolean withdrawAndEquip(String itemName) {
-        if (!Rs2Bank.openBank()) {
+        if (!openNearestBank()) {
             Microbot.log("<withdrawAndEquip> Bank did not open, item: " + itemName);
             return false;
             
@@ -397,7 +402,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
 
     public boolean withdrawAndEquip(int itemId) {
         try{
-            if (!Rs2Bank.openBank()) {
+            if (!openNearestBank()) {
                 Microbot.log("<withdrawAndEquip> Bank did not open, item: " + itemId);
                 return false;
             }
@@ -431,7 +436,7 @@ public class VoxSylvaeInventoryAndBankManagementScript {
     }
     //utitlity methods
 
-    public void equipGraceful() {
+    public void withdrawAndEquipGraceful() {
         
         withdrawAndEquip("GRACEFUL HOOD");
         withdrawAndEquip("GRACEFUL CAPE");
@@ -441,8 +446,37 @@ public class VoxSylvaeInventoryAndBankManagementScript {
         withdrawAndEquip("GRACEFUL LEGS");
     }
     public boolean withdrawDigsitePendant() {
-        List<Integer> digsitePendants = List.of(ItemID.DIGSITE_PENDANT_1, ItemID.DIGSITE_PENDANT_2, ItemID.DIGSITE_PENDANT_3, ItemID.DIGSITE_PENDANT_4, ItemID.DIGSITE_PENDANT_5);
+        List<Integer> digsitePendants = List.of(ItemID.DIGSITE_PENDANT_1, 
+                                        ItemID.DIGSITE_PENDANT_2, 
+                                        ItemID.DIGSITE_PENDANT_3, 
+                                        ItemID.DIGSITE_PENDANT_4, 
+                                        ItemID.DIGSITE_PENDANT_5);
         return withdrawAndEquipItemWithMultipleIds(digsitePendants);     
+    }
+    public boolean withdrawItemsWithMultipleCharges(String itemName, int chargesPriority) {
+        if (!openNearestBank()) {
+            Microbot.log("Nearest Bank did not open");
+            
+            return false;
+        }
+        //make sure that no number is added to the item name
+        String baseItemName = itemName.replaceAll("(\\s*\\(\\d+\\))|(\\_\\(\\d+\\))$", "");
+        List<Rs2Item> items = new ArrayList<>();
+        for (int i = 1; i < 8; i++) {
+            Rs2Item item = Rs2Bank.findBankItem(baseItemName + " (" + i + ")");
+            if (item != null) {
+                items.add(item);
+            }
+            
+        }
+        if (items.size() == 0) {
+            Microbot.log("<withdrawItemsWithMultipleCharges> Missing all items in bank: " + itemName);
+            return false;
+        }
+        Rs2Item itemWithLowestCharges = items.get(0);
+        
+        
+        return retrieveAmountItemsFromNearestBank(itemWithLowestCharges.id, 1);
     }
     //@Override
     //public void shutdown() {

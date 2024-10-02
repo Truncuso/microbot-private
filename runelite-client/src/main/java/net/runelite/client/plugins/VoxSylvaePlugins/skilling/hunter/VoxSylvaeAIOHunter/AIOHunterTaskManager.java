@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class AIOHunterTaskManager {
     private List<HunterMaster> taskMasters;
-    private Map<String, HunterCreature> creatures;
+    private Map<String, HunterCreatureTarget> creatures;
 
     public AIOHunterTaskManager() {
         loadTaskMastersFromJson("path/to/hunterMasters.json");
@@ -33,13 +33,13 @@ public class AIOHunterTaskManager {
             Gson gson = new Gson();
             CreaturesWrapper wrapper = gson.fromJson(reader, CreaturesWrapper.class);
             creatures = wrapper.hunterCreatures.stream()
-                .collect(Collectors.toMap(HunterCreature::getName, creature -> creature));
+                .collect(Collectors.toMap(HunterCreatureTarget::getName, creature -> creature));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<HunterCreature> getTasksForLevel(int hunterLevel, String taskMasterName) {
+    public List<HunterCreatureTarget> getTasksForLevel(int hunterLevel, String taskMasterName) {
         for (HunterMaster master : taskMasters) {
             if (master.getName().equals(taskMasterName) && hunterLevel >= master.getRequiredLevel()) {
                 return master.getCreatures().stream()
@@ -55,7 +55,7 @@ public class AIOHunterTaskManager {
         return taskMasters;
     }
 
-    public Map<String, HunterCreature> getCreatures() {
+    public Map<String, HunterCreatureTarget> getCreatures() {
         return creatures;
     }
 
@@ -65,6 +65,6 @@ public class AIOHunterTaskManager {
     }
 
     private static class CreaturesWrapper {
-        List<HunterCreature> hunterCreatures;
+        List<HunterCreatureTarget> hunterCreatures;
     }
 }

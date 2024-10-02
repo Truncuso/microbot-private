@@ -171,8 +171,8 @@ public class AIOHunterPlugin extends Plugin{
     private void startPlugin() {
         if (!isRunning) {
             isRunning = true;
-            ensurePluginEnabled(BreakHandlerPlugin.class , config.devDebug());
-            ensurePluginEnabled(AntibanPlugin.class , config.devDebug());
+            VoxSylvaeUitl.ensurePluginEnabled(BreakHandlerPlugin.class , config.devDebug());
+            VoxSylvaeUitl.ensurePluginEnabled(AntibanPlugin.class , config.devDebug());
             
             HuntersRumoursScript.run(config);
             Microbot.showMessage("AIO hunter plugin started by user");               

@@ -1,55 +1,51 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.NPCResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.Drop;
 
-import java.io.FileWriter;
+
+
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VSNPCScraper extends VSWikiScraper<ScraperResult.NPCResult> {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class VSNPCScraper extends VSWikiScraper<NPCResult> {
+    private static final Logger logger = LoggerFactory.getLogger(VSNPCScraper.class);
     private final Path npcDatabaseFile;
-    private final List<String> npcKeys = Arrays.asList("name", "id", "imagePaths");
-    private final List<String> monsterKeys = Arrays.asList("names", "drops", "ids", "imagePaths");
-    private final List<String> dropKeys = Arrays.asList("names", "quantity", "rarity", "ids", "imagePaths", "lootStatus");
-    private Map<String, ScraperResult.NPCResult> npcDatabase;
+    private final List<String> npcKeys = Arrays.asList("names", "ids", "imagePaths", "examine", "combatLevel", "hitpoints", "aggressive", "poisonous", "attributes", "locations", "drops");
+    private Map<String, NPCResult> npcDatabase;
+    private VSItemScraper itemScraper;
 
     public VSNPCScraper(Map<String, Object> databaseDict, Path destination, String databaseName, Path imageFolder, boolean resetDatabase) {
         super(destination, databaseName, imageFolder, resetDatabase);
-        
-
-        
-
         this.npcDatabaseFile = getDefaultDatabaseJson().resolveSibling("npcDB.json");
-        this.npcDatabase = loadDatabase(npcDatabaseFile, resetDatabase, ScraperResult.NPCResult.class);
+        this.npcDatabase = loadDatabase(npcDatabaseFile, resetDatabase, NPCResult.class);
         databaseDict.put("npcs", this.npcDatabase);
+        this.itemScraper = new VSItemScraper(databaseDict, destination, databaseName, imageFolder, resetDatabase);
     }
 
     @Override
     public void saveDatabases() throws IOException {
         saveDatabase(npcDatabase, npcDatabaseFile);
+        itemScraper.saveDatabases();
     }
 
-    public Map<String, ScraperResult.NPCResult> getNPCInfo(String npcNamesSearchString, boolean forceReload, boolean downloadImage, boolean saveDatabase, ImageType imageType, String imagePath) {
+    public Map<String, NPCResult> getNPCInfo(String npcNamesSearchString, boolean forceReload, boolean downloadImage, boolean saveDatabase, ImageType imageType, String imagePath) {
         List<String> npcNames = StringUtil.formatArgs(npcNamesSearchString);
-        Map<String, ScraperResult.NPCResult> npcInfo = new HashMap<>();
-        boolean isMonster = false;
+        Map<String, NPCResult> npcInfo = new HashMap<>();
 
         for (String npcName : npcNames) {
-            if ((npcDatabase.containsKey(npcName) || npcDatabase.containsKey(StringUtil.capitalizeEachWord(npcName)))
-                    && !forceReload && !downloadImage) {
-                ScraperResult.NPCResult result = npcDatabase.get(npcName);
-                npcInfo.put(npcName, result);
-                if (result.getDrops() != null && !result.getDrops().isEmpty()) {
-                    isMonster = true;
-                }
+            if (!forceReload && npcDatabase.containsKey(npcName)) {
+                npcInfo.put(npcName, npcDatabase.get(npcName));
                 continue;
             }
 
@@ -58,109 +54,130 @@ public class VSNPCScraper extends VSWikiScraper<ScraperResult.NPCResult> {
                 throw new RuntimeException("<RuneMatio> " + npcName + ": Wiki Page doesn't exist and is not in DB");
             }
 
-            ScraperResult.NPCResult npcInfoWiki = getNPCInfoFromWikiText(page, downloadImage, imageType, imagePath);
+            NPCResult npcInfoWiki = getNPCInfoFromWikiText(page, downloadImage, imageType, imagePath);
             npcInfo.put(npcName, npcInfoWiki);
             npcDatabase.put(npcName, npcInfoWiki);
-
-            if (npcInfoWiki.getDrops() != null && !npcInfoWiki.getDrops().isEmpty()) {
-                isMonster = true;
-            }
         }
 
-        checkDictKeys(npcInfo, isMonster ? monsterKeys : npcKeys);
-        try {
-            // Save database
-            if (saveDatabase) {
+        checkDictKeys(npcInfo, npcKeys);
+        if (saveDatabase) {
+            try {
                 saveDatabases();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return npcInfo;
     }
 
-    private ScraperResult.NPCResult getNPCInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
-        ScraperResult.NPCResult npcResult = new ScraperResult.NPCResult();
+    private NPCResult getNPCInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
+        NPCResult npcResult = new NPCResult();
         Map<String, String> infoboxData = parseInfobox(page.getContent(), "NPC");
-        Map<String, ScraperResult.ItemResult> npcDrops = new HashMap<>();
 
-        if (infoboxData.containsKey("name")) {
-            npcResult.setName(infoboxData.get("name"));
-            npcResult.setId(Integer.parseInt(infoboxData.getOrDefault("id", "-1")));
-            if (downloadImage) {
-                List<String> imagePaths = downloadImagesFromTemplate(Collections.singletonList(npcResult.getName()), infoboxData.get("image"), imageType, imagePath);
-                npcResult.setImagePaths(imagePaths);
-            }
-        } else {
-            // Handle monster infobox
-            npcResult = getInfoboxMonster(infoboxData, downloadImage, imageType, imagePath);
+        if (infoboxData.isEmpty()) {
+            logger.error("Failed to parse infobox data for NPC: {}", page.getTitle());
+            return null;
         }
 
-        // Parse drops
-        List<Map<String, String>> dropsData = parseDropsLines(page.getContent());
-        for (Map<String, String> dropData : dropsData) {
-            ScraperResult.ItemResult drop = getDropFromLine(dropData, downloadImage, imageType, imagePath);
-            npcDrops.put(drop.getName(), drop);
+        npcResult.setNames(parseMultipleVersions(infoboxData, "name"));
+        npcResult.setIds(parseMultipleVersionsInt(infoboxData, "id"));
+        npcResult.setExamine(parseMultipleVersions(infoboxData, "examine"));
+        npcResult.setCombatLevel(parseMultipleVersionsInt(infoboxData, "combat"));
+        npcResult.setHitpoints(parseMultipleVersionsInt(infoboxData, "hitpoints"));
+        npcResult.setAggressive(parseMultipleVersionsBool(infoboxData, "aggressive"));
+        npcResult.setPoisonous(parseMultipleVersionsBool(infoboxData, "poisonous"));
+        npcResult.setAttributes(parseAttributes(infoboxData.get("attributes")));
+        npcResult.setLocations(parseLocations(page.getContent()));
+
+        if (downloadImage) {
+            List<String> imagePaths = downloadImagesFromTemplate(npcResult.getNames(), infoboxData.get("image"), imageType, imagePath);
+            npcResult.setImagePaths(imagePaths);
         }
 
-        npcResult.setDrops(new ArrayList<>(npcDrops.values()));
+        npcResult.setDrops(parseDrops(page.getContent(), downloadImage, imageType, imagePath));
+
         return npcResult;
     }
 
-    private ScraperResult.NPCResult getInfoboxMonster(Map<String, String> infoboxData, boolean downloadImage, ImageType imageType, String imagePath) {
-        ScraperResult.NPCResult monsterResult = new ScraperResult.NPCResult();
-
-        List<String> names = new ArrayList<>();
-        List<Integer> ids = new ArrayList<>();
-
-        if (infoboxData.containsKey("version1")) {
-            int version = 1;
-            while (infoboxData.containsKey("version" + version)) {
-                names.add(infoboxData.get("name" + version));
-                ids.add(Integer.parseInt(infoboxData.getOrDefault("id" + version, "-1")));
-                version++;
-            }
-        } else {
-            names.add(infoboxData.get("name"));
-            ids.add(Integer.parseInt(infoboxData.getOrDefault("id", "-1")));
+    private List<String> parseMultipleVersions(Map<String, String> infoboxData, String key) {
+        List<String> values = new ArrayList<>();
+        if (infoboxData.containsKey(key)) {
+            values.add(infoboxData.get(key));
         }
-
-        monsterResult.setNames(names);
-        monsterResult.setIds(ids);
-
-        if (downloadImage) {
-            List<String> imagePaths = downloadImagesFromTemplate(names, infoboxData.get("image"), imageType, imagePath);
-            monsterResult.setImagePaths(imagePaths);
+        int version = 1;
+        while (infoboxData.containsKey(key + version)) {
+            values.add(infoboxData.get(key + version));
+            version++;
         }
-
-        return monsterResult;
+        return values.isEmpty() ? null : values;
     }
 
-    private ScraperResult.ItemResult getDropFromLine(Map<String, String> dropData, boolean downloadImage, ImageType imageType, String imagePath) {
-        ScraperResult.ItemResult drop = new ScraperResult.ItemResult();
-        drop.setName(dropData.get("name"));
+    private List<Integer> parseMultipleVersionsInt(Map<String, String> infoboxData, String key) {
+        List<String> stringValues = parseMultipleVersions(infoboxData, key);
+        if (stringValues == null) return null;
+        return stringValues.stream().map(s -> Integer.parseInt(s.replaceAll("[^0-9]", ""))).collect(java.util.stream.Collectors.toList());
+    }
 
-        String quantityStr = dropData.getOrDefault("quantity", "1");
-        List<Integer> quantity = parseQuantity(quantityStr);
-        drop.setQuantity(quantity);
+    private List<Boolean> parseMultipleVersionsBool(Map<String, String> infoboxData, String key) {
+        List<String> stringValues = parseMultipleVersions(infoboxData, key);
+        if (stringValues == null) return null;
+        return stringValues.stream().map(s -> s.equalsIgnoreCase("yes") || s.equalsIgnoreCase("true")).collect(java.util.stream.Collectors.toList());
+    }
 
-        String rarityStr = dropData.get("rarity");
-        double rarity = parseRarity(rarityStr);
-        drop.setRarity(rarity);
+    private List<String> parseAttributes(String attributesString) {
+        if (attributesString == null) return null;
+        return Arrays.asList(attributesString.split(",\\s*"));
+    }
 
-        drop.setLootStatus(false);
+    private List<String> parseLocations(String wikiText) {
+        List<String> locations = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{\\{Location\\|([^}]+)\\}\\}");
+        Matcher matcher = pattern.matcher(wikiText);
+        while (matcher.find()) {
+            locations.add(matcher.group(1).split("\\|")[0].trim());
+        }
+        return locations.isEmpty() ? null : locations;
+    }
 
-        // Here you would typically fetch more item info, similar to how the Python version calls get_itemsInfo
-        // For simplicity, we'll just set the basic info we have
-        drop.setIds(Collections.singletonList(Integer.parseInt(dropData.getOrDefault("id", "-1"))));
+    private List<Drop> parseDrops(String wikiText, boolean downloadImage, ImageType imageType, String imagePath) {
+        List<Drop> drops = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{\\{DropsLine\\|([^}]+)\\}\\}");
+        Matcher matcher = pattern.matcher(wikiText);
 
-        if (downloadImage) {
-            List<String> imagePaths = downloadImagesFromTemplate(Collections.singletonList(drop.getName()), dropData.get("image"), imageType, imagePath);
-            drop.setImagePaths(imagePaths);
+        while (matcher.find()) {
+            Map<String, String> dropData = parseDropLine(matcher.group(1));
+            Drop drop = getDropFromLine(dropData, downloadImage, imageType, imagePath);
+            drops.add(drop);
         }
 
-        return drop;
+        return drops.isEmpty() ? null : drops;
+    }
+
+    private Map<String, String> parseDropLine(String dropLine) {
+        Map<String, String> dropData = new HashMap<>();
+        String[] parts = dropLine.split("\\|");
+        for (String part : parts) {
+            String[] keyValue = part.split("=", 2);
+            if (keyValue.length == 2) {
+                String key = keyValue[0].trim();
+                String value = keyValue[1].trim();
+                // Remove any remaining curly braces or square brackets
+                value = value.replaceAll("[{}\\[\\]]", "");
+                dropData.put(key, value);
+            }
+        }
+        return dropData;
+    }
+
+    private Drop getDropFromLine(Map<String, String> dropData, boolean downloadImage, ImageType imageType, String imagePath) {
+        String itemName = dropData.get("name");
+        ItemResult item = itemScraper.getItemsInfo(itemName, false, downloadImage, imageType, imagePath, true).get(itemName);
+
+        List<Integer> quantity = parseQuantity(dropData.getOrDefault("quantity", "1"));
+        double rarity = parseRarity(dropData.get("rarity"));
+
+        return new Drop(item, quantity, rarity);
     }
 
     private List<Integer> parseQuantity(String quantityStr) {
@@ -178,6 +195,7 @@ public class VSNPCScraper extends VSWikiScraper<ScraperResult.NPCResult> {
     }
 
     private double parseRarity(String rarityStr) {
+        if (rarityStr == null) return 0.0;
         if ("Always".equalsIgnoreCase(rarityStr)) {
             return 1.0;
         } else if (rarityStr.endsWith("%")) {
@@ -188,32 +206,11 @@ public class VSNPCScraper extends VSWikiScraper<ScraperResult.NPCResult> {
         }
     }
 
-    private List<Map<String, String>> parseDropsLines(String wikiText) {
-        List<Map<String, String>> drops = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\{\\{DropsLine\\|([^}]+)\\}\\}");
-        Matcher matcher = pattern.matcher(wikiText);
-
-        while (matcher.find()) {
-            String dropLine = matcher.group(1);
-            Map<String, String> dropData = new HashMap<>();
-            String[] parts = dropLine.split("\\|");
-            for (String part : parts) {
-                String[] keyValue = part.split("=");
-                if (keyValue.length == 2) {
-                    dropData.put(keyValue[0].trim(), keyValue[1].trim());
-                }
-            }
-            drops.add(dropData);
-        }
-
-        return drops;
-    }
-
-    private void checkDictKeys(Map<String, ScraperResult.NPCResult> dict, List<String> keys) {
-        for (ScraperResult.NPCResult npc : dict.values()) {
+    private void checkDictKeys(Map<String, NPCResult> dict, List<String> keys) {
+        for (NPCResult npc : dict.values()) {
             for (String key : keys) {
                 if (!hasProperty(npc, key)) {
-                    throw new IllegalStateException("Missing key in NPC result: " + key);
+                    System.out.println("Warning: Missing key in NPC result: " + key);
                 }
             }
         }
@@ -227,11 +224,11 @@ public class VSNPCScraper extends VSWikiScraper<ScraperResult.NPCResult> {
             return false;
         }
     }
-     // Implement the abstract method from VSWikiScraper
-     @Override
-     protected String downloadAndSaveImage(String name, String imageUrl, ImageType imageType, String destination) {
-         // Implement the actual image downloading and saving logic here
-         // For now, we'll just return a placeholder string
-         return destination + "/" + name + "_" + imageType.toString().toLowerCase() + ".png";
-     }
+
+    @Override
+    protected String downloadAndSaveImage(String name, String imageUrl, ImageType imageType, String destination) {
+        // Implement the actual image downloading and saving logic here
+        // For now, we'll just return a placeholder string
+        return destination + "/" + name + "_" + imageType.toString().toLowerCase() + ".png";
+    }
 }

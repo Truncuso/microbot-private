@@ -39,6 +39,9 @@ public class HuntersRumoursScript extends Script {
     public static int timeout = 0;
     
     private HunterCreatureTarget currentHuntingCreatureTarget = null;
+    public HunterCreatureTarget getHunterCreatureTarget() {
+        return currentHuntingCreatureTarget;
+    }
     private AIOHunterConfig config;
     private AIOHunterTaskManager rumoursTaskManager;
     @Inject
@@ -69,7 +72,7 @@ public class HuntersRumoursScript extends Script {
         FINISHED              // Bot is done with the task or has finished
     }
 
-    private HunterState currentState = HunterState.INITIALIZE;
+    private static HunterState currentState = HunterState.INITIALIZE;
     public static boolean resetActions = false;
     private static boolean lockState = false;
     public HunterState getCurrentState() {
@@ -93,9 +96,9 @@ public class HuntersRumoursScript extends Script {
     }
 
     private static void changeState(HunterState scriptState, boolean lock) {
-        if (state == scriptState || lockState) return;
-        System.out.println("Changing current script state from: " + state + " to " + scriptState);
-        state = scriptState;
+        if (currentState == scriptState || lockState) return;
+        System.out.println("Changing current script state from: " + currentState + " to " + scriptState);
+        currentState = scriptState;
         resetActions = true;
         setLockState(scriptState, lock);
         lockState = lock;
@@ -246,7 +249,7 @@ public class HuntersRumoursScript extends Script {
                 }
                 break;
             case PERFORM_HUNTING:
-                if (currentHuntingCreature == null) {
+                if (currentHuntingCreatureTarget == null) {
                     currentState = HunterState.SELECT_TASK;
 
                     return;
@@ -256,14 +259,14 @@ public class HuntersRumoursScript extends Script {
                     || currentHuntingCreatureTarget.getName().toLowerCase() == "Grey chinchompa".toLowerCase()
                     || currentHuntingCreatureTarget.getName().toLowerCase() == "Red chinchompa".toLowerCase()) {
                     Rs2Antiban.setActivity(Activity.HUNTING_BLACK_CHINCHOMPAS);                                        
-                }elif (currentHuntingCreatureTarget.getName().toLowerCase() == "Moonlight Antelope".toLowerCase()) {
+                }else if (currentHuntingCreatureTarget.getName().toLowerCase() == "Moonlight Antelope".toLowerCase()) {
                     Rs2Antiban.setActivity(Activity.HUNTING_BLACK_CHINCHOMPAS);                                        
-                }elif (currentHuntingCreatureTarget.getName().toLowerCase() == "Sunligth Antelope".toLowerCase()) {
+                }else if (currentHuntingCreatureTarget.getName().toLowerCase() == "Sunligth Antelope".toLowerCase()) {
                     Rs2Antiban.setActivity(Activity.HUNTING_SUNLIGHT_ANTELOPES); 
-                }elif (currentHuntingCreatureTarget.getName() == "Herbiboar") {
+                }else if (currentHuntingCreatureTarget.getName() == "Herbiboar") {
                     
                     Rs2Antiban.setActivity(Activity.HUNTING_HERBIBOARS);    
-                }elif (currentHuntingCreatureTarget.getName() == "Moonlight Moth") {
+                }else if (currentHuntingCreatureTarget.getName() == "Moonlight Moth") {
                     
                     Rs2Antiban.setActivityIntensity(ActivityIntensity.EXTREME);    
                     
@@ -398,6 +401,7 @@ public class HuntersRumoursScript extends Script {
         }
             Rs2Antiban.takeMicroBreakByChance();
         } */
+    }
     private void performBox(HunterCreatureTarget creatureTarget) {
         // Add logic to set traps, catch animals, and complete the task
         // This would include using the trap type in the specified location
@@ -477,18 +481,42 @@ public class HuntersRumoursScript extends Script {
         return true;
     }
     private boolean navigateToHuntingArea() {
-        WorldPoint destination = null;
-        if (currentHuntingCreatureTarget != null) {
-            List<CreatureLocation> locations = currentHuntingCreatureTarget.getLocations();
-            if (locations != null && !locations.isEmpty()) {
-                destination = locations.get(0).getWorldPoint();
-            }
-            if (!navigationScript.walkTo(destination, 1)){
-                Microbot.showMessage("Failed to navigate to hunting area");
-                currentState= HunterState.FINISHED;
-            }
+        
+        if (navigationScript.getNavigationState() == VoxSylvaeNavigationScript.NavigationState.IDLE){
+            if (currentHuntingCreatureTarget != null) {
+                List<CreatureLocation> locations = currentHuntingCreatureTarget.getLocations();
+                WorldPoint destination;
+                if (locations != null && !locations.isEmpty()) {
+                    destination = locations.get(0).getWorldPoint();
+                }else {
+                    Microbot.showMessage("No locations found for creature: " + currentHuntingCreatureTarget.getName());
+                    currentState= HunterState.FINISHED;
+                    return false;
+                }
+                Microbot.log(version + "<navigateToHuntingArea> navigating to hunting area for creature: " + currentHuntingCreatureTarget.getName() + " at location: " + destination + "completed at: " +System.currentTimeMillis());
+                int retries = 0;
+                while (!navigationScript.navigateTo(destination, 1)){
+                    sleepUntil(()->navigationScript.navigateTo(destination, 1), 5000);
+                    retries++;
+                    if (retries > 3){
+                        Microbot.showMessage("Failed to navigate to hunting area");
+                        currentState= HunterState.FINISHED;
+                        return false;
+                    }else{
+                        Microbot.log(version + "<navigateToHuntingArea> retrying to navigate to hunting area for creature: " + currentHuntingCreatureTarget.getName() + " at location: " + destination + "completed at: " +System.currentTimeMillis());
+                        Microbot.log("current retries: " + retries + "resulting in a navivation time of"+ retries*5000 + "at: " +System.currentTimeMillis());
+                    }
+                }
+                
+                
 
+            }
+        }else{
+            Microbot.log("Navigation is still busy, waiting for it to finish");
+            return false;
         }
+
+
         //Rs2Antiban.actionCooldown();
         Rs2Antiban.takeMicroBreakByChance();
         return false;

@@ -64,7 +64,7 @@ public class AIOHunterOverlay extends OverlayPanel{
             panelComponent.getChildren().add(LineComponent.builder().build());
             // check if player is in the correct region(10038)
             int correctRegionId = 10038;
-            HunterCreatureTarget configuredCreature = script.getTargetCreature();
+            HunterCreatureTarget configuredCreature = script.getHunterCreatureTarget();
 
             String region = Rs2Player.getWorldLocation() != null ? Rs2Player.getWorldLocation().getRegionID() == 10038 ? "In Region" : "Not in Region" : "Not in Region";
             panelComponent.getChildren().add(LineComponent.builder()
@@ -79,34 +79,41 @@ public class AIOHunterOverlay extends OverlayPanel{
             panelComponent.getChildren().add(LineComponent.builder()
                     .left("Feathers: " + (Rs2Inventory.hasItem("feather") ? String.valueOf(Rs2Inventory.get("feather").quantity) : "Not Present"))
                     .build());
-            if (configuredCreature != null) {
-                String creatureName = configuredCreature.getName();               
-                String method = configuredCreature.getMethod();
-                int level = configuredCreature.getRequiredLevel();
-                String goal = configuredCreature.getGoalName();
-                int goalAmount = configuredCreature.getGoalAmount();
-                String goalType = configuredCreature.getGoalTypeName();
+                String creatureName;
+                String reatureName ;               
+                String method;
+                int level;
+                String goal ;
+                int goalAmount ;
+                String goalType ;
+        if (configuredCreature != null) {
+                creatureName = configuredCreature.getName();               
+                method = configuredCreature.getMethod();
+                level = configuredCreature.getRequiredLevel();
+                goal = configuredCreature.getGoalName();
+                goalAmount = configuredCreature.getGoalAmount();
+                goalType = configuredCreature.getGoalTypeName();
             }else{
-                String creatureName = "No creature selected";
-                String method = "No method selected";
-                int level = 0;
-                String goal = "No goal selected";
-                int goalAmount = 0;
-                String goalType = "No goal type selected";
+                creatureName = "No creature selected";
+                method = "No method selected";
+                level = 0;
+                goal = "No goal selected";
+                goalAmount = 0;
+                goalType = "No goal type selected";
             }
 
             panelComponent.getChildren().add(LineComponent.builder().build());
             panelComponent.getChildren().add(LineComponent.builder()
-                    .left("Creature: " + String(creatureName))
+                    .left("Creature: " + creatureName)
                     .build());
             panelComponent.getChildren().add(LineComponent.builder()
                     .left("Method: " + method)
                     .build());
             panelComponent.getChildren().add(LineComponent.builder()
-                    .left("Level: " + configuredCreature.getRequiredLevel())
+                    .left("Level: " + level)
                     .build());
             panelComponent.getChildren().add(LineComponent.builder()
-                    .left("Goal: " + configuredCreature.getGoalName().getGoalName())
+                    .left("Goal: " + goal).right(goalType + ": " + goalAmount).rightColor(Color.GREEN)
                     .build());
             
             panelComponent.getChildren().add(LineComponent.builder().build());

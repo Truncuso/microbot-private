@@ -3,7 +3,6 @@ package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
@@ -11,23 +10,19 @@ import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.WikipediaApi;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-
-import java.nio.file.Path;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public abstract class VSWikiScraper<T extends ScraperResult> {
+    private static final Logger logger = LoggerFactory.getLogger(VSWikiScraper.class);
     protected final WikipediaApi wikipediaApi;
     protected final String baseUrl = "https://oldschool.runescape.wiki/";
     protected final Map<String, CompletableFuture<T>> ongoingSearches;
@@ -44,6 +39,7 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
     protected ScraperState state;
 
     public VSWikiScraper(Path destination, String databaseName, Path imageFolder, boolean resetDatabase) {
+
         if (destination == null || destination.toString().isEmpty()) {
             destination = Paths.get("../data/wikidata");
         }
@@ -89,11 +85,13 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
             return null;
         }
     }
+
     public abstract void saveDatabases() throws IOException;
-   
+
     protected Path getDefaultDestination() {
         return DEFAULT_DESTINATION;
     }
+
     protected Path getDefaultDatabaseJson() {
         return DEFAULT_DATABASE_JSON;
     }
@@ -113,26 +111,34 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
     public boolean isSearchCompleted(String searchString) {
         return !ongoingSearches.containsKey(searchString) && cachedResults.containsKey(searchString);
     }
+
     protected Map<String, String> parseInfobox(String wikiText, String infoboxType) {
+        logger.debug("Parsing infobox of type: {}", infoboxType);
+        logger.debug("Parsing wikiText: {}", wikiText);
         Map<String, String> infoboxData = new HashMap<>();
-        Pattern pattern = Pattern.compile("\\{\\{" + infoboxType + "[\\s\\S]*?\\}\\}");
+        Pattern pattern = Pattern.compile("\\{\\{" + infoboxType + "\\s*\n([\\s\\S]*?)\\}\\}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(wikiText);
-        
+    
         if (matcher.find()) {
-            String infobox = matcher.group();
-            Pattern keyValuePattern = Pattern.compile("\\|\\s*(\\w+)\\s*=\\s*([^|\\}]+)");
+            String infobox = matcher.group(1);
+            Pattern keyValuePattern = Pattern.compile("^\\|\\s*(\\w+)\\s*=\\s*(.+)$", Pattern.MULTILINE);
             Matcher keyValueMatcher = keyValuePattern.matcher(infobox);
-            
+    
             while (keyValueMatcher.find()) {
                 String key = keyValueMatcher.group(1).trim();
                 String value = keyValueMatcher.group(2).trim();
+                // Remove any remaining square brackets or curly braces
+                value = value.replaceAll("\\[\\[|\\]\\]|\\{\\{|\\}\\}", "");
                 infoboxData.put(key, value);
+                logger.trace("Parsed infobox key-value pair: {} = {}", key, value);
             }
+        } else {
+            logger.warn("No infobox found of type: {}", infoboxType);
         }
-        
+    
+        logger.debug("Parsed infobox data: {}", infoboxData);
         return infoboxData;
     }
-
     protected List<String> downloadImagesFromTemplate(List<String> names, String imageData, ImageType imageType, String destination) {
         List<String> imagePaths = new ArrayList<>();
         
@@ -146,6 +152,7 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         
         return imagePaths;
     }
+
     private String extractImageUrl(String imageData) {
         Pattern pattern = Pattern.compile("\\[\\[File:(.*?)\\]\\]");
         Matcher matcher = pattern.matcher(imageData);
@@ -154,30 +161,8 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         }
         return null;
     }
-    protected String downloadAndSaveImage(String name, String imageUrl, ImageType imageType, String destination) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(imageUrl))
-                    .build();
 
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-
-            if (response.statusCode() == 200) {
-                String fileName = name.replaceAll("[^a-zA-Z0-9.-]", "_") + "_" + imageType.toString().toLowerCase() + ".png";
-                Path outputPath = Paths.get(destination, fileName);
-                Files.createDirectories(outputPath.getParent());
-                Files.write(outputPath, response.body());
-                return outputPath.toString();
-            } else {
-                System.err.println("Failed to download image: " + imageUrl + ", Status code: " + response.statusCode());
-            }
-        } catch (IOException | InterruptedException e) {
-            System.err.println("Error downloading image: " + imageUrl);
-            e.printStackTrace();
-        }
-        return null;
-    }
+    protected abstract String downloadAndSaveImage(String name, String imageUrl, ImageType imageType, String destination);
 
     public Map<String, PageData> extractPageTitlesFromCategory(String categoryTitle, boolean verbose) {
         Map<String, PageData> pagesData = new HashMap<>();

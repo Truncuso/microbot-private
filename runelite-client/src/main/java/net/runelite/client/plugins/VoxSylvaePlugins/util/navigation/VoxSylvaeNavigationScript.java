@@ -9,9 +9,11 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.util.magic.Rs2Magic;
 import net.runelite.client.plugins.microbot.util.walker.Rs2Walker;
+import net.runelite.client.plugins.microbot.util.widget.Rs2Widget;
 import net.runelite.client.plugins.microbot.vorkath.VorkathScript;
 import net.runelite.client.plugins.microbot.util.gameobject.Rs2GameObject;
 import net.runelite.client.plugins.microbot.util.inventory.Rs2Inventory;
+import net.runelite.client.plugins.microbot.util.inventory.Rs2Item;
 import net.runelite.client.plugins.microbot.util.bank.Rs2Bank;
 import net.runelite.client.plugins.microbot.util.player.Rs2Player;
 import net.runelite.client.plugins.microbot.util.tile.Rs2Tile;
@@ -35,11 +37,13 @@ import java.util.Random;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.Arrays;
 import java.util.ArrayList;
 import static net.runelite.client.plugins.microbot.util.Global.sleep;
 import net.runelite.api.*;
+import java.util.stream.Collectors;
 public class VoxSylvaeNavigationScript extends Script {
-    enum NavigationState {
+    public enum NavigationState {
         IDLE,
         WAITING_FOR_PATH_FINDING,
         WALKING,
@@ -115,11 +119,11 @@ public class VoxSylvaeNavigationScript extends Script {
 
     
     
-    private static void checkPlayerTeleports() {
+    private void checkPlayerTeleports() {
         int magicLevel = getSkillLevel(Skill.MAGIC);
         for (Map.Entry<String, Teleport> entry : availableTeleports.entrySet()) {
             Teleport teleportEntry = entry.getValue();
-            if (magicLevel >= teleportEntry.getRequiredLevel() && VoxSylvaeInventoryAndBankManagementScript.hasAllItemsInInventory(teleportEntry.getRequiredItems())) {
+            if (magicLevel >= teleportEntry.getRequiredLevel() && inventoryAndBankManagementScript.hasAllItemsInInventory(teleportEntry.getRequiredItems())) {
                 //info.isAvailable = true;
             }
         }
@@ -151,7 +155,7 @@ public class VoxSylvaeNavigationScript extends Script {
             return true;
         }
     }
-    private boolean navigateTo(WorldPoint destination, int distance) {
+    public boolean navigateTo(WorldPoint destination, int distance) {
         this.navigationState = NavigationState.WAITING_FOR_PATH_FINDING;
         this.currentDesiredLocation = destination;
         mainScheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(() -> {
@@ -189,11 +193,11 @@ public class VoxSylvaeNavigationScript extends Script {
     public boolean navigateAndOpenBank ( WorldPoint desiredBankLocation) {
         if (Rs2Player.getWorldLocation().equals(desiredBankLocation)) {
             
-            return inventoryAndBankManagementScript.openBank();
+            return inventoryAndBankManagementScript.openNearestBank();
         } else {
-            naviagateTo(desiredBankLocation, 2);
+            navigateTo(desiredBankLocation, 2);
             sleepUntil(()->NavigationState.IDLE == navigationState);
-            return inventoryAndBankManagementScript.openBank();
+            return inventoryAndBankManagementScript.openNearestBank();
         }
     }
     public boolean navigateWithAntiBan(WorldPoint destination, int distance) {
@@ -201,7 +205,7 @@ public class VoxSylvaeNavigationScript extends Script {
         //Rs2AntibanSettings Rs2AntibanSettings = new Rs2AntibanSettings();
         Microbot.pauseAllScripts = false;
         
-        return walkTo(Rs2Player.getWorldLocation(), 2);
+        return navigateTo(Rs2Player.getWorldLocation(), 2);
         //Rs2Antiban.actionCooldown();
         //Rs2Antiban.takeMicroBreakByChance();
     }
@@ -245,7 +249,7 @@ public class VoxSylvaeNavigationScript extends Script {
             }
             
             // Then, walk to the exact location
-            return walkTo(destinationArea,radius);
+            return navigateTo(destinationArea,radius);
         }
         return false;   
     }
@@ -261,20 +265,35 @@ public class VoxSylvaeNavigationScript extends Script {
       
     
 
-    public static boolean useItemOnObject(String itemName, int objectId) {
+    public boolean useItemOnObject(String itemName, int objectId, String waitWidgetText ) {
+        
         TileObject targetObject = Rs2GameObject.findObjectById(objectId);            
-        taragetObjectReachable = h
         if (Rs2Inventory.hasItem(itemName)) {
-
-            
-            if (targetObject != null ) {
-                useItemOnObject(Rs2Inventory.get(itemName)).getId(),cookingObject.getId())
-                return true;
-            }
+            Microbot.log("Using " + itemName + " on " + targetObject.getCanvasLocation());
         }else{
-            Microbot.log(itemName + " not in inventory. ," + targetObject!=null:targetObeject.getName(), null);
+            Microbot.log(itemName + " not in inventory. ," + targetObject!= null ? "": Integer.toString(targetObject.getId()));
             return false;
         }
+        List<Rs2Item> primaryItems = Rs2Inventory.items().stream().filter(x -> x.name.equalsIgnoreCase(itemName)).collect(Collectors.toList());
+        List<TileObject> secondaryObjects = Arrays.asList(targetObject);
+        Rs2Item closestPrimaryItem = null;
+        TileObject closestTileObject = null;
+        int minSlotDifference = Integer.MAX_VALUE;
+
+        // Compare each primary item with each secondary item to find the closest slots
+        for (Rs2Item primaryItem : primaryItems) {
+            for (TileObject secondaryTileObject : secondaryObjects) {
+                
+                
+            }
+        }
+        Rs2Inventory.useItemOnObject(closestPrimaryItem.getId(), closestTileObject.getId());
+        if (waitWidgetText != null) {
+            sleepUntil(() -> !Rs2Player.isMoving() && Rs2Widget.findWidget(waitWidgetText, null, false) != null );
+        }else{
+            sleepUntil(() -> !Rs2Player.isMoving());
+        }
+        return true;
         
     }
 
