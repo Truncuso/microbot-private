@@ -7,6 +7,8 @@ import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult.ItemQuantity;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiLocationResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiMapResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
 
 import java.io.FileReader;
@@ -20,19 +22,19 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
+public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
 
     private final Path mapDatabaseFile;
     private final List<String> mapKeys = Arrays.asList("name", "x", "y", "plane", "mapID", "mtype", "r", "squareX", "squareY", "ptype", "caption", "text", "align", "width", "height", "zoom", "group", "showPins", "title", "description", "nopreprocess", "smw");
-    private Map<String, ScraperResult.MapResult> mapDatabase;
-    private Map<String, ScraperResult.LocationResult> locationDatabase;
+    private Map<String, WikiMapResult> mapDatabase;
+    private Map<String, WikiLocationResult> locationDatabase;
     private Map<String, ScraperResult.TeleportationSpellResult> teleportationSpellDatabase;
     private Map<String, ScraperResult.TeleportationItemResult> teleportationItemDatabase;
     private Map<String, ScraperResult.FairyRingResult> fairyRingDatabase;
     public VSMapDataScraper(Map<String, Object> databaseDict, Path destination, String databaseName, Path imageFolder, boolean resetDatabase) {
         super(destination, databaseName, imageFolder, resetDatabase);
         this.mapDatabaseFile = getDefaultDatabaseJson().resolveSibling("mapDB.json");
-        this.mapDatabase = loadDatabase(mapDatabaseFile, resetDatabase, ScraperResult.MapResult.class);
+        this.mapDatabase = loadDatabase(mapDatabaseFile, resetDatabase, WikiMapResult.class);
         databaseDict.put("maps", this.mapDatabase);
     }
 
@@ -45,9 +47,10 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         saveDatabase(fairyRingDatabase, getDefaultDatabaseJson().resolveSibling("fairyRingDB.json"));
     }
 
-    public Map<String, ScraperResult.MapResult> getMapInfo(String mapNamesSearchString, boolean forceReload, boolean downloadImage, ImageType imageType, String imagePath) {
+
+    public Map<String, WikiMapResult> getMapInfo(String mapNamesSearchString, boolean forceReload, boolean downloadImage, ImageType imageType, String imagePath) {
         List<String> mapNames = StringUtil.formatArgs(mapNamesSearchString);
-        Map<String, ScraperResult.MapResult> mapInfo = new HashMap<>();
+        Map<String, WikiMapResult> mapInfo = new HashMap<>();
 
         for (String mapName : mapNames) {
             if ((mapDatabase.containsKey(mapName) || mapDatabase.containsKey(StringUtil.capitalizeEachWord(mapName)))
@@ -61,17 +64,17 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
                 throw new RuntimeException("<RuneMatio> " + mapName + ": Wiki Page doesn't exist and is not in DB");
             }
 
-            ScraperResult.MapResult mapInfoWiki = getMapInfoFromWikiText(page, downloadImage, imageType, imagePath);
+            WikiMapResult mapInfoWiki = getMapInfoFromWikiText(page, downloadImage, imageType, imagePath);
             mapInfo.put(mapName, mapInfoWiki);
             mapDatabase.put(mapName, mapInfoWiki);
         }
 
-        checkDictKeys(mapInfo, mapKeys);
+        //checkDictKeys(mapInfo, mapKeys);
         return mapInfo;
     }
 
-    private ScraperResult.MapResult getMapInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
-        ScraperResult.MapResult mapResult = new ScraperResult.MapResult();
+    private WikiMapResult getMapInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
+        WikiMapResult mapResult = new WikiMapResult();
         Map<String, String> infoboxData = parseInfobox(page.getContent(), "Map");
 
         mapResult.setName(infoboxData.get("name"));
@@ -93,24 +96,8 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         return mapResult;
     }
 
-    private void checkDictKeys(Map<String, ScraperResult.MapResult> dict, List<String> keys) {
-        for (ScraperResult.MapResult map : dict.values()) {
-            for (String key : keys) {
-                if (!hasProperty(map, key)) {
-                    throw new IllegalStateException("Missing key in map result: " + key);
-                }
-            }
-        }
-    }
+ 
 
-    private boolean hasProperty(Object obj, String propertyName) {
-        try {
-            obj.getClass().getDeclaredField(propertyName);
-            return true;
-        } catch (NoSuchFieldException e) {
-            return false;
-        }
-    }
 
     public void scrapeMapFromWebCanvas(Path mapTileDir, Path mapImageDir) {
         // Implement web scraping logic here
@@ -130,13 +117,13 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         return destination + "/" + name + "_" + imageType.toString().toLowerCase() + ".png";
     }
 
-    public ScraperResult.LocationResult getLocationInfoboxData(String pageTitle) {
+    public WikiLocationResult getLocationInfoboxData(String pageTitle) {
         WikipediaPage page = getWikiPage(pageTitle);
         if (page == null) {
             return null;
         }
 
-        ScraperResult.LocationResult result = new ScraperResult.LocationResult();
+        WikiLocationResult result = new WikiLocationResult();
         Map<String, String> infoboxData = parseInfobox(page.getContent(), "Infobox Location");
 
         result.setName(infoboxData.get("name"));
@@ -150,14 +137,14 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         return result;
     }
 
-    public Map<String, ScraperResult.LocationResult> getAllLocationsData() {
+    public Map<String, WikiLocationResult> getAllLocationsData() {
         Map<String, PageData> pagesData = extractPageTitlesFromCategory("Locations", true);
-        Map<String, ScraperResult.LocationResult> allLocations = new HashMap<>();
+        Map<String, WikiLocationResult> allLocations = new HashMap<>();
 
         for (Map.Entry<String, PageData> entry : pagesData.entrySet()) {
             String pageName = entry.getValue().getName();
             String category = entry.getValue().getCategory();
-            ScraperResult.LocationResult locationData = getLocationsData(pageName, category);
+            WikiLocationResult locationData = getLocationsData(pageName, category);
             allLocations.put(pageName, locationData);
         }
 
@@ -176,12 +163,12 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         return result;
     }
 
-    public ScraperResult.LocationResult getLocationsData(String locationName, String category) {
+    public WikiLocationResult getLocationsData(String locationName, String category) {
         if (locationDatabase.containsKey(locationName)) {
             return locationDatabase.get(locationName);
         }
 
-        ScraperResult.LocationResult result = getLocationInfoboxData(locationName);
+        WikiLocationResult result = getLocationInfoboxData(locationName);
         result.setCategory(category);
         locationDatabase.put(locationName, result);
         return result;
@@ -269,14 +256,14 @@ public class VSMapDataScraper extends VSWikiScraper<ScraperResult.MapResult> {
         ScraperResult.TeleportationSpellResult result = new ScraperResult.TeleportationSpellResult();
         result.setName(spellName);
 
-        Map<String, String> infoboxData = parseInfobox(page.getContent(), "Infobox Spell");
+        Map<String, List<String>> infoboxData = parseInfobox(page.getContent(), "Infobox Spell");
 
-        result.setDestination(infoboxData.get("destination"));
-        result.setCost(parseItemQuantities(infoboxData.get("cost")));
-        result.setSpellbook(infoboxData.get("spellbook"));
-        result.setType(infoboxData.get("type"));
-        result.setLevel(Integer.parseInt(infoboxData.getOrDefault("level", "0")));
-        result.setImage(infoboxData.get("image"));
+        result.setDestination(infoboxData.get("destination").get(0));
+        result.setCost(parseItemQuantities(infoboxData.get("cost").get(0)));
+        result.setSpellbook(infoboxData.get("spellbook").get(0));
+        result.setType(infoboxData.get("type").get(0));
+        result.setLevel(Integer.parseInt(infoboxData.get("level").get(0)));
+        result.setImage(infoboxData.get("image").get(0));
 
         teleportationSpellDatabase.put(spellName, result);
         return result;

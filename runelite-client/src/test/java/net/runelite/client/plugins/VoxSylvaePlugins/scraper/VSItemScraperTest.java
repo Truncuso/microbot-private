@@ -1,9 +1,8 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.WikipediaApi;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.CombatStats;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,73 +17,116 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.concurrent.CompletableFuture;
-class VSItemScraperTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(VSItemScraperTest.class);
+class VSWikiItemScraperTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(VSWikiItemScraperTest.class);
     
-    private VSItemScraper itemScraper;
+    private VSWikiItemScraper itemScraper;
     private final Path testDestination = Paths.get("src/test/resources/test_data");
     private final Path testImageFolder = testDestination.resolve("images");
 
     @BeforeEach
     void setUp() {
         Map<String, Object> databaseDict = new HashMap<>();
-        itemScraper = new VSItemScraper(databaseDict, testDestination, "testDB", testImageFolder, true);
+        itemScraper = new VSWikiItemScraper(databaseDict, testDestination, "testDB", testImageFolder, true);
     }
 
     @Test
-    void testGetItemsInfo() {
+    void testGetItemsInfoAbyssalWhip() {
+        Map<String, WikiItemResult> itemInfo = itemScraper.getItemsInfo("Abyssal whip", true, false, ImageType.NORMAL, testImageFolder.toString(), true);
 
-        WikipediaApi api = new WikipediaApi();
-        CompletableFuture<WikipediaPage> futurePageContent = api.getPageContent("Abyssal whip");
+        assertNotNull(itemInfo);
+        assertTrue(itemInfo.containsKey("Abyssal whip"));
+        WikiItemResult whip = itemInfo.get("Abyssal whip");
 
-        try {
-            WikipediaPage page = futurePageContent.get(); // This will block until the future completes
-            //logger.info("Page title: " + page.getTitle());
-            //logger.info("Page content length: " + page.getContent().length());
-            //logger.info("First 100 characters of content: " + page.getContent());
-        } catch (Exception e) {
-            System.err.println("Error retrieving page content: " + e.getMessage());
-            e.printStackTrace();
-        }
-        String itemNameSearch = "Abyssal whip";
-        logger.info("Starting test for item: {}", itemNameSearch);
-        
-        Map<String, ItemResult> itemInfo = itemScraper.getItemsInfo(itemNameSearch, true, false, ImageType.NORMAL, testImageFolder.toString(), true);
+        assertEquals("Abyssal whip", whip.getName());
+        assertEquals(4151, whip.getId());
+        assertTrue(whip.isMembers());
+        assertTrue(whip.isTradeable());
+        assertTrue(whip.isEquipable());
+        assertFalse(whip.isStackable());
+        assertTrue(whip.isNoteable());
+        assertEquals("A weapon from the Abyss.", whip.getExamine());
+        assertEquals(120001, whip.getValue());
+        assertEquals(0.453, whip.getWeight(), 0.001);
 
-        logger.info("Retrieved item info: {}", itemInfo);
-
-        assertNotNull(itemInfo, "Item info should not be null");
-        List<String> itemNames = itemScraper.getItemKey(itemNameSearch);
-        for(String itemName : itemNames) {
-        
-            
-            assertTrue(itemInfo.containsKey(itemName), "Item info should contain the requested item");
-
-            ItemResult item = itemInfo.get(itemName);
-            assertNotNull(item, "Item result should not be null");
-
-            if (item != null) {
-                logger.info("Item details: {}", item);
-                
-                    // Normalize strings for comparison
-                String normalizedSearchName = normalizeItemName(itemName);
-                String normalizedResultName = normalizeItemName(item.getNames().get(0));
-                assertEquals(normalizedSearchName,normalizedResultName, "Item name should match");
-                
-                assertFalse(item.getIds().isEmpty(), "Item should have at least one ID");
-                assertNotNull(item.getExamine(), "Item should have an examine text");
-                assertNotNull(item.getHighAlchValue(), "Item should have a high alchemy value");
-                
-                assertTrue(item.getTradeable().get(0), "Abyssal whip should be tradeable");
-                assertTrue(item.getEquipable().get(0), "Abyssal whip should be equipable");
-                assertFalse(item.getStackable().get(0), "Abyssal whip should not be stackable");
-            }
-        }
-        
+        CombatStats stats = whip.getCombatStats();
+        assertNotNull(stats);
+        assertEquals(82, stats.getAslash());
+        assertEquals(82, stats.getStr());
+        assertEquals("weapon", stats.getSlot());
+        assertEquals(4, stats.getSpeed());
+        assertEquals(1, stats.getAttackRange());
+        assertEquals("Whip", stats.getCombatStyle());
     }
-    private String normalizeItemName(String name) {
-        return StringUtil.capitalizeEachWord(name.replace("_", " ").toLowerCase());
+
+    @Test
+    void testGetItemsInfoAbyssalDagger() {
+        Map<String, WikiItemResult> itemInfo = itemScraper.getItemsInfo("Abyssal dagger", true, false, ImageType.NORMAL, testImageFolder.toString(), true);
+
+        assertNotNull(itemInfo);
+        assertEquals(4, itemInfo.size());
+
+        String[] versions = {"Abyssal dagger", "Abyssal dagger (p)", "Abyssal dagger (p+)", "Abyssal dagger (p++)"};
+        int[] ids = {13265, 13267, 13269, 13271};
+
+        for (int i = 0; i < versions.length; i++) {
+            WikiItemResult dagger = itemInfo.get(versions[i]);
+            assertNotNull(dagger);
+            assertEquals(versions[i], dagger.getName());
+            assertEquals(ids[i], dagger.getId());
+            assertTrue(dagger.isMembers());
+            assertTrue(dagger.isTradeable());
+            assertTrue(dagger.isEquipable());
+            assertFalse(dagger.isStackable());
+            assertTrue(dagger.isNoteable());
+            assertTrue(dagger.getExamine().contains("Something sharp"));
+            assertEquals(115001 + i, dagger.getValue());
+            assertEquals(0.453, dagger.getWeight(), 0.001);
+
+            CombatStats stats = dagger.getCombatStats();
+            assertNotNull(stats);
+            assertEquals(75, stats.getAstab());
+            assertEquals(40, stats.getAslash());
+            assertEquals(75, stats.getStr());
+            assertEquals("weapon", stats.getSlot());
+            assertEquals(4, stats.getSpeed());
+            assertEquals(1, stats.getAttackRange());
+            assertEquals("Stab Sword", stats.getCombatStyle());
+        }
     }
+
+    @Test
+    void testGetItemsInfoBucketOfWater() {
+        Map<String, WikiItemResult> itemInfo = itemScraper.getItemsInfo("Bucket of water", true, false, ImageType.NORMAL, testImageFolder.toString(), true);
+
+        assertNotNull(itemInfo);
+        assertTrue(itemInfo.containsKey("Bucket of water"));
+        WikiItemResult bucket = itemInfo.get("Bucket of water");
+
+        assertEquals("Bucket of water", bucket.getName());
+        assertEquals(1929, bucket.getId());
+        assertFalse(bucket.isMembers());
+        assertTrue(bucket.isTradeable());
+        assertFalse(bucket.isEquipable());
+        assertFalse(bucket.isStackable());
+        assertTrue(bucket.isNoteable());
+        assertEquals("It's a bucket of water.", bucket.getExamine());
+        assertEquals(6, bucket.getValue());
+        assertEquals(3.000, bucket.getWeight(), 0.001);
+
+        // Check for spawn locations
+        List<String> spawnLocations = bucket.getSpawnLocations();
+        assertNotNull(spawnLocations);
+        assertTrue(spawnLocations.contains("Catherby - Caleb's house"));
+        assertTrue(spawnLocations.contains("Meiyerditch - all around the city"));
+
+        // Check for shop locations
+        List<String> shopLocations = bucket.getShopLocations();
+        assertNotNull(shopLocations);
+        // Add assertions for specific shop locations if available in the scraper
+    }
+
+    // Add more test methods for other items or edge cases as needed
 }

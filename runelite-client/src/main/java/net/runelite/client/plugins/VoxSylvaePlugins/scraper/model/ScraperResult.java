@@ -27,19 +27,7 @@ public abstract class ScraperResult {
         public int getQuantity() { return quantity; }
     }
    
-    @Getter
-    @Setter
-    public static class LocationResult extends ScraperResult {
-        private String name;
-        private boolean members;
-        private String type;
-        private String location;
-        private MapResult map;
-        private String image;
-        private String category;
 
-        // Getters and setters
-    }
     @Getter
     @Setter
     public static class TeleportationSpellResult extends ScraperResult {
@@ -59,7 +47,7 @@ public abstract class ScraperResult {
         private String name;
         private List<WorldPoint> destinations;
         private String type;
-        private ItemData itemData;
+        private WikiItemResult itemData;
 
         // Getters and setters
     }
@@ -73,84 +61,8 @@ public abstract class ScraperResult {
 
         // Getters and setters
     }
-    @Getter
-    @Setter
-    public static class ItemData {
-        private boolean equipable;
-        private boolean tradeable;
-        private boolean stackable;
-        private List<String> options;
-        private boolean noteable;
-        private List<String> names;
-        private List<Integer> ids;
-        private List<String> imagePaths;
+   
 
-        // Getters and setters
-    }
-
-    @Getter
-    @Setter
-    public static class MapResult extends ScraperResult {
-        private String name;
-        private int x;
-        private int y;
-        private int plane;
-        private int mapID;
-        private String mtype;
-        private int r;
-        private int squareX;
-        private int squareY;
-        private String ptype;
-        private List<String> imagePaths;
-    
-        // Getters and setters
-    }
-    @Getter
-    @Setter
-    public static class NPCResult extends ScraperResult {
-        private String name;
-        private List<String> names; // For monsters with multiple versions
-        private int id;
-        private List<Integer> ids; // For monsters with multiple versions
-        private List<String> imagePaths;
-        private String examine;
-        private int combatLevel;
-        private List<String> attackTypes;
-        private Map<String, Integer> stats;
-        private List<ItemResult> drops;
-        private String location;
-        private boolean aggressive;
-        private boolean isMonster;
-
-        // Additional fields that might be useful
-        private int hitpoints;
-        private int maxHit;
-        private String weakness;
-        private List<String> attributes; // e.g., "undead", "demon", etc.
-
-        @Override
-        public String toString() {
-            return "NPCResult{" +
-                    "name='" + name + '\'' +
-                    ", names=" + names +
-                    ", id=" + id +
-                    ", ids=" + ids +
-                    ", imagePaths=" + imagePaths +
-                    ", examine='" + examine + '\'' +
-                    ", combatLevel=" + combatLevel +
-                    ", attackTypes=" + attackTypes +
-                    ", stats=" + stats +
-                    ", drops=" + drops +
-                    ", location='" + location + '\'' +
-                    ", aggressive=" + aggressive +
-                    ", isMonster=" + isMonster +
-                    ", hitpoints=" + hitpoints +
-                    ", maxHit=" + maxHit +
-                    ", weakness='" + weakness + '\'' +
-                    ", attributes=" + attributes +
-                    '}';
-        }
-    }
    
    
 }

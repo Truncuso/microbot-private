@@ -10,12 +10,12 @@ import java.util.List;
 @Setter
 @ToString
 public class Drop {
-    private ItemResult item;
+    private WikiItemResult item;
     private List<Integer> quantity;
     private double rarity;
     private boolean lootStatus;
 
-    public Drop(ItemResult item, List<Integer> quantity, double rarity) {
+    public Drop(WikiItemResult item, List<Integer> quantity, double rarity) {
         this.item = item;
         this.quantity = quantity;
         this.rarity = rarity;

@@ -35,4 +35,8 @@ public class StringUtil {
         }
         return result.substring(0, result.length() - 1); // Remove the last underscore
     }
+
+    public static String normalizeSearchName(String name) {
+        return StringUtil.capitalizeEachWord(name.replace("_", " ").toLowerCase());
+    }
 }

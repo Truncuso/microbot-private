@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ShopInfo {
+public class WikiShopInfo {
     private String name;
     private int quantity;
     private int price;

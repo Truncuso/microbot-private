@@ -1,8 +1,8 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.NPCResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiNPCResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.Drop;
@@ -18,30 +18,31 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VSNPCScraper extends VSWikiScraper<NPCResult> {
+public class VSNPCScraper extends VSWikiScraper<WikiNPCResult> {
     private static final Logger logger = LoggerFactory.getLogger(VSNPCScraper.class);
     private final Path npcDatabaseFile;
-    private final List<String> npcKeys = Arrays.asList("names", "ids", "imagePaths", "examine", "combatLevel", "hitpoints", "aggressive", "poisonous", "attributes", "locations", "drops");
-    private Map<String, NPCResult> npcDatabase;
-    private VSItemScraper itemScraper;
+    private final List<String> npcKeys = Arrays.asList("name", "version", "ids", "imagePath", "examine", "combatLevel", "hitpoints", "aggressive", "poisonous", "attributes", "locations", "drops");
+    private Map<String, Map<String, WikiNPCResult>> npcDatabase;
+    private VSWikiItemScraper itemScraper;
 
     public VSNPCScraper(Map<String, Object> databaseDict, Path destination, String databaseName, Path imageFolder, boolean resetDatabase) {
         super(destination, databaseName, imageFolder, resetDatabase);
         this.npcDatabaseFile = getDefaultDatabaseJson().resolveSibling("npcDB.json");
-        this.npcDatabase = loadDatabase(npcDatabaseFile, resetDatabase, NPCResult.class);
+        this.npcDatabase = loadDatabaseNested(npcDatabaseFile, resetDatabase, WikiNPCResult.class);
         databaseDict.put("npcs", this.npcDatabase);
-        this.itemScraper = new VSItemScraper(databaseDict, destination, databaseName, imageFolder, resetDatabase);
+        this.itemScraper = new VSWikiItemScraper(databaseDict, destination, databaseName, imageFolder, resetDatabase);
     }
 
     @Override
     public void saveDatabases() throws IOException {
-        saveDatabase(npcDatabase, npcDatabaseFile);
+        saveDatabaseNested(npcDatabase, npcDatabaseFile);
         itemScraper.saveDatabases();
     }
 
-    public Map<String, NPCResult> getNPCInfo(String npcNamesSearchString, boolean forceReload, boolean downloadImage, boolean saveDatabase, ImageType imageType, String imagePath) {
+    
+    public Map<String, Map<String, WikiNPCResult>> getNPCInfo(String npcNamesSearchString, boolean forceReload, boolean downloadImage, boolean saveDatabase, ImageType imageType, String imagePath) {
         List<String> npcNames = StringUtil.formatArgs(npcNamesSearchString);
-        Map<String, NPCResult> npcInfo = new HashMap<>();
+        Map<String, Map<String, WikiNPCResult>> npcInfo = new HashMap<>();
 
         for (String npcName : npcNames) {
             if (!forceReload && npcDatabase.containsKey(npcName)) {
@@ -54,7 +55,7 @@ public class VSNPCScraper extends VSWikiScraper<NPCResult> {
                 throw new RuntimeException("<RuneMatio> " + npcName + ": Wiki Page doesn't exist and is not in DB");
             }
 
-            NPCResult npcInfoWiki = getNPCInfoFromWikiText(page, downloadImage, imageType, imagePath);
+            Map<String, WikiNPCResult> npcInfoWiki = getNPCInfoFromWikiText(page, downloadImage, imageType, imagePath);
             npcInfo.put(npcName, npcInfoWiki);
             npcDatabase.put(npcName, npcInfoWiki);
         }
@@ -71,76 +72,86 @@ public class VSNPCScraper extends VSWikiScraper<NPCResult> {
         return npcInfo;
     }
 
-    private NPCResult getNPCInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
-        NPCResult npcResult = new NPCResult();
-        Map<String, String> infoboxData = parseInfobox(page.getContent(), "NPC");
+    
+    private Map<String, WikiNPCResult> getNPCInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
+        Map<String, WikiNPCResult> npcResults = new HashMap<>();
+        Map<String, List<String>> infoboxData = parseInfobox(page.getContent(), "Infobox Monster");
+        if (infoboxData.isEmpty()) {
+            infoboxData = parseInfobox(page.getContent(), "Infobox NPC");
+        }
 
         if (infoboxData.isEmpty()) {
-            logger.error("Failed to parse infobox data for NPC: {}", page.getTitle());
-            return null;
+            logger.error("Failed to parse infobox data for NPC/Monster: {}", page.getTitle());
+            return npcResults;
         }
 
-        npcResult.setNames(parseMultipleVersions(infoboxData, "name"));
-        npcResult.setIds(parseMultipleVersionsInt(infoboxData, "id"));
-        npcResult.setExamine(parseMultipleVersions(infoboxData, "examine"));
-        npcResult.setCombatLevel(parseMultipleVersionsInt(infoboxData, "combat"));
-        npcResult.setHitpoints(parseMultipleVersionsInt(infoboxData, "hitpoints"));
-        npcResult.setAggressive(parseMultipleVersionsBool(infoboxData, "aggressive"));
-        npcResult.setPoisonous(parseMultipleVersionsBool(infoboxData, "poisonous"));
-        npcResult.setAttributes(parseAttributes(infoboxData.get("attributes")));
-        npcResult.setLocations(parseLocations(page.getContent()));
+        int versionCount = getVersionCount(infoboxData);
+        String baseName = infoboxData.get("name").get(0);
 
-        if (downloadImage) {
-            List<String> imagePaths = downloadImagesFromTemplate(npcResult.getNames(), infoboxData.get("image"), imageType, imagePath);
-            npcResult.setImagePaths(imagePaths);
+        for (int i = 1; i <= versionCount; i++) {
+            WikiNPCResult npcResult = new WikiNPCResult();
+            String version = getVersionedValue(infoboxData, "version", i);
+            
+            npcResult.setName(baseName);
+            npcResult.setVersion(version == null ? "Standard" : version);
+            npcResult.setIds(parseIds(getVersionedValue(infoboxData, "id", i)));
+            npcResult.setExamine(getVersionedValue(infoboxData, "examine", i));
+            npcResult.setCombatLevel(parseIntOrDefault(getVersionedValue(infoboxData, "combat", i), 0));
+            npcResult.setHitpoints(parseIntOrDefault(getVersionedValue(infoboxData, "hitpoints", i), 0));
+            npcResult.setAggressive(parseYesNoValue(getVersionedValue(infoboxData, "aggressive", i)));
+            npcResult.setPoisonous(parseYesNoValue(getVersionedValue(infoboxData, "poisonous", i)));
+            npcResult.setAttributes(parseAttributes(getVersionedValue(infoboxData, "attributes", i)));
+            npcResult.setLocations(parseLocations(page.getContent()));
+            npcResult.setOptions(parseOptions(infoboxData.get("options")));
+            if (downloadImage) {
+                String imagePathResult = downloadImageFromTemplate(npcResult.getName(), getVersionedValue(infoboxData, "image", i), imageType, imagePath);
+                npcResult.setImagePath(imagePathResult);
+            }
+
+            npcResult.setDrops(parseDrops(page.getContent(), downloadImage, imageType, imagePath));
+
+            // Parse additional fields
+            npcResult.setAttackLevel(parseIntOrDefault(getVersionedValue(infoboxData, "att", i), 0));
+            npcResult.setStrengthLevel(parseIntOrDefault(getVersionedValue(infoboxData, "str", i), 0));
+            npcResult.setDefenceLevel(parseIntOrDefault(getVersionedValue(infoboxData, "def", i), 0));
+            npcResult.setMagicLevel(parseIntOrDefault(getVersionedValue(infoboxData, "mage", i), 0));
+            npcResult.setRangedLevel(parseIntOrDefault(getVersionedValue(infoboxData, "range", i), 0));
+            npcResult.setAttackSpeed(parseIntOrDefault(getVersionedValue(infoboxData, "attack speed", i), 0));
+            npcResult.setAttackStyle(getVersionedValue(infoboxData, "attack style", i));
+            npcResult.setMaxHit(parseIntOrDefault(getVersionedValue(infoboxData, "max hit", i), 0));
+            npcResult.setMembers(parseYesNoValue(getVersionedValue(infoboxData, "members", i)));
+            npcResult.setSize(getVersionedValue(infoboxData, "size", i));
+            npcResult.setRace(getVersionedValue(infoboxData, "race", i));
+            npcResult.setReleaseDate(getVersionedValue(infoboxData, "release", i));
+            npcResult.setUpdateName(getVersionedValue(infoboxData, "update", i));
+
+            // Monster-specific fields
+            npcResult.setXpBonus(parseIntOrDefault(getVersionedValue(infoboxData, "xpbonus", i), 0));
+            npcResult.setAttackBonus(parseIntOrDefault(getVersionedValue(infoboxData, "attbns", i), 0));
+            npcResult.setStrengthBonus(parseIntOrDefault(getVersionedValue(infoboxData, "strbns", i), 0));
+            npcResult.setMagicAttackBonus(parseIntOrDefault(getVersionedValue(infoboxData, "amagic", i), 0));
+            npcResult.setMagicStrengthBonus(parseIntOrDefault(getVersionedValue(infoboxData, "mbns", i), 0));
+            npcResult.setRangedAttackBonus(parseIntOrDefault(getVersionedValue(infoboxData, "arange", i), 0));
+            npcResult.setRangedStrengthBonus(parseIntOrDefault(getVersionedValue(infoboxData, "rngbns", i), 0));
+            npcResult.setStabDefence(parseIntOrDefault(getVersionedValue(infoboxData, "dstab", i), 0));
+            npcResult.setSlashDefence(parseIntOrDefault(getVersionedValue(infoboxData, "dslash", i), 0));
+            npcResult.setCrushDefence(parseIntOrDefault(getVersionedValue(infoboxData, "dcrush", i), 0));
+            npcResult.setMagicDefence(parseIntOrDefault(getVersionedValue(infoboxData, "dmagic", i), 0));
+            npcResult.setRangedDefence(parseIntOrDefault(getVersionedValue(infoboxData, "drange", i), 0));
+            npcResult.setImmunePoison(parseYesNoValue(getVersionedValue(infoboxData, "immunepoison", i)));
+            npcResult.setImmuneVenom(parseYesNoValue(getVersionedValue(infoboxData, "immunevenom", i)));
+            npcResult.setImmuneCannon(parseYesNoValue(getVersionedValue(infoboxData, "immunecannon", i)));
+            npcResult.setImmuneThrall(parseYesNoValue(getVersionedValue(infoboxData, "immunethrall", i)));
+            npcResult.setRespawnTime(parseIntOrDefault(getVersionedValue(infoboxData, "respawn", i), 0));
+            npcResult.setSlayerLevel(parseIntOrDefault(getVersionedValue(infoboxData, "slaylvl", i), 0));
+            npcResult.setSlayerXp(parseIntOrDefault(getVersionedValue(infoboxData, "slayxp", i), 0));
+
+            npcResults.put(npcResult.getVersion(), npcResult);
         }
 
-        npcResult.setDrops(parseDrops(page.getContent(), downloadImage, imageType, imagePath));
-
-        return npcResult;
+        return npcResults;
     }
-
-    private List<String> parseMultipleVersions(Map<String, String> infoboxData, String key) {
-        List<String> values = new ArrayList<>();
-        if (infoboxData.containsKey(key)) {
-            values.add(infoboxData.get(key));
-        }
-        int version = 1;
-        while (infoboxData.containsKey(key + version)) {
-            values.add(infoboxData.get(key + version));
-            version++;
-        }
-        return values.isEmpty() ? null : values;
-    }
-
-    private List<Integer> parseMultipleVersionsInt(Map<String, String> infoboxData, String key) {
-        List<String> stringValues = parseMultipleVersions(infoboxData, key);
-        if (stringValues == null) return null;
-        return stringValues.stream().map(s -> Integer.parseInt(s.replaceAll("[^0-9]", ""))).collect(java.util.stream.Collectors.toList());
-    }
-
-    private List<Boolean> parseMultipleVersionsBool(Map<String, String> infoboxData, String key) {
-        List<String> stringValues = parseMultipleVersions(infoboxData, key);
-        if (stringValues == null) return null;
-        return stringValues.stream().map(s -> s.equalsIgnoreCase("yes") || s.equalsIgnoreCase("true")).collect(java.util.stream.Collectors.toList());
-    }
-
-    private List<String> parseAttributes(String attributesString) {
-        if (attributesString == null) return null;
-        return Arrays.asList(attributesString.split(",\\s*"));
-    }
-
-    private List<String> parseLocations(String wikiText) {
-        List<String> locations = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\{\\{Location\\|([^}]+)\\}\\}");
-        Matcher matcher = pattern.matcher(wikiText);
-        while (matcher.find()) {
-            locations.add(matcher.group(1).split("\\|")[0].trim());
-        }
-        return locations.isEmpty() ? null : locations;
-    }
-
-    private List<Drop> parseDrops(String wikiText, boolean downloadImage, ImageType imageType, String imagePath) {
+    protected List<Drop> parseDrops(String wikiText, boolean downloadImage, ImageType imageType, String imagePath) {
         List<Drop> drops = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\{\\{DropsLine\\|([^}]+)\\}\\}");
         Matcher matcher = pattern.matcher(wikiText);
@@ -153,77 +164,24 @@ public class VSNPCScraper extends VSWikiScraper<NPCResult> {
 
         return drops.isEmpty() ? null : drops;
     }
-
-    private Map<String, String> parseDropLine(String dropLine) {
-        Map<String, String> dropData = new HashMap<>();
-        String[] parts = dropLine.split("\\|");
-        for (String part : parts) {
-            String[] keyValue = part.split("=", 2);
-            if (keyValue.length == 2) {
-                String key = keyValue[0].trim();
-                String value = keyValue[1].trim();
-                // Remove any remaining curly braces or square brackets
-                value = value.replaceAll("[{}\\[\\]]", "");
-                dropData.put(key, value);
-            }
-        }
-        return dropData;
-    }
-
-    private Drop getDropFromLine(Map<String, String> dropData, boolean downloadImage, ImageType imageType, String imagePath) {
+    protected Drop getDropFromLine(Map<String, String> dropData, boolean downloadImage, ImageType imageType, String imagePath) {
         String itemName = dropData.get("name");
-        ItemResult item = itemScraper.getItemsInfo(itemName, false, downloadImage, imageType, imagePath, true).get(itemName);
+        WikiItemResult item = itemScraper.getItemsInfo(itemName, false, downloadImage, imageType, imagePath, true).get(itemName);
 
         List<Integer> quantity = parseQuantity(dropData.getOrDefault("quantity", "1"));
         double rarity = parseRarity(dropData.get("rarity"));
 
         return new Drop(item, quantity, rarity);
     }
+   
+  
+    
 
-    private List<Integer> parseQuantity(String quantityStr) {
-        List<Integer> quantity = new ArrayList<>();
-        if (quantityStr.contains("-")) {
-            String[] parts = quantityStr.split("-");
-            quantity.add(Integer.parseInt(parts[0].trim()));
-            quantity.add(Integer.parseInt(parts[1].trim()));
-        } else {
-            int q = Integer.parseInt(quantityStr.trim());
-            quantity.add(q);
-            quantity.add(q);
-        }
-        return quantity;
-    }
 
-    private double parseRarity(String rarityStr) {
-        if (rarityStr == null) return 0.0;
-        if ("Always".equalsIgnoreCase(rarityStr)) {
-            return 1.0;
-        } else if (rarityStr.endsWith("%")) {
-            return Double.parseDouble(rarityStr.substring(0, rarityStr.length() - 1)) / 100;
-        } else {
-            String[] parts = rarityStr.split("/");
-            return Double.parseDouble(parts[0]) / Double.parseDouble(parts[1]);
-        }
-    }
+   
 
-    private void checkDictKeys(Map<String, NPCResult> dict, List<String> keys) {
-        for (NPCResult npc : dict.values()) {
-            for (String key : keys) {
-                if (!hasProperty(npc, key)) {
-                    System.out.println("Warning: Missing key in NPC result: " + key);
-                }
-            }
-        }
-    }
+   
 
-    private boolean hasProperty(Object obj, String propertyName) {
-        try {
-            obj.getClass().getDeclaredField(propertyName);
-            return true;
-        } catch (NoSuchFieldException e) {
-            return false;
-        }
-    }
 
     @Override
     protected String downloadAndSaveImage(String name, String imageUrl, ImageType imageType, String destination) {
