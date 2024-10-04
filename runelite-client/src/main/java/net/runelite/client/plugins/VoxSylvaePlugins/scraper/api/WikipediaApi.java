@@ -19,6 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class WikipediaApi {
     private static final Logger logger = LoggerFactory.getLogger(WikipediaApi.class);
@@ -354,5 +358,158 @@ public class WikipediaApi {
                 throw new RuntimeException("Failed to fetch page info for " + pageName, e);
             }
         });
+    }
+    public CompletableFuture<List<String>> getStoreLocations(String itemName) {
+        return CompletableFuture.supplyAsync(() -> {
+            HttpUrl url = HttpUrl.parse(baseUrl).newBuilder()
+                .addQueryParameter("action", "parse")
+                .addQueryParameter("page", itemName)
+                .addQueryParameter("format", "json")
+                .addQueryParameter("prop", "text")
+                .build();
+
+            Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", "RuneLite/MicrobotScraper")
+                .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                String responseBody = response.body().string();
+                JsonObject jsonObject = gson.fromJson(responseBody, JsonObject.class);
+
+                if (jsonObject.has("error")) {
+                    throw new IOException("API error: " + jsonObject.get("error").getAsJsonObject().get("info").getAsString());
+                }
+
+                String html = jsonObject.getAsJsonObject("parse")
+                    .getAsJsonObject("text")
+                    .get("*").getAsString();
+
+                return parseStoreLocationsFromHtml(html);
+            } catch (Exception e) {
+                logger.error("Error fetching store locations for {}: {}", itemName, e.getMessage(), e);
+                throw new RuntimeException("Failed to fetch store locations for " + itemName, e);
+            }
+        });
+    }
+
+    private List<String> parseStoreLocationsFromHtml(String html) {
+        List<String> storeLocations = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+        Elements tables = doc.select("table.wikitable");
+        
+        for (Element table : tables) {
+            Elements rows = table.select("tr");
+            for (int i = 1; i < rows.size(); i++) { // Skip header row
+                Elements cells = rows.get(i).select("td");
+                if (cells.size() >= 8) {
+                    //log type of element 7
+                    logger.info("type of element 7: {} size: {}, raw: {}", cells.get(7).text(), cells.get(7).text().length(), cells.get(7));
+                    String location = String.join("\t", 
+                        cells.get(0).text(), // Shop Name
+                        cells.get(1).text(), // Location
+                        cells.get(2).text(), // Number in stock
+                        cells.get(3).text(), // Restock time
+                        cells.get(4).text(), // Price sold at
+                        cells.get(5).text(), // Price bought at
+                        cells.get(6).text(), // Change %
+                        String.valueOf(cells.get(7)).contains("Members")?"Yes":"No"  // Members
+                    );
+                    logger.info("shop data: {}", location);
+                    if (cells.size() > 8) {
+                        location += "\t" + cells.get(8).text(); // Notes
+                    }
+                    storeLocations.add(location);
+                }
+            }
+        }
+
+        return storeLocations;
+    }
+    public CompletableFuture<List<String>> getDropSources(String itemName) {
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("Fetching drop sources for item: " + itemName);
+            HttpUrl url = HttpUrl.parse(baseUrl).newBuilder()
+                .addQueryParameter("action", "parse")
+                .addQueryParameter("page", itemName)
+                .addQueryParameter("format", "json")
+                .addQueryParameter("prop", "text")
+                .build();
+
+            Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", "RuneLite/MicrobotScraper")
+                .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                String responseBody = response.body().string();
+                JsonObject jsonObject = gson.fromJson(responseBody, JsonObject.class);
+
+                if (jsonObject.has("error")) {
+                    throw new IOException("API error: " + jsonObject.get("error").getAsJsonObject().get("info").getAsString());
+                }
+
+                String html = jsonObject.getAsJsonObject("parse")
+                    .getAsJsonObject("text")
+                    .get("*").getAsString();
+                logger.info("\n\nstart parsing drop sources for item: " + itemName);
+                return parseDropSourcesFromHtml(html, itemName);
+            } catch (Exception e) {
+                logger.error("Error fetching drop sources for {}: {}", itemName, e.getMessage(), e);
+                throw new RuntimeException("Failed to fetch drop sources for " + itemName, e);
+            }
+        });
+    }
+
+    private List<String> parseDropSourcesFromHtml(String html, String itemName) {
+        List<String> dropSources = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+        Elements tables = doc.select("table.wikitable");
+          // Find the table that follows the item-specific Drop sources template
+       
+        for (Element table : tables) {
+            
+            Elements rows = table.select("tr");
+            // print hearder row
+            
+            Elements HeaderCells = rows.get(0).select("td");
+            if (rows.get(0).text().contains("Source") && rows.get(0).text().contains("Level") && rows.get(0).text().contains("Quantity") && rows.get(0).text().contains("Rarity")) {
+                logger.info("Header row contains Source, Level, Quantity, Rarity");
+                logger.info(rows.get(0).text());
+                logger.info("Number of rows: " + rows.size());
+                logger.info("Number of header cells: " + table.text().contains(itemName));
+            }else{
+                continue;
+            }
+           
+            for (int i = 1; i < rows.size(); i++) { // Skip header row
+                Elements cells = rows.get(i).select("td");
+                if (cells.size() >= 4) {
+                    // Source Name, Level, Quantity, Rarity
+                    //log number of cells
+                    logger.info("Number of cells: " + cells.size());
+                    //log cell headers
+                    
+                    logger.info("{} {} {} {}", cells.get(0).text(), cells.get(1).text(), cells.get(2).text(), cells.get(3).text());
+                    String source = String.join("\t", 
+                        cells.get(0).text(), // Source Name
+                        cells.get(1).text(), // Level
+                        cells.get(2).text(), // Quantity
+                        cells.get(3).text()  // Rarity
+                    );
+                    logger.info("source: " + source);
+                    if (cells.size() > 4) {
+                        source += "\t" + cells.get(4).text(); // Notes
+                    }
+                    dropSources.add(source);
+                }
+            }
+        }
+
+        return dropSources;
     }
 }

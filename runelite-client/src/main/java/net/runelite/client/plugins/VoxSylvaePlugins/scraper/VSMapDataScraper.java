@@ -75,22 +75,23 @@ public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
 
     private WikiMapResult getMapInfoFromWikiText(WikipediaPage page, boolean downloadImage, ImageType imageType, String imagePath) {
         WikiMapResult mapResult = new WikiMapResult();
-        Map<String, String> infoboxData = parseInfobox(page.getContent(), "Map");
-
-        mapResult.setName(infoboxData.get("name"));
-        mapResult.setX(Integer.parseInt(infoboxData.getOrDefault("x", "0")));
-        mapResult.setY(Integer.parseInt(infoboxData.getOrDefault("y", "0")));
-        mapResult.setPlane(Integer.parseInt(infoboxData.getOrDefault("plane", "0")));
-        mapResult.setMapID(Integer.parseInt(infoboxData.getOrDefault("mapID", "-1")));
-        mapResult.setMtype(infoboxData.get("mtype"));
-        mapResult.setR(Integer.parseInt(infoboxData.getOrDefault("r", "0")));
-        mapResult.setSquareX(Integer.parseInt(infoboxData.getOrDefault("squareX", "0")));
-        mapResult.setSquareY(Integer.parseInt(infoboxData.getOrDefault("squareY", "0")));
-        mapResult.setPtype(infoboxData.get("ptype"));
+        Map<String, List<String>> infoboxData = parseInfobox(page.getContent(), "Map");
+        int versionCount = getVersionCount(infoboxData);
+        assert versionCount == 1;
+        mapResult.setName(infoboxData.get("name").get(0));
+        //mapResult.setX(Integer.parseInt(infoboxData.getOrDefault("x", "0")));
+        //mapResult.setY(Integer.parseInt(infoboxData.getOrDefault("y", "0")));
+        //mapResult.setPlane(Integer.parseInt(infoboxData.getOrDefault("plane", "0")));
+        //mapResult.setMapID(Integer.parseInt(infoboxData.getOrDefault("mapID", "-1")));
+        mapResult.setMtype(infoboxData.get("mtype").get(0));
+        //mapResult.setR(Integer.parseInt(infoboxData.getOrDefault("r", "0")));
+        //mapResult.setSquareX(Integer.parseInt(infoboxData.getOrDefault("squareX", "0")));
+        //mapResult.setSquareY(Integer.parseInt(infoboxData.getOrDefault("squareY", "0")));
+        //mapResult.setPtype(infoboxData.get("ptype"));
 
         if (downloadImage) {
-            List<String> imagePaths = downloadImagesFromTemplate(Collections.singletonList(mapResult.getName()), infoboxData.get("image"), imageType, imagePath);
-            mapResult.setImagePaths(imagePaths);
+            //List<String> imagePaths = downloadImagesFromTemplate(Collections.singletonList(mapResult.getName()), infoboxData.get("image"), imageType, imagePath);
+            //mapResult.setImagePaths(imagePaths);
         }
 
         return mapResult;
@@ -124,15 +125,17 @@ public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
         }
 
         WikiLocationResult result = new WikiLocationResult();
-        Map<String, String> infoboxData = parseInfobox(page.getContent(), "Infobox Location");
-
-        result.setName(infoboxData.get("name"));
-        result.setMembers(Boolean.parseBoolean(infoboxData.get("members")));
-        result.setType(infoboxData.get("type"));
-        result.setLocation(extractLocation(infoboxData.get("location")));
-        result.setMap(extractMapInfo(infoboxData.get("map")));
-        result.setImage(extractImageInfo(infoboxData.get("image")));
-        result.setCategory(infoboxData.get("category"));
+        Map<String, List<String>> infoboxData = parseInfobox(page.getContent(), "Infobox Location");
+        int versionCount = getVersionCount(infoboxData);
+        assert versionCount == 1;
+        
+        result.setName(infoboxData.get("name").get(0));
+        result.setMembers(Boolean.parseBoolean(infoboxData.get("members").get(0)));
+        result.setType(infoboxData.get("type").get(0));
+        result.setLocation(parseLocation(infoboxData.get("location").get(0)));
+        result.setMap(parseMapInfo(infoboxData.get("map").get(0)));
+        result.setImage(parseImageInfo(infoboxData.get("image").get(0)));
+        result.setCategory(infoboxData.get("category").get(0));
 
         return result;
     }
@@ -269,7 +272,14 @@ public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
         return result;
     }
 
-    private String extractLocation(String locationString) {
+    /**
+     * Remove wiki markup and extract the plain text location from the given string.
+     * Given a string like "[[Varrock]]" or "[[Varrock|Varrock Palace]]", this method will return "Varrock" or "Varrock Palace" respectively.
+     * If the string does not contain wiki markup, the original string is returned.
+     * @param locationString the string to extract the location from
+     * @return the plain text location
+     */
+    private String parseLocation(String locationString) {
         // Remove wiki markup and extract the plain text location
         Pattern pattern = Pattern.compile("\\[\\[([^|\\]]+)(?:\\|([^\\]]+))?\\]\\]");
         Matcher matcher = pattern.matcher(locationString);
@@ -279,7 +289,7 @@ public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
         return locationString;
     }
 
-    private String extractImageInfo(String imageString) {
+    private String parseImageInfo(String imageString) {
         // Extract image file name from wiki markup
         Pattern pattern = Pattern.compile("\\[\\[File:([^|\\]]+)");
         Matcher matcher = pattern.matcher(imageString);
@@ -289,42 +299,7 @@ public class VSMapDataScraper extends VSWikiScraper<WikiMapResult> {
         return imageString;
     }
 
-    private ScraperResult.MapResult extractMapInfo(String mapString) {
-        ScraperResult.MapResult mapResult = new ScraperResult.MapResult();
-        Pattern pattern = Pattern.compile("\\{\\{Map\\|([^}]+)\\}\\}");
-        Matcher matcher = pattern.matcher(mapString);
-
-        if (matcher.find()) {
-            String[] params = matcher.group(1).split("\\|");
-            for (String param : params) {
-                String[] keyValue = param.split("=", 2);
-                if (keyValue.length == 2) {
-                    String key = keyValue[0].trim();
-                    String value = keyValue[1].trim();
-                    switch (key) {
-                        case "x":
-                            mapResult.setX(Integer.parseInt(value));
-                            break;
-                        case "y":
-                            mapResult.setY(Integer.parseInt(value));
-                            break;
-                        case "plane":
-                            mapResult.setPlane(Integer.parseInt(value));
-                            break;
-                        case "mapID":
-                            mapResult.setMapID(Integer.parseInt(value));
-                            break;
-                        case "mtype":
-                            mapResult.setMtype(value);
-                            break;
-                        // Add more cases for other map parameters
-                    }
-                }
-            }
-        }
-
-        return mapResult;
-    }
+    
 
     private List<ItemQuantity> parseItemQuantities(String costString) {
         List<ItemQuantity> costs = new ArrayList<>();

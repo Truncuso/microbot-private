@@ -1,24 +1,29 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+
 @Getter
 @Setter
 @ToString
-public class Drop {
+public class WikiMonsterDrop {
     private WikiItemResult item;
     private List<Integer> quantity;
     private double rarity;
-    private boolean lootStatus;
+    private boolean membersOnly;
+    private boolean freeToPlay;
+    private String notes;
+    private String altRarity;
+    private String category;
+    private String raritynotes;
+    private boolean gemwExcluded;
 
-    public Drop(WikiItemResult item, List<Integer> quantity, double rarity) {
+    public WikiMonsterDrop(WikiItemResult item, List<Integer> quantity, double rarity) {
         this.item = item;
         this.quantity = quantity;
         this.rarity = rarity;
-        this.lootStatus = false;
     }
 }

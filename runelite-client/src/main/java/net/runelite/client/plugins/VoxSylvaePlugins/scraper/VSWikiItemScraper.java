@@ -2,6 +2,7 @@ package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.CombatStats;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemSources;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
@@ -42,7 +43,7 @@ public class VSWikiItemScraper extends VSWikiScraper<WikiItemResult> {
             if (!forceReload && itemDatabase.containsKey(normalizedItemName)) {
                 WikiItemResult cachedItem = itemDatabase.get(normalizedItemName);
                 logger.info("Retrieved item id {} version from cache for: {}", cachedItem.getId(), itemName);
-                itemInfo.put(itemName, cachedItem);
+                itemInfo.put(normalizedItemName, cachedItem);
                 continue;
             }
 
@@ -109,6 +110,7 @@ public class VSWikiItemScraper extends VSWikiScraper<WikiItemResult> {
             item.setEquipable(parseYesNoValue(infoboxData.get("equipable")));
             item.setMembers(parseYesNoValue(getVersionedValue(infoboxData, "members", i)));
             item.setExamine(getVersionedValue(infoboxData, "examine", i));
+            item.setValue( parseIntOrDefault(getVersionedValue(infoboxData, "value", i), 0));
             item.setHighAlchValue(parseIntOrDefault(getVersionedValue(infoboxData, "highalch", i), 0));
             item.setWeight(parseDoubleOrDefault(infoboxData.get("weight"), 0.0));
             
@@ -119,7 +121,12 @@ public class VSWikiItemScraper extends VSWikiScraper<WikiItemResult> {
             if (item.isEquipable() && !combatStatsData.isEmpty()) {
                 item.setCombatStats(parseCombatStats(combatStatsData));
             }
+             ItemSources sources = new ItemSources();
             
+            sources.setSpawnLocations(parseSpawnLocations(page.getContent()));
+            sources.setShopSources(parseShopSources(page.getContent(),item.getName()));
+            sources.setDropSources(parseDropSources(page.getContent(), item.getName()));
+            item.setItemSources(sources);
             items.add(item);
         }
         

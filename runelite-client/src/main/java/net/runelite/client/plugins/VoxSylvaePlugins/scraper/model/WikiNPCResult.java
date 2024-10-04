@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -18,9 +19,9 @@ public class WikiNPCResult extends ScraperResult {
     private boolean aggressive;
     private boolean poisonous;
     private List<String> attributes;
-    private List<String> locations;
+    private List<WikiNPCLocation> locations;
     private List<String> options;
-    private List<Drop> drops;
+    private Map<String,List<WikiMonsterDrop>> drops;
 
     // Additional fields
     private int attackLevel;

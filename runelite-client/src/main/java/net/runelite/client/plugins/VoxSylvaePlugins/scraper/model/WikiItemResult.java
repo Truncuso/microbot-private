@@ -2,6 +2,7 @@ package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.client.plugins.microbot.util.npc.Rs2NpcStats.Drop;
 
 import java.util.List;
 
@@ -22,8 +23,7 @@ public class WikiItemResult extends ScraperResult {
     private int value;
     private double weight;    
     private CombatStats combatStats;
-    private List<String> spawnLocations;
-    private List<String> shopLocations;
+    private ItemSources itemSources;
     @Override
     public String toString() {
         return "WikiItemResult{" +
@@ -43,6 +43,13 @@ public class WikiItemResult extends ScraperResult {
     public int getgePrice(){
         //fetch current ge price from wiki
         return 0;
+    }
+    public boolean hasItemSources(){
+        return !itemSources.hasItemSources();
+
+    }
+    public List<DropSource> getDropSources(){
+        return itemSources.getDropSources();
     }
     
 }

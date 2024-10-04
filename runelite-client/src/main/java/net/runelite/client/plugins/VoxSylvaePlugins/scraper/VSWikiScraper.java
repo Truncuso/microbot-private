@@ -4,12 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.Drop;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiNPCResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.*;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.VSWikiScraper.PageData;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.WikipediaApi;
 
 import java.io.*;
@@ -194,9 +190,16 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
     }
 
     protected String getVersionedValue(Map<String, List<String>> infoboxData, String key, int version) {
-        String versionedKey = version == 1 ? key : key + version;
-        List<String> values = infoboxData.get(versionedKey);
-        return values != null && !values.isEmpty() ? values.get(0) : null;
+        if (!infoboxData.containsKey(key) && infoboxData.containsKey(key + version)) {
+            String versionedKey = key + version;
+            List<String> values = infoboxData.get(versionedKey);
+            return values != null && !values.isEmpty() ? values.get(0) : null;
+        } else {
+            assert(!infoboxData.containsKey(key + version));
+            List<String> values = infoboxData.get(key);
+            return values != null && !values.isEmpty() ? values.get(0) : null;
+        }
+
     }
 
     protected int parseIntOrDefault(String value, int defaultValue) {
@@ -211,12 +214,12 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         return value != null && value.trim().equalsIgnoreCase("Yes");
     }
 
-    protected List<String> parseAttributes(String attributesString) {
+    protected List<String> parseAttributesNPCS(String attributesString) {
         if (attributesString == null) return null;
         return Arrays.asList(attributesString.split(",\\s*"));
     }
 
-    protected List<String> parseLocations(String wikiText) {
+    protected List<String> parseLocationsTable(String wikiText) {
         List<String> locations = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\{\\{Location\\|([^}]+)\\}\\}");
         Matcher matcher = pattern.matcher(wikiText);
@@ -226,7 +229,69 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         return locations.isEmpty() ? null : locations;
     }
 
+    protected WikiMapResult parseMapInfo(String mapString) {
+        WikiMapResult mapResult = new WikiMapResult();
+        Pattern pattern = Pattern.compile("\\{\\{Map\\|([^}]+)\\}\\}");
+        Matcher matcher = pattern.matcher(mapString);
 
+        if (matcher.find()) {
+            String[] params = matcher.group(1).split("\\|");
+            for (String param : params) {
+                String[] keyValue = param.split("=", 2);
+                if (keyValue.length == 2) {
+                    String key = keyValue[0].trim();
+                    String value = keyValue[1].trim();
+                    switch (key) {
+                        case "name":
+                            mapResult.setName(value);
+                            break;
+                        case "x":
+                            mapResult.setX(Integer.parseInt(value));
+                            break;
+                        case "y":
+                            mapResult.setY(Integer.parseInt(value));
+                            break;
+                        case "plane":
+                            mapResult.setPlane(Integer.parseInt(value));
+                            break;
+                        case "mapID":
+                            mapResult.setMapID(Integer.parseInt(value));
+                            break;
+                        case "mtype":
+                            mapResult.setMtype(value);
+                            break;
+                        case "r":
+                            mapResult.setR(Integer.parseInt(value));
+                            break;
+                        case "squareX":
+                            mapResult.setSquareX(Integer.parseInt(value));
+                            break;
+                        case "squareY":
+                            mapResult.setSquareY(Integer.parseInt(value));
+                            break;
+                        case "ptype":
+                            mapResult.setPtype(value);
+                            break;
+                    }
+                }
+            }
+        }
+
+        return mapResult;
+    }
+
+    protected List<WikiMapResult> parseAllMapInfo(String wikiText) {
+        List<WikiMapResult> maps = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{\\{Map\\|([^}]+)\\}\\}");
+        Matcher matcher = pattern.matcher(wikiText);
+
+        while (matcher.find()) {
+            WikiMapResult map = parseMapInfo(matcher.group());
+            maps.add(map);
+        }
+
+        return maps;
+    }
    
 
     protected Map<String, String> parseDropLine(String dropLine) {
@@ -292,14 +357,222 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         }
         return Arrays.asList(options.get(0).split(","));
     }
-    protected List<String> parseSpawnLocations(String wikiText) {
-        // Implementation to extract spawn locations
-        return new ArrayList<>();
+
+   
+    protected List<SpawnLocation> parseSpawnLocations(String wikiText) {
+        List<SpawnLocation> spawnLocations = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{\\{ItemSpawnLine\\|((?:[^{}]|\\{(?!\\{)|\\}(?!\\})|\\{\\{(?:[^{}]|\\{(?!\\{)|\\}(?!\\}))*\\}\\})*?)\\}\\}");
+        Matcher matcher = pattern.matcher(wikiText);
+        
+        while (matcher.find()) {
+            String spawnData = matcher.group(1);
+            SpawnLocation location = parseSpawnLocation(spawnData);
+            if (location != null) {
+                spawnLocations.add(location);
+            }
+        }
+        
+        return spawnLocations;
+    }  
+    private SpawnLocation parseSpawnLocation(String spawnData) {
+        SpawnLocation location = new SpawnLocation();
+        Map<String, String> attributes = parseAttributes(spawnData);
+        //setdefu
+        for (Map.Entry<String, String> entry : attributes.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            
+            switch (key) {
+                case "name":
+                    // Ignore the name attribute as it's not part of the SpawnLocation
+                    break;
+                case "location":
+                    parseLocationAndSublocation(location, value);
+                    break;
+                case "members":
+                    location.setMembers(parseYesNoValue(value));
+                    break;
+                case "mapID":
+                    location.setMapID(parseIntOrDefault(value, -1));
+                    break;
+                case "plane":
+                    location.setPlane(parseIntOrDefault(value, 0));
+                    break;
+                default:
+                    if (key.matches("\\d+,\\d+")) {
+                        parseCoordinates(location, key);
+                    }
+                    break;
+            }
+        }
+        
+        return location.getLocation() != null ? location : null;
     }
+
+    private Map<String, String> parseAttributes(String spawnData) {
+        Map<String, String> attributes = new LinkedHashMap<>();
+        StringBuilder currentValue = new StringBuilder();
+        String currentKey = null;
+        int nestedBrackets = 0;
+
+        for (String part : spawnData.split("\\|")) {
+            part = part.trim();
+            
+            if (part.contains("=") && nestedBrackets == 0) {
+                if (currentKey != null) {
+                    attributes.put(currentKey, currentValue.toString().trim());
+                    currentValue.setLength(0);
+                }
+                String[] keyValue = part.split("=", 2);
+                currentKey = keyValue[0].trim();
+                currentValue.append(keyValue[1].trim());
+            } else if (part.matches("\\d+,\\d+") && nestedBrackets == 0) {
+                // Handle coordinate pairs
+                attributes.put(part, "");
+            } else {
+                // Append to the current value, handling nested templates
+                if (currentValue.length() > 0) {
+                    currentValue.append("|");
+                }
+                currentValue.append(part);
+            }
+
+            // Count nested brackets
+            nestedBrackets += countOccurrences(part, "{{") - countOccurrences(part, "}}");
+        }
+
+        // Add the last attribute
+        if (currentKey != null) {
+            attributes.put(currentKey, currentValue.toString().trim());
+        }
+
+        return attributes;
+    }
+
+    private int countOccurrences(String str, String subStr) {
+        return (str.length() - str.replace(subStr, "").length()) / subStr.length();
+    }
+    private void parseLocationAndSublocation(SpawnLocation location, String value) {
+        // Remove FloorNumber template for parsing, but keep it for sublocation
+        String floorNumber = extractFloorNumber(value);
+        String cleanValue = removeFloorNumber(value);
+
+        Pattern pattern = Pattern.compile("\\[\\[([^\\]]+)\\]\\]");
+        Matcher matcher = pattern.matcher(cleanValue);
+
+        List<String> locations = new ArrayList<>();
+        while (matcher.find()) {
+            locations.add(matcher.group(1));
+        }
+
+        if (!locations.isEmpty()) {
+            location.setLocation(locations.get(0));
+            if (locations.size() > 1) {
+                location.setSublocation(locations.get(1));
+            } else {
+                String remaining = cleanValue.replaceAll("\\[\\[[^\\]]+\\]\\]", "").trim();
+                if (!remaining.isEmpty()) {
+                    location.setSublocation(remaining);
+                }
+            }
+        } else {
+            location.setLocation(cleanValue);
+        }
+
+        // Add FloorNumber to sublocation if present
+        if (!floorNumber.isEmpty()) {
+           location.setSublocation((location.getSublocation() != null && location.getSublocation().equals("()")) ? null : location.getSublocation());
+        }
+
+        // Clean up location and sublocation
+        if (location.getLocation() != null) {
+            location.setLocation(cleanUpLocationString(location.getLocation()));
+        }
+        if (location.getSublocation() != null) {
+            location.setSublocation(cleanUpLocationString(location.getSublocation()));
+        }
+    }
+
+    private String extractFloorNumber(String value) {
+        Pattern floorPattern = Pattern.compile("\\{\\{FloorNumber\\|[^}]+\\}\\}");
+        Matcher floorMatcher = floorPattern.matcher(value);
+        return floorMatcher.find() ? floorMatcher.group() : "";
+    }
+
+    private String removeFloorNumber(String value) {
+        return value.replaceAll("\\{\\{FloorNumber\\|[^}]+\\}\\}", "").trim();
+    }
+
+    private String cleanUpLocationString(String locationString) {
+        return locationString.replaceAll("^[-\\s]+|[-\\s]+$", "").replaceAll("\\s+", " ");
+    }
+
+    private void parseCoordinates(SpawnLocation location, String value) {
+        String[] coords = value.split(",");
+        if (coords.length == 2) {
+            try {
+                int x = Integer.parseInt(coords[0]);
+                int y = Integer.parseInt(coords[1]);
+                location.getCoordinates().add(new SpawnLocation.Coordinate(x, y));
+            } catch (NumberFormatException e) {
+                logger.warn("Failed to parse coordinates: {}", value);
+            }
+        }
+    }
+
+ 
+
     
-    protected List<String> parseShopLocations(String wikiText) {
-        // Implementation to extract shop locations
-        return new ArrayList<>();
+
+    protected List<ShopSource> parseShopSources(String wikiText, String itemName) {
+        List<ShopSource> shopSources = new ArrayList<>();
+        if (wikiText.contains("{{Store locations list|" + itemName + "}}") ||
+            wikiText.contains("{{Store locations list}}")) {
+            try {
+                List<String> storeLocations = wikipediaApi.getStoreLocations(itemName).get();
+                for (String location : storeLocations) {
+                    ShopSource shopSource = parseShopSourceLine(location);
+                    if (shopSource != null) {
+                        shopSources.add(shopSource);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Error fetching store locations for {}: {}", itemName, e.getMessage());
+            }
+        }
+        return shopSources;
+    }
+
+
+    private ShopSource parseShopSourceLine(String line) {
+        ShopSource shopSource = new ShopSource();
+        String[] parts = line.split("\\t");
+        if (parts.length < 8) {
+            logger.warn("Invalid shop source line: {} length: {}", line, parts.length);
+            return null;
+        }
+
+        shopSource.setShopName(parts[0]);
+        shopSource.setLocation(parts[1]);
+        shopSource.setNumberInStock(parseIntOrDefault(parts[2], 0));
+        shopSource.setRestockTime(parts[3]);
+        shopSource.setPriceSoldAt(parseIntOrDefault(parts[4], 0));
+        shopSource.setPriceBoughtAt(parseIntOrDefault(parts[5], 0));
+        shopSource.setChangePercent(parseDoubleOrDefault(parts[6].replace("%", ""), 0.0));
+        shopSource.setMembers(parts[7].equalsIgnoreCase("Yes"));
+
+        if (parts.length > 8) {
+            shopSource.setNotes(parts[8]);
+        }
+
+        return shopSource;
+    }
+    private double parseDoubleOrDefault(String value, double defaultValue) {
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
     }
     protected String downloadImageFromTemplate(String name, String imageData, ImageType imageType, String destination) {
         
@@ -400,5 +673,75 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         public void setName(String name) { this.name = name; }
         public String getCategory() { return category; }
         public void setCategory(String category) { this.category = category; }
+    }
+    protected List<DropSource> parseDropSources(String wikiText, String itemName) {
+        List<DropSource> dropSources = new ArrayList<>();
+        if (wikiText.contains("{{Drop sources|" + itemName + "}}") ||
+            wikiText.contains("{{Drop sources}}")) {
+            try {
+                List<String> sourcesData = wikipediaApi.getDropSources(itemName).get();
+                for (String sourceData : sourcesData) {
+                    DropSource dropSource = parseDropSourceLine(sourceData);
+                    if (dropSource != null) {
+                        dropSources.add(dropSource);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Error fetching drop sources for {}: {}", itemName, e.getMessage());
+            }
+        }
+        return dropSources;
+    }
+
+    private DropSource parseDropSourceLine(String line) {
+        DropSource dropSource = new DropSource();
+        String[] parts = line.split("\t");
+        if (parts.length < 4) {
+            logger.warn("Invalid drop source line: {}", line);
+            return null;
+        }
+
+        dropSource.setSourceName(parts[0]);
+        dropSource.setSourceLevel(parseLevel(parts[1]));
+        parseQuantity(parts[2], dropSource);
+        dropSource.setDropRate(parseDropRate(parts[3]));
+
+        if (parts.length > 4) {
+            dropSource.setNotes(parts[4]);
+        }
+
+        return dropSource;
+    }
+
+    private int parseLevel(String levelStr) {
+        if (levelStr.equalsIgnoreCase("N/A")) {
+            return -1;
+        }
+        try {
+            return Integer.parseInt(levelStr);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private void parseQuantity(String quantityStr, DropSource dropSource) {
+        if (quantityStr.contains("–")) {
+            String[] quantities = quantityStr.split("–");
+            dropSource.setMinQuantity(Integer.parseInt(quantities[0]));
+            dropSource.setMaxQuantity(Integer.parseInt(quantities[1]));
+        } else {
+            int quantity = Integer.parseInt(quantityStr);
+            dropSource.setMinQuantity(quantity);
+            dropSource.setMaxQuantity(quantity);
+        }
+    }
+
+    private double parseDropRate(String dropRateStr) {
+        if (dropRateStr.contains("/")) {
+            String[] fractionParts = dropRateStr.split("/");
+            return Double.parseDouble(fractionParts[0]) / Double.parseDouble(fractionParts[1]);
+        } else {
+            return Double.parseDouble(dropRateStr);
+        }
     }
 }
