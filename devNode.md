@@ -6,8 +6,20 @@
 - Add prehook for automated git repopack file, text file (consider using git lfs for it)
 
 ### RunLite based Microbot Plugins
+- RSplayer.nearestDistance ()->  shortpath plugin nearest distance calculation -> also teleports and doors....
+#### Gauntelt Plugin:
+- see squire bot for insperation -> state machine handling -> preperation phase and so on
+- Vorkath's plugin or Scurrius pligonfor "dengoures object spwaning" ->  see also note in obsidtina note book for fast walking 
+- implentation of a function  which finds nearst safe tiles (with paramter to set min distance away ) from current position ->  check deansogures object and also deangorues tile effects? -> use onObject
+  - helpfull methods check  getNearestWalkableTileWithLineOfSight and , tileHasWalls, isValidTile  , getNearestWalkableTile or getSafeTile, in RS2Tile
+- hanlde hunlef boss area ->  wolrd point area ? get coordinates
+- rendering of objects and tiles -> microbotOverlay
+
+#### Hallowed Sepulchre
+- as inperation use the plugin from runlite ->  just copy it over, and handle interaction ?  marks all things correctly ?
 
 #### QoL Navigation Plugin (VoxSylvaeNavigationPlugin)
+
 - Serves as a plugin which can be used by other plugins
 - User configuration options:
   - Add location from the scrapping of all locations via the wiki scrapper API
@@ -189,6 +201,7 @@
     - Function which iterates over the path and:
       - Tracks doors, fairy rings and other transportation systems among the path like in handleDoors function
       - Calculates the path direction along the path -> moving direction of the player for each path point (for the last point in the path this is obviously zero)
+        - see import net.runelite.api.coords.Direction; for directions ? like in RS2Tile
       - Tracks options for randomizing the path for each path point
       - New possible walkable tiles among the path, in the path direction
         - Track the new possible world points for the randomized possible tiles to walk
