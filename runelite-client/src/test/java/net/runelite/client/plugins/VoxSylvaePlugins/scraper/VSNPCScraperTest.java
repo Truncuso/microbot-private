@@ -1,7 +1,7 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiNPCResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiMonsterDrop;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiNPCResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiMonsterDrop;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,8 @@
-package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model;
+package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ScraperResult;
 import net.runelite.client.plugins.microbot.util.npc.Rs2NpcStats.Drop;
 
 import java.util.List;
