@@ -5,7 +5,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.*;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.DropSource;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.ShopSource;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.SpawnLocation;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiNPCResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.VSWikiScraper.PageData;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.ItemSourceParser;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.WikipediaApi;
 
 import java.io.*;
@@ -16,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -529,13 +535,14 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         if (wikiText.contains("{{Store locations list|" + itemName + "}}") ||
             wikiText.contains("{{Store locations list}}")) {
             try {
-                List<String> storeLocations = wikipediaApi.getStoreLocations(itemName).get();
-                for (String location : storeLocations) {
-                    ShopSource shopSource = parseShopSourceLine(location);
-                    if (shopSource != null) {
-                        shopSources.add(shopSource);
-                    }
-                }
+                shopSources = getStoreLocations(itemName).get();
+
+                //for (String location : storeLocations) {
+                //    ShopSource shopSource = parseShopSourceLine(location);
+                //    if (shopSource != null) {
+                //        shopSources.add(shopSource);
+                //    }
+                //}
             } catch (Exception e) {
                 logger.error("Error fetching store locations for {}: {}", itemName, e.getMessage());
             }
@@ -679,7 +686,7 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         if (wikiText.contains("{{Drop sources|" + itemName + "}}") ||
             wikiText.contains("{{Drop sources}}")) {
             try {
-                List<String> sourcesData = wikipediaApi.getDropSources(itemName).get();
+                List<String> sourcesData = getDropSources(itemName).get();
                 for (String sourceData : sourcesData) {
                     DropSource dropSource = parseDropSourceLine(sourceData);
                     if (dropSource != null) {
@@ -743,5 +750,74 @@ public abstract class VSWikiScraper<T extends ScraperResult> {
         } else {
             return Double.parseDouble(dropRateStr);
         }
+    }
+
+      public CompletableFuture<List<ShopSource>> getStoreLocations(String itemName) {
+        return CompletableFuture.supplyAsync(() -> {          
+            try {            
+                String html = wikipediaApi.getHTMLPage(itemName).get();
+                Map<String, List<ShopSource>> shopSources = ItemSourceParser.parseStoreLocationsFromHtml(html, itemName);
+                List<ShopSource> shopSourcesList = new ArrayList<>();
+                for (Map.Entry<String, List<ShopSource>> entry : shopSources.entrySet()) {
+                    logger.info("Version: " + entry.getKey());
+                    
+                    for (ShopSource source : entry.getValue()) {
+                        logger.info(""+source);
+                    }
+                    if (entry.getKey().equals("Default")) {
+                        assert(shopSourcesList.isEmpty());
+                        assert(shopSources.size()  ==1);
+                        shopSourcesList = entry.getValue();
+                        
+                        
+                    }else{
+                        
+                    }
+                }
+                if (shopSourcesList.isEmpty()) {
+                    logger.info("No shop sources found for item: " + itemName);
+                    return new ArrayList<>();
+                }
+               
+                return shopSources.containsKey(itemName) ? shopSources.get(itemName) : shopSources.get("Default");
+               // List<String> storeLocations = ItemSourceParser.parseStoreLocationsFromHtmlOld(html, itemName);
+                //TODO impentation of filtering only item sources from the given item
+                
+            } catch (Exception e) {
+                logger.error("Error fetching store locations for {}: {}", itemName, e.getMessage(), e);
+                throw new RuntimeException("Failed to fetch store locations for " + itemName, e);
+            }
+        });
+    }
+
+    
+    public CompletableFuture<List<String>> getDropSources(String itemName) {
+        return CompletableFuture.supplyAsync(() -> {
+            long FetchStart = System.currentTimeMillis();
+            logger.info("Start Fetching drop sources for item: " + itemName);          
+            try {            
+                String html = wikipediaApi.getHTMLPage(itemName).get();
+                logger.info("\n\nstart parsing drop sources for item: " + itemName);
+                long FetchEnd = System.currentTimeMillis();
+                long FetchTime = FetchEnd - FetchStart;
+                long FetchTimeSeconds = TimeUnit.MILLISECONDS.toSeconds(FetchTime);
+                long FetchTimeMillis = FetchTime - TimeUnit.SECONDS.toMillis(FetchTimeSeconds);
+                logger.info("End Fetching drop sources for item: " + itemName + " in " + (FetchEnd - FetchStart) + " ms");
+                
+                Map<String, List<DropSource>> dropSources = ItemSourceParser.parseDropSourcesFromHtml(html, itemName);
+                // Now you can access drop sources and shop sources for each version
+                for (Map.Entry<String, List<DropSource>> entry : dropSources.entrySet()) {
+                    System.out.println("Version: " + entry.getKey());
+                    for (DropSource source : entry.getValue()) {
+                        System.out.println(source);
+                    }
+                }
+                return ItemSourceParser.parseDropSourcesFromHtmlOld(html, itemName);
+            } catch (Exception e) {
+                logger.error("Error fetching drop sources for {}: {}", itemName, e.getMessage(), e);
+                throw new RuntimeException("Failed to fetch drop sources for " + itemName, e);
+            }
+           
+        });
     }
 }

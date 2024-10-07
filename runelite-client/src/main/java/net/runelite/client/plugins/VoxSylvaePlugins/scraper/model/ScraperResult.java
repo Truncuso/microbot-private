@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.WikiItemResult;
+
 import java.util.stream.Collectors;
 
 @Getter

@@ -1,12 +1,12 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiNPCResult;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.WikiItemResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiMonsterDrop;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiNPCLocation;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo.WikiNPCResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiMonsterDrop;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiNPCLocation;
 
 import java.io.IOException;
 import java.nio.file.Path;

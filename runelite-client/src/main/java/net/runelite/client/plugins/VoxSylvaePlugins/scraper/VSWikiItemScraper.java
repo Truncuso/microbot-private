@@ -1,10 +1,10 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.CombatStats;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemSources;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.CombatStats;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.ItemSources;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
 
 import java.nio.file.Path;

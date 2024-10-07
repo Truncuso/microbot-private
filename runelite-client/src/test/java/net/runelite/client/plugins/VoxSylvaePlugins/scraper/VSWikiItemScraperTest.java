@@ -1,13 +1,14 @@
 package net.runelite.client.plugins.VoxSylvaePlugins.scraper;
 
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ImageType;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ItemSources;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.ShopSource;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.SpawnLocation;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikiItemResult;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.WikipediaPage;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.CombatStats;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.DropSource;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.ItemSources;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.ShopSource;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.SpawnLocation;
+import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiItemInfo.WikiItemResult;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.api.WikipediaApi;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.CombatStats;
-import net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.DropSource;
 import net.runelite.client.plugins.VoxSylvaePlugins.scraper.util.StringUtil;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -175,84 +176,124 @@ class VSWikiItemScraperTest {
     }
     @Test
     void testParseShopSources() {
-        String wikiText = "===Shop locations===\n{{Store locations list|Needle}}";
         String itemName = "Needle";
-    
-        // Mock the WikipediaApi response
-        List<String> mockStoreLocations = Arrays.asList(
-            "Rommik's Crafty Supplies\tRimmington\t3\t1m\t1\t0\t2.0%\tYes",
-            "Raetul and Co's Cloth Store\tSophanem\t20\t30s\t1\t0\t1.0%\tYes\tafter Contact!",
-            "Fancy Clothes Store\tVarrock\t3\t1m\t1\t0\t2.0%\tNo"
-        );
-        when(wikipediaApi.getStoreLocations(itemName)).thenReturn(CompletableFuture.completedFuture(mockStoreLocations));
-    
+        
+        WikipediaPage page = itemScraper.getWikiPage(itemName);
+        assertNotNull(page, "Failed to retrieve wiki page for item: " + itemName);
+        
+        String wikiText = page.getContent();
         List<ShopSource> shopSources = itemScraper.parseShopSources(wikiText, itemName);
-    
-        assertEquals(3, shopSources.size());
-    
-        ShopSource shop1 = shopSources.get(0);
-        assertEquals("Rommik's Crafty Supplies", shop1.getShopName());
-        assertEquals("Rimmington", shop1.getLocation());
-        assertEquals(3, shop1.getNumberInStock());
-        assertEquals("1m", shop1.getRestockTime());
-        assertEquals(1, shop1.getPriceSoldAt());
-        assertEquals(0, shop1.getPriceBoughtAt());
-        assertEquals(2.0, shop1.getChangePercent(), 0.001);
-        assertTrue(shop1.isMembers());
-    
-        ShopSource shop2 = shopSources.get(1);
-        assertEquals("Raetul and Co's Cloth Store", shop2.getShopName());
-        assertEquals("Sophanem", shop2.getLocation());
-        assertEquals("after Contact!", shop2.getNotes());
-    
-        ShopSource shop3 = shopSources.get(2);
-        assertEquals("Fancy Clothes Store", shop3.getShopName());
-        assertEquals("Varrock", shop3.getLocation());
-        assertFalse(shop3.isMembers());
+
+        assertFalse(shopSources.isEmpty(), "Shop sources list should not be empty");
+        
+        // Test the total number of shop sources
+        assertEquals(23, shopSources.size(), "There should be 23 shop sources for the needle");
+
+        // Test a selection of shop sources to cover various cases
+        testShopSource(shopSources, "Arnold's Eclectic Supplies.", "Piscatoris Fishing Colony", 3, "36s", 1, 0, 2.0, true);
+        testShopSource(shopSources, "Artima's Crafting Supplies", "Civitas illa Fortis", 5, "6s", 1, 0, 2.0, true);
+        testShopSource(shopSources, "Cam Torum General Store", "Cam Torum", 5, "12s", 1, 0, 3.0, true);
+        testShopSource(shopSources, "Carefree Crafting Stall", "Keldagrim", 3, "1m", 1, 0, 3.0, true);
+        testShopSource(shopSources, "Fancy Clothes Store", "Varrock", 3, "1m", 1, 0, 2.0, true);
+        testShopSource(shopSources, "General Store (Canifis)", "Canifis", 2, "1m", 2, 0, 3.0, true);
+        testShopSource(shopSources, "Jamila's Craft Stall", "Sophanem", 3, "1m", 1, 0, 1.0, true);
+        testShopSource(shopSources, "Moon Clan Fine Clothes.", "Lunar Isle", 5, "06s", 1, 0, 1.0, true);
+        testShopSource(shopSources, "Raetul and Co's Cloth Store.", "Sophanem", 20, "30s", 1, 0, 1.0, true, "after Contact!");
+
+        // Test for some specific cases
+        ShopSource raetulBeforeContact = findShopSource(shopSources, "Raetul and Co's Cloth Store");
+        assertNotNull(raetulBeforeContact);
+        assertEquals(15, raetulBeforeContact.getNumberInStock());
+        assertEquals("16.8s", raetulBeforeContact.getRestockTime());
+        assertEquals(1.0, raetulBeforeContact.getChangePercent(), 0.001);
+        assertNull(raetulBeforeContact.getNotes());
+
+        ShopSource fortisSilkStall = findShopSource(shopSources, "Fortis Silk Stall");
+        assertNotNull(fortisSilkStall);
+        assertEquals(5, fortisSilkStall.getNumberInStock());
+        assertEquals("3s", fortisSilkStall.getRestockTime());
+        assertEquals(0.0, fortisSilkStall.getChangePercent(), 0.001);
     }
-    @Test
-    void testParseDropSources() {
-        String wikiText = "===Drop sources===\n{{Drop sources|Steel arrow}}";
-        String itemName = "Steel arrow";
 
-        // Mock the WikipediaApi response
-        List<String> mockDropSources = Arrays.asList(
-            "Accumulator max cape\tN/A\t1\t1/1,013",
-            "Ava's accumulator\tN/A\t1\t1/1,013",
-            "Zombie\t13–76\t5–14\t1/5",
-            "Tortoise\t79\t12–23\t1/6.4\tNo riders",
-            "Strange shrine\tN/A\t0–632\t1/9"
-        );
-        try {
-//          when(wikipediaApi.getDropSources(itemName).get()).thenAnswer(invocation ->mockDropSources);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    private void testShopSource(List<ShopSource> sources, String name, String location, int stock, 
+                                String restockTime, int priceSold, int priceBought, double changePercent, 
+                                boolean members, String... notes) {
+        ShopSource source = findShopSource(sources, name);
+        assertNotNull(source, "Shop source not found: " + name);
+        assertEquals(name, source.getShopName());
+        assertEquals(location, source.getLocation());
+        assertEquals(stock, source.getNumberInStock());
+        assertEquals(restockTime, source.getRestockTime());
+        assertEquals(priceSold, source.getPriceSoldAt());
+        assertEquals(priceBought, source.getPriceBoughtAt());
+        assertEquals(changePercent, source.getChangePercent(), 0.001);
+        assertEquals(members, source.isMembers());
+        if (notes.length > 0) {
+            assertEquals(notes[0], source.getNotes());
         }
-        Map<String, WikiItemResult> itemInfo = itemScraper.getItemsInfo(itemName,  true, false, ImageType.NORMAL, testImageFolder.toString(), true);
+    }
+
+    private ShopSource findShopSource(List<ShopSource> sources, String name) {
+        return sources.stream()
+            .filter(source -> source.getShopName().equals(name))
+            .findFirst()
+            .orElse(null);
+    }
+    void testParseDropSources() {
+        String itemName = "Steel arrow";
+        
+        WikipediaPage page = itemScraper.getWikiPage(itemName);
+        assertNotNull(page, "Failed to retrieve wiki page for item: " + itemName);
+        
+        String wikiText = page.getContent();
         List<DropSource> dropSources = itemScraper.parseDropSources(wikiText, itemName);
-        assertEquals(8, dropSources.size());
-
-        DropSource source1 = dropSources.get(0);
-        assertEquals("Accumulator max cape", source1.getSourceName());
-        assertEquals(-1, source1.getSourceLevel());
-        assertEquals(1, source1.getMinQuantity());
-        assertEquals(1, source1.getMaxQuantity());
-        assertEquals(1.0/1013, source1.getDropRate(), 0.00001);
-
-        DropSource source3 = dropSources.get(2);
-        assertEquals("Zombie", source3.getSourceName());
-        assertEquals(13, source3.getSourceLevel());
-        assertEquals(5, source3.getMinQuantity());
-        assertEquals(14, source3.getMaxQuantity());
-        assertEquals(1.0/5, source3.getDropRate(), 0.00001);
-
-        DropSource source4 = dropSources.get(3);
-        assertEquals("Tortoise", source4.getSourceName());
-        assertEquals(79, source4.getSourceLevel());
-        assertEquals(12, source4.getMinQuantity());
-        assertEquals(23, source4.getMaxQuantity());
-        assertEquals(1.0/6.4, source4.getDropRate(), 0.00001);
-        assertEquals("No riders", source4.getNotes());
+    
+        assertFalse(dropSources.isEmpty(), "Drop sources list should not be empty");
+        
+        // Test a selection of drop sources to cover various cases
+        testDropSource(dropSources, "Accumulator max cape", -1, 1, 1, 1975.0/2000);
+        testDropSource(dropSources, "Alexis", 24, 50, 50, 10.0/512);
+        testDropSource(dropSources, "Angry barbarian spirit", 166, 20, 20, 3.0/128);
+        testDropSource(dropSources, "Balfrug Kreeyath", 151, 95, 100, 7.0/127);
+        testDropSource(dropSources, "Dagannoth Supreme", 303, 50, 250, 5.0/128);
+        testDropSource(dropSources, "Guard (H.A.M. Storerooms)", 20, 1, 13, 6.0/500);
+        testDropSource(dropSources, "Strange shrine", -1, 0, 632, 1.0/9);
+        testDropSource(dropSources, "Zombie", 13, 5, 14, 20.0/100);
+        testDropSource(dropSources, "Ava's attractor", -1, 1, 1, 1.0/2000);
+        testDropSource(dropSources, "Broken arrow", -1, 1, 1, 10.0/100);
+    
+        // Test for some specific cases
+        DropSource elaborateLockbox = findDropSource(dropSources, "Elaborate lockbox");
+        assertNotNull(elaborateLockbox);
+        assertEquals(2, elaborateLockbox.getMinQuantity());
+        assertEquals(2, elaborateLockbox.getMaxQuantity());
+        assertEquals(6.0/50, elaborateLockbox.getDropRate(), 0.00001);
+        assertEquals("2 ×", elaborateLockbox.getNotes());
+    
+        DropSource guard = findDropSource(dropSources, "Guard");
+        assertNotNull(guard);
+        assertEquals("19; 20; 21; 22", guard.getNotes());
+    
+        // Verify the total number of drop sources
+        assertTrue(dropSources.size() > 80, "There should be more than 80 drop sources");
+    }
+    
+    private void testDropSource(List<DropSource> sources, String name, int expectedLevel, 
+                                int expectedMinQuantity, int expectedMaxQuantity, double expectedDropRate) {
+        DropSource source = findDropSource(sources, name);
+        assertNotNull(source, "Drop source not found: " + name);
+        assertEquals(name, source.getSourceName());
+        assertEquals(expectedLevel, source.getSourceLevel());
+        assertEquals(expectedMinQuantity, source.getMinQuantity());
+        assertEquals(expectedMaxQuantity, source.getMaxQuantity());
+        assertEquals(expectedDropRate, source.getDropRate(), 0.00001);
+    }
+    
+    private DropSource findDropSource(List<DropSource> sources, String name) {
+        return sources.stream()
+            .filter(source -> source.getSourceName().equals(name))
+            .findFirst()
+            .orElse(null);
     }
     @Test
     void testGetItemsInfoHammer() {

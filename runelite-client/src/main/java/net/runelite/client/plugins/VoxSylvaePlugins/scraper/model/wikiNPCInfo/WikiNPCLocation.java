@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model;
+package net.runelite.client.plugins.VoxSylvaePlugins.scraper.model.wikiNPCInfo;
 
 import lombok.Getter;
 import lombok.Setter;
