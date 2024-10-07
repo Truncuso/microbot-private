@@ -888,8 +888,8 @@ public class Rs2Bank {
     }
 
     /**
-     * Opens the bank searching for bank booth first, then chest and lastly npc
-     *
+     * Find closest available bank
+     * finds closest npc then bank booth then chest
      * @return True if bank was successfully opened, otherwise false.
      */
     public static boolean openBank() {
@@ -899,18 +899,23 @@ public class Rs2Bank {
                 Microbot.getMouse().click();
             if (isOpen()) return true;
             boolean action = false;
-            GameObject bank = Rs2GameObject.findBank();
-            if (bank == null) {
-                GameObject chest = Rs2GameObject.findChest();
-                if (chest == null) {
-                    NPC npc = Rs2Npc.getBankerNPC();
-                    if (npc == null) return false;
-                    action = Rs2Npc.interact(npc, "bank");
-                } else {
+            BankLocation bankLocation = getNearestBank();
+            if (bankLocation.getWorldPoint().distanceTo(Rs2Player.getWorldLocation()) > 12) {
+                walkToBank();
+                return false;
+            }
+            NPC npc = Rs2Npc.getBankerNPC();
+            if (npc == null) {
+                GameObject bank = Rs2GameObject.findBank();
+                if (bank == null) {
+                    GameObject chest = Rs2GameObject.findChest();
+                    if (chest == null) return false;
                     action = Rs2GameObject.interact(chest, "use");
+                } else {
+                    action = Rs2GameObject.interact(bank, "bank");
                 }
             } else {
-                action = Rs2GameObject.interact(bank, "bank");
+                action = Rs2Npc.interact(npc, "bank");
             }
             if (action) {
                 sleepUntil(() -> isOpen() || Rs2Widget.hasWidget("Please enter your PIN"), 2500);
@@ -918,7 +923,8 @@ public class Rs2Bank {
             }
             return action;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Microbot.log(ex.getMessage());
+            ex.printStackTrace();
         }
         return false;
     }
@@ -1146,7 +1152,6 @@ public class Rs2Bank {
     public static boolean walkToBankAndUseBank(BankLocation bankLocation) {
         if (Rs2Bank.isOpen()) return true;
         Rs2Player.toggleRunEnergy(true);
-        if (Rs2Bank.useBank()) return true;
         Microbot.status = "Walking to nearest bank " + bankLocation.toString();
         boolean result = bankLocation.getWorldPoint().distanceTo(Microbot.getClient().getLocalPlayer().getWorldLocation()) <= 8;
         if (result) {

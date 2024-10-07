@@ -1058,11 +1058,12 @@ public class Rs2GameObject {
 
     private static boolean clickObject(TileObject object, String action) {
         if (object == null) return false;
-        if (Microbot.getClient().getLocalPlayer().getWorldLocation().distanceTo2D(object.getWorldLocation()) > 51) {
+        if (Microbot.getClient().getLocalPlayer().getWorldLocation().distanceTo(object.getWorldLocation()) > 51) {
             Microbot.log("Walking to the object...");
             Rs2Walker.walkTo(object.getWorldLocation());
             return false;
         }
+
 
         try {
 
@@ -1077,6 +1078,10 @@ public class Rs2GameObject {
 
             if (object instanceof GameObject) {
                 GameObject obj = (GameObject) object;
+                if (!Rs2Tile.areSurroundingTilesWalkable(object.getWorldLocation(), obj.sizeX(), obj.sizeY())) {
+                    Rs2Walker.walkTo(obj.getWorldLocation(), 1);
+                    return false;
+                }
                 if (obj.sizeX() > 1) {
                     param0 = obj.getLocalLocation().getSceneX() - obj.sizeX() / 2;
                 } else {
