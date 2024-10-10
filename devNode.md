@@ -3,10 +3,36 @@
 ## Current Ideas
 
 ### General
+- (https://github.com/Truncuso/microbot-launcher-linux?tab=readme-ov-file)
 - Add prehook for automated git repopack file, text file (consider using git lfs for it)
-
+- MOCROSOFT — Today at 08:01
+  - I changed the system to detect for a "i can't reach that!" message, once this is found, it triggers a pathing algorithm detecting the path that is interactable with the npc. Here is a video of what  I mean.
+- projectiles ids? any db where i can found them
+  - npcattackanimation.json
+- AntiBan -
+- 
+  - reinvestigate the random functions in the antiban -> more  random anti ban "roboust" distributions also for click function ?
+  - for move mouse off screen to make it with a percentage variable or introduce 2 more methods for it one that is 100% of the time and one that is 50% of the time
+  - adjustInterval in the playstyle function should be random -> 
+  - also check the random function and improve 
+- Script functionalitie:
+  - try to avoid getting object by name, cuz it needs to look into the osrs cache for it
+    - for id it's already in memory and therefor a lot faster
+  - should not block, ->  state machine like implementations 
+  - should show the main state and add substate, when using other scripts for example or 
+  - check antiban variables ->  actionCooldown or microbreak in progress ?
+    - display in overlay
+  - set the an
+  - check if all scripts are pauses, FOR antiban - **Microbot.pauseAllScripts = true;** only set when universial antiban active, check actionCooldownActive for detection of action cooldwn in progress and microBreakActive for microbreak ->  pauseAllcripts also set when a break is active
+    - ``` Java
+      if (!Microbot.isLoggedIn()) return;
+      if (!super.run()) return;
+      if (Rs2AntibanSettings.actionCooldownActive) return;
+    ```
+  - always implentet he shutdown function-> destroy the sheudles object, stop the script
+  - 
 ### RunLite based Microbot Plugins
-- RSplayer.nearestDistance ()->  shortpath plugin nearest distance calculation -> also teleports and doors....
+- Note: RSplayer.nearestDistance ()->  shortpath plugin nearest distance calculation -> also teleports and doors....
 #### Gauntelt Plugin:
 - see squire bot for insperation -> state machine handling -> preperation phase and so on
 - Vorkath's plugin or Scurrius pligonfor "dengoures object spwaning" ->  see also note in obsidtina note book for fast walking 
@@ -16,7 +42,7 @@
 - rendering of objects and tiles -> microbotOverlay
 
 #### Hallowed Sepulchre
-- as inperation use the plugin from runlite ->  just copy it over, and handle interaction ?  marks all things correctly ?
+- as insperation use the plugin from runlite ->  just copy it over, and handle interaction ?  marks all things correctly ?
 
 #### QoL Navigation Plugin (VoxSylvaeNavigationPlugin)
 
@@ -56,7 +82,7 @@
       - Search world point coordinate from OSRS wiki, use scrapper tool utility
       - Use teleportation configured by the user and available > filter which teleportations are available
     - Navigate to current active quest step
-      - Get player's current active quest, use quest helper plugin to determine current quest step, area to navigate to, or NPC to navigate to, or no navigation necessary
+      - Get player's current active quest, use quest helper plugin to determine current quest step, area to navigate to, or NPC to navigate to, or no navigation necessary -> Mqeuster already have this ?
       - Also use the scrapper for getting the world point coordinates
       - When we have to navigate to an NPC, do the RunLite objects have the saved world point?
 
@@ -104,7 +130,7 @@
       - Other useful information?
 - Extend Wiki Scrapper:
   - Merching Flipping Helper
-  - Loot drop filters? -> by using loot data
+  - Loot drop filters? -> by using loot data ->  extend on current impleneted loot filter object, generate loot filter per monster
   - Extend by finding loadout for certain activities, save the loadout for the min inventory manager:
     - In the future, by using some kind of LLM agent?:
       - Get best loadout for a certain activity (skilling or PvM)
@@ -234,7 +260,7 @@
     - Check if in inventory and/or equipment
     - Handle differently based on location?
   - Addition: actions in the JSON or method to get action destination
-- New cache structure:
+- New cache structure for the use also in the navigation plugin ->  share cache:
   - Implement a more sophisticated path cache
   - Currently private to the teleport manager and only saving distance of a path
   - Enhance to cache the ShortestPathResult structure
@@ -250,7 +276,7 @@
 - Implement new cache structure for improved path handling
 - Path randomization:
   - Randomize the generated shortest path
-  - Only add new random tile if it is reachable
+  - Only add new random tile if there are reachable
   - Implement randomized walking directly in walkTo function of RS2Walker
 - Make the walkTo function more modular
 - Calculate walking direction for the path
@@ -274,7 +300,9 @@
 
 
 #### Monitoring Plugin
-- Detect game state relevant data? Keep track of ground loot, NPCs, objects of interest... in such a range
+- Detect game state relevant data? thraed -> i dont think it is necessary ->most things found in utliity classes
+  - 
+  - Keep track of ground loot, NPCs, objects of interest... in such a range
 
 ### AIOHunterPlugin:
 - Get area data for hunting locations (for each creature, numbers of available creatures)
@@ -290,9 +318,11 @@
 - Hunting state machine --- separate thread (using antiban as set from the upper script) (AIOHunter)
 - AIOHunter check if script finished
 - Different creatures, different scripts?
+  - simple implementation of chinchompa hunting script is found in the microbot->  only lays traps when frist lay down by the useer
 - Wiki scrapper, use plugin
-- Use it like the shortest path plugin in walker
+- Use it like the shortest path plugin in walker -> sheudlesexecution via thread ?
 - Get actions for interaction with game objects and also add actions to items (bank id different?)
 
 ### Mixology Plugin
 - Widget read like Wintertodt
+  - found a enumum definiation allready for the different potions ?
